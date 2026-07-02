@@ -1,0 +1,48 @@
+JAYASANKAR GNANADESIGAN
+Electronics & Communication Engineering  |  Embedded Systems & Agentic AI
+Chennai, India   |   +91 79844 41407   |   jayasankar4projects@gmail.com   |   LinkedIn
+SUMMARY
+Electronics & Communication Engineering undergraduate (CGPA 8.33) with industrial internship experience and an award-winning record in embedded systems and Agentic AI automation. Comfortable across ESP32/Arduino hardware, IoT, and no-code AI workflows, and experienced facilitating technical workshops for peers. Open to internships across embedded/IoT and software/AI automation.
+TECHNICAL SKILLS
+Programming: Embedded C, Python, Arduino IDE
+AI & Automation: Agentic AI Workflows, Make.com, LLM Prompting, No-code/Low-code Automation, AI Ethics & Governance
+Embedded & IoT: ESP32, Arduino, Sensor Interfacing (LDR, Ultrasonic, IR), Relay Control, Asynchronous Web Servers, IoT Architecture
+EDA & Simulation: Cadence Virtuoso, LTSpice, Tinkercad
+Other: Industrial Power Systems, Cloud Computing
+EXPERIENCE
+Engineering Intern — SEIL Energy India Limited	Jul 2025 – Aug 2025  |  Jan 2026 (15 days)
+Nellore, Andhra Pradesh
+•	Studied large-scale energy infrastructure and industrial electrical systems within a live power-utility environment.
+•	Observed control, protection, and power-management practices across live plant operations and monitoring systems.
+Workshop Trainer — Agentic AI & Make.com
+•	Designed and delivered a hands-on workshop teaching students to build Agentic AI systems and automate multi-step tasks.
+•	Led live agent-building exercises covering LLM prompting and no-code automation workflows.
+LEADERSHIP & ACTIVITIES
+AICTE Idea Lab Ambassador — Saveetha Engineering College	2026 – Present
+•	Promote the campus AICTE Idea Lab, encouraging peers in prototyping, innovation, and hands-on maker activities.
+HCLTech Campus Ambassador	2026 – Present
+•	On-campus link between HCLTech and students, promoting its programs, events, and early-career opportunities.
+Math Club Coordinator — Saveetha Engineering College	2024 – Present
+•	Coordinated 5+ club events and activities over 1.5 years, organizing sessions and driving peer participation.
+Outstanding Facilitator — Drestein ’25 (Technical Symposium)
+•	Recognized for leadership at the college’s premier symposium; managed technical tracks and helped teams troubleshoot hardware/software integration.
+PROJECTS
+Safety-Enhanced Stitching Machine — 1st Prize, Mini Project	SNS Ideathon ’26
+•	Designed and prototyped a safety-first industrial tool that uses real-time sensor feedback to trigger emergency stops.
+•	Won 1st Prize (mini-project) and cleared Stage 1 of the national-level SNS Ideathon ’26.
+ESP32 IoT Burglar Alarm System
+•	Built a smart home-security prototype — ESP32 with a relay-controlled buzzer and a web dashboard showing live “SAFE” / “MOTION DETECTED” status.
+•	Implemented an asynchronous web server for low-latency web-to-hardware communication and remote monitoring.
+Agentic AI Automation Workflows
+•	Developed autonomous agents in Make.com to automate complex, multi-step tasks; led a peer session on building them.
+IC 555 Light & Darkness Detector
+•	Built an analog LDR + IC 555 detector with a voltage-divider sensing circuit that switches LEDs between light and dark.
+RESEARCH & PRESENTATIONS
+Paper Presentation — Regulatory and Ethics of AI
+•	Presented research on AI ethics and regulatory frameworks: algorithmic bias, transparency, and accountability.
+EDUCATION
+B.E., Electronics & Communication Engineering	2024 – 2028
+Saveetha Engineering College, Chennai  |  CGPA: 8.33
+CERTIFICATIONS
+•	NPTEL: Cloud Computing; Introduction to Internet of Things (IoT).
+•	Schneider Electric University — Basics of Electricity (4-course series: IEC & IS standards, electrical calculations).
