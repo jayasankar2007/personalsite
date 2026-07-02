@@ -1,11 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Content Manager Console</title>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <!-- Stylesheet required by some versions of the CMS layout engine -->
+  <link rel="stylesheet" href="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.css" />
 </head>
-<body>
+<body style="background-color: #111827; color: #f3f4f6; font-family: monospace; padding: 20px;">
+
+  <!-- If the CMS fails to load, this error diagnostic box will catch it -->
+  <div id="error-diagnostic-box" style="display: none; max-w: 600px; margin: 40px auto; padding: 20px; border: 1px solid #ef4444; background: #7f1d1d30; rounded: 8px;">
+    <h3 style="color: #f87171; margin-top: 0;">⚠️ System Bootstrap Fault</h3>
+    <p id="error-message-text" style="font-size: 13px; line-height: 1.5; color: #fca5a5;"></p>
+  </div>
+
+  <!-- Error Catcher Script -->
+  <script>
+    window.onerror = function(message, source, lineno, colno, error) {
+      const box = document.getElementById('error-diagnostic-box');
+      const text = document.getElementById('error-message-text');
+      if(box && text) {
+        box.style.display = 'block';
+        text.innerHTML = `<strong>Error:</strong> ${message}<br><strong>Source:</strong> ${source}<br><strong>Line:</strong> ${lineno}`;
+      }
+      return false;
+    };
+  </script>
+
+  <!-- Core CMS Execution Script Engine -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>
