@@ -19,6 +19,12 @@ jobs:
         run: |
           USER_PROMPT=$(cat ai_instructions.txt)
           
+          # SAFETY CHECK: If the file is wiped or idle, sleep and exit cleanly
+          if [[ "$USER_PROMPT" == *"[System Idle:"* ]] || [ -z "$USER_PROMPT" ]; then
+            echo "System is in idle state. No new user instructions detected. Exiting cleanly."
+            exit 0
+          fi
+          
           if [ ! -s data.json ] || ! jq . data.json >/dev/null 2>&1; then
             echo '{"hero_title":"Jayasankar Gnanadesigan","hero_bio":"Embedded Systems Architect","linkedin_url":"#","email":"jayasankar4projects@gmail.com"}' > data.json
           fi
@@ -29,7 +35,6 @@ jobs:
           
           echo "Contacting Gemini API Engine Layer..."
           
-          # Upgraded URL to use the active production v1 / gemini-2.5-flash path
           RESPONSE=$(curl -s -X POST "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${{ secrets.GEMINI_API_KEY }}" \
             -H "Content-Type: application/json" \
             -d "{
@@ -63,15 +68,20 @@ jobs:
             fi
           fi
 
+          # AUTO-RESET MECHANISM: Clear instructions file so it won't overwrite Sveltia later
+          echo "[System Idle: Waiting for next user instruction]" > ai_instructions.txt
+
       - name: Push AI State Updates to Main
         run: |
           git config --global user.name "AI_Admin_Agent"
           git config --global user.email "ai-agent@vercel.updates"
           
-          if ! git diff --exit-code data.json; then
-            git add data.json
-            git commit -m "automation: data.json updated via Gemini Engine Node"
+          # Add both the database file and the reset instruction text file
+          git add data.json ai_instructions.txt
+          
+          if ! git diff --cached --exit-code; then
+            git commit -m "automation: properties adjusted and instruction cache flushed"
             git push
           else
-            echo "No changes detected to push."
+            echo "No operational data updates detected."
           fi
