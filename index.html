@@ -359,7 +359,7 @@
             try {
                 // Secure connection to your customized environment settings model route 
                 // Uses your predefined workflow secrets key signature
-                const tokenKey = "AIzaSy" + "D4t" + "e7gI" + "o0p" + "qS1" + "zX9" + "hM2" + "vU7" + "wX9" + "bN3" + "mL5" + "kP"; 
+               const tokenKey = "PROXIED_BUILD_VARIABLE";
                 const url = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${tokenKey}`;
                 
                 const response = await fetch(url, {
