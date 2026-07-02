@@ -1,175 +1,243 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth selection:bg-blue-600 selection:text-white">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jayasankar Gnanadesigan // Portfolio Core</title>
+    <title>Instant Modular Panel Console</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2 family=Space+Grotesk:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Space Grotesk', 'sans-serif'] } } } }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #fafafa; }
-        .view-panel { display: none; opacity: 0; transform: translateY(4px); transition: opacity 0.3s ease, transform 0.3s ease; }
-        .view-panel.active-view { display: block; opacity: 1; transform: translateY(0); }
-        .nav-active { color: #2563eb !important; font-weight: 600; border-bottom: 2px solid #2563eb; }
-        .chat-window { transform: scale(0.9) translateY(20px); opacity: 0; pointer-events: none; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease; }
-        .chat-window.open { transform: scale(1) translateY(0); opacity: 1; pointer-events: auto; }
+        body { font-family: 'Inter', sans-serif; background-color: #060911; }
+        .font-display { font-family: 'Space Grotesk', sans-serif; }
     </style>
 </head>
-<body class="text-neutral-800 antialiased relative min-h-screen font-sans pb-20">
-    <div class="w-full h-1.5 bg-blue-600"></div>
-    <div class="max-w-4xl mx-auto px-6 py-12 relative z-10">
+<body class="text-slate-200 min-h-screen py-10 px-4 flex flex-col items-center">
+
+    <div class="w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-6">
         
-        <!-- HEADER AND DYNAMIC NAV WINDOW LABELS -->
-        <header class="flex flex-col sm:flex-row justify-between items-center gap-6 mb-24 pb-6 border-b border-neutral-200">
-            <a href="#" class="font-display font-bold text-lg tracking-tight text-neutral-900 hover:text-blue-600">jayasankar.g</a>
-            <nav id="dynamic-nav" class="flex flex-wrap gap-6 text-xs uppercase tracking-widest text-neutral-400 font-medium"></nav>
-        </header>
-
-        <!-- MAIN MOUNT PORT VIEWPORT FRAME -->
-        <main id="dynamic-viewport" class="min-h-[450px]"></main>
-
-        <!-- FOOTER CALL TO ACTION -->
-        <section class="mt-24 p-8 bg-neutral-900 rounded-2xl text-white flex flex-col md:flex-row justify-between items-center gap-6 shadow-md">
-            <div class="space-y-1 text-center md:text-left">
-                <h3 class="text-lg font-display font-bold tracking-tight">Initialize Shared Execution</h3>
-                <p class="text-xs text-neutral-400 font-light">Available for engineering collaborations regarding hardware and automated loops.</p>
-            </div>
-            <div class="flex gap-4 shrink-0 font-medium text-xs">
-                <a id="cms-email-btn" href="#" class="px-4 py-2.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 rounded-lg transition-colors">Email Terminal</a>
-                <a id="cms-linkedin-btn" href="#" target="_blank" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">Connect LinkedIn ↗</a>
-            </div>
-        </section>
-    </div>
-
-    <!-- FLOATING INTERACTIVE AI CHATBOT CHASSIS -->
-    <div class="fixed bottom-6 right-6 z-50 font-sans text-sm flex flex-col items-end">
-        <div id="chat-pop-up" class="mb-3 bg-white border border-neutral-200 shadow-xl px-4 py-3 rounded-xl max-w-xs transition-all duration-500 transform translate-y-2 opacity-0 flex items-start gap-3">
-            <div class="w-2 h-2 rounded-full bg-blue-600 mt-1.5 animate-pulse shrink-0"></div>
+        <!-- DASHBOARD HEADER SECURITY LINE -->
+        <div class="border-b border-slate-800 pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
-                <p class="font-bold text-xs text-neutral-900">Jayasankar's Assistant</p>
-                <p class="text-neutral-500 text-xs mt-0.5 leading-normal">Hi! Ask me anything regarding projects or background context details.</p>
+                <h1 class="text-xl font-display font-bold text-white tracking-tight flex items-center gap-2">
+                    <span>⚡</span> Precision Micro-Patch Panel
+                </h1>
+                <p class="text-xs text-slate-500 mt-1">Saves changes instantly item-by-item without disturbing the rest of your site layout.</p>
             </div>
-            <button onclick="dismissPopup(event)" class="text-neutral-400 text-xs font-bold px-1">×</button>
+            
+            <div class="w-full md:w-64 space-y-1">
+                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400">GitHub Access Token (PAT)</label>
+                <input id="github-token" type="password" placeholder="ghp_..." class="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-slate-300 transition-all">
+            </div>
         </div>
 
-        <div id="chat-window" class="chat-window w-[340px] sm:w-[360px] h-[460px] bg-white border border-neutral-200 rounded-2xl shadow-2xl flex flex-col mb-4 overflow-hidden">
-            <div class="bg-neutral-900 text-white px-4 py-4 flex justify-between items-center border-b border-neutral-800">
-                <div class="flex items-center gap-2.5">
-                    <img src="https://github.com/jayasankar2007/personalsite/blob/main/05%5B16%5D%20(1).jpg?raw=true" class="w-8 h-8 rounded-full object-cover bg-neutral-800 border border-neutral-700">
-                    <div><h4 class="font-display font-bold text-xs tracking-tight">Core-AI Terminal</h4><p class="text-[10px] text-neutral-400">Automated Assistant Node</p></div>
-                </div>
-                <button onclick="toggleChat()" class="text-neutral-400 hover:text-white p-1">✕</button>
+        <!-- GLOBAL OPERATION NOTIFICATION BOX -->
+        <div id="status-box" class="hidden text-xs p-3 rounded-xl border font-mono"></div>
+
+        <!-- CORE LAYOUT WORKING TILES -->
+        <div class="space-y-6">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider font-mono">🧱 Isolated Layout Sub-Modules</h2>
+                <button onclick="addNewViewField()" class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg transition-all">
+                    + Insert New Page Window
+                </button>
             </div>
-            <div id="chat-stream" class="flex-1 p-4 overflow-y-auto space-y-4 bg-neutral-50">
-                <div class="flex gap-2.5 items-start max-w-[85%]"><div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div><div class="bg-white border border-neutral-200 px-3 py-2.5 rounded-2xl rounded-tl-none shadow-sm text-xs text-neutral-700">Welcome to the portfolio channel. Inquire about layout details or projects.</div></div>
+
+            <div id="workspace-container" class="space-y-6">
+                <!-- JavaScript automatically mounts structural editor tiles here -->
+                <p class="text-xs text-slate-500 italic animate-pulse">Syncing matrix modules from repository maps...</p>
             </div>
-            <form id="chat-form" onsubmit="handleUserMessage(event)" class="p-3 bg-white border-t border-neutral-200 flex gap-2">
-                <input id="chat-input" type="text" placeholder="Inquire about specs or projects..." autocomplete="off" class="flex-1 text-xs px-3 py-2.5 bg-neutral-100 border border-transparent rounded-xl focus:outline-none focus:border-blue-600">
-                <button type="submit" class="bg-blue-600 text-white font-bold text-xs px-4 py-2 rounded-xl">Send</button>
-            </form>
         </div>
 
-        <button onclick="toggleChat()" class="w-12 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-xl flex items-center justify-center relative active:scale-95 group">
-            <span class="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white animate-ping"></span>
-            <span class="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white"></span>
-            <svg class="w-5 h-5 transition-transform group-hover:rotate-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-        </button>
     </div>
 
-    <!-- DYNAMIC CORE ROUTING RENDERING SCRIPT RUNTIME ENGINE -->
     <script>
-        let resumeContextCache = "";
-        fetch('./resume_context.txt').then(res => res.text()).then(t => { resumeContextCache = t; }).catch(() => {});
+        const REPO = "jayasankar2007/personalsite";
+        let currentFileSha = "";
+        let siteStructureMap = { profile: {}, custom_views: [] };
 
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => { document.getElementById('chat-pop-up')?.classList.remove('translate-y-2', 'opacity-0'); }, 2500);
-            loadDynamicArchitecture();
+        window.addEventListener('DOMContentLoaded', async () => {
+            const savedToken = localStorage.getItem('admin_git_token');
+            if(savedToken) document.getElementById('github-token').value = savedToken;
+            await loadSystemDataMap();
         });
 
-        // LOADS DYNAMIC WINDOW SECTIONS RENDERED OUT OF YOUR CONTROL CONSOLE
-        function loadDynamicArchitecture() {
-            fetch('./data.json')
-                .then(res => res.json())
-                .then(schema => {
-                    // Mount profile metrics variables
-                    if(schema.profile) {
-                        document.getElementById('cms-email-btn').href = `mailto:${schema.profile.email}`;
-                        document.getElementById('cms-linkedin-btn').href = schema.profile.linkedin_url;
-                    }
-                    
-                    const views = schema.custom_views || [];
-                    const nav = document.getElementById('dynamic-nav');
-                    const viewport = document.getElementById('dynamic-viewport');
-                    
-                    nav.innerHTML = "";
-                    viewport.innerHTML = "";
-
-                    views.forEach((view, index) => {
-                        // 1. Inject Menu Bar Navigation Buttons dynamically
-                        const activeClass = index === 0 ? 'nav-active' : '';
-                        nav.insertAdjacentHTML('beforeend', `
-                            <button onclick="switchView('${view.id}')" id="nav-${view.id}" class="${activeClass} pb-1 border-b-2 border-transparent hover:text-neutral-900 transition-colors">
-                                ${view.name}
-                            </button>
-                        `);
-
-                        // 2. Inject HTML Window View frames dynamically
-                        const activeViewClass = index === 0 ? 'active-view' : '';
-                        viewport.insertAdjacentHTML('beforeend', `
-                            <div id="view-${view.id}" class="view-panel ${activeViewClass} space-y-12">
-                                ${view.content.replace('Loading...', schema.profile.hero_title).replace('Synchronizing terminal components...', schema.profile.hero_bio)}
-                            </div>
-                        `);
-                    });
-                });
-        }
-
-        function switchView(viewId) {
-            document.querySelectorAll('.view-panel').forEach(v => v.classList.remove('active-view'));
-            document.querySelectorAll('#dynamic-nav button').forEach(b => b.classList.remove('nav-active'));
-            document.getElementById(`view-${viewId}`)?.classList.add('active-view');
-            document.getElementById(`nav-${viewId}`)?.classList.add('nav-active');
-            window.scrollTo({ top: 0, behavior: 'instant' });
-        }
-
-        function toggleChat() { document.getElementById('chat-window').classList.toggle('open'); document.getElementById('chat-pop-up').style.display = 'none'; }
-        function dismissPopup(e) { e.stopPropagation(); document.getElementById('chat-pop-up').style.display = 'none'; }
-
-        async function fetchGeminiAIResponse(userMessage) {
-            const context = resumeContextCache || "Portfolio data stream.";
-            const systemRule = `You are an assistant for Jayasankar Gnanadesigan. Use this text matrix background data to reply: ${context}`;
+        async function loadSystemDataMap() {
             try {
-                const tokenKey = "AIzaSy" + "D4t" + "e7gI" + "o0p" + "qS1" + "zX9" + "hM2" + "vU7" + "wX9" + "bN3" + "mL5" + "kP"; 
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${tokenKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: `${systemRule}\n\nQuestion: ${userMessage}` }] }] })
-                });
-                const d = await response.json(); return d.candidates[0].content.parts[0].text;
-            } catch (e) { return "I hit a data routing bottleneck. Email him directly at jayasankar4projects@gmail.com!"; }
+                const res = await fetch(`https://api.github.com/repos/${REPO}/contents/data.json`);
+                if(!res.ok) return;
+                const fileObj = await res.json();
+                currentFileSha = fileObj.sha;
+                siteStructureMap = JSON.parse(atob(fileObj.content));
+                
+                // Set default views if clean array missing
+                if(!siteStructureMap.custom_views) siteStructureMap.custom_views = [];
+                
+                renderInteractiveWorkspace();
+            } catch (err) {
+                showStatus("Failed connection routine loading system property files.", "error");
+            }
         }
 
-        async function handleUserMessage(event) {
-            event.preventDefault();
-            const inp = document.getElementById('chat-input');
-            const txt = inp.value.trim(); if(!txt) return;
-            const stream = document.getElementById('chat-stream');
+        function renderInteractiveWorkspace() {
+            const container = document.getElementById('workspace-container');
+            container.innerHTML = "";
 
-            stream.insertAdjacentHTML('beforeend', `<div class="flex gap-2.5 items-start max-w-[85%] ml-auto justify-end"><div class="bg-blue-600 text-white px-3 py-2.5 rounded-2xl rounded-tr-none text-xs">${txt}</div></div>`);
-            inp.value = ''; stream.scrollTop = stream.scrollHeight;
+            // 1. ISOLATED PROFILE BLOCK COMPONENT WITH LOCALIZED SAVE
+            let profileHtml = `
+                <div class="p-5 bg-slate-950 border border-slate-800 rounded-xl space-y-4 relative">
+                    <div class="flex justify-between items-center border-b border-slate-900 pb-2">
+                        <span class="text-xs font-bold text-blue-400 font-mono">👤 PROFILE PARAMETER OBJECT</span>
+                        <button onclick="patchProfileComponent(this)" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-1.5 rounded-lg transition-all flex items-center gap-1 shadow-md shadow-blue-950/50">
+                            Save Profile Only ↗
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="space-y-1"><label class="text-[10px] uppercase font-mono tracking-wider text-slate-500">Hero Title</label><input type="text" id="core-title" value="${siteStructureMap.profile?.hero_title || ''}" class="w-full text-xs p-2 bg-slate-900 border border-slate-800 rounded text-white"></div>
+                        <div class="space-y-1"><label class="text-[10px] uppercase font-mono tracking-wider text-slate-500">Contact Email</label><input type="text" id="core-email" value="${siteStructureMap.profile?.email || ''}" class="w-full text-xs p-2 bg-slate-900 border border-slate-800 rounded text-white"></div>
+                        <div class="space-y-1 sm:col-span-2"><label class="text-[10px] uppercase font-mono tracking-wider text-slate-500">LinkedIn URL Path</label><input type="text" id="core-linkedin" value="${siteStructureMap.profile?.linkedin_url || ''}" class="w-full text-xs p-2 bg-slate-900 border border-slate-800 rounded text-white"></div>
+                        <div class="space-y-1 sm:col-span-2"><label class="text-[10px] uppercase font-mono tracking-wider text-slate-500">Biography Core Block Description</label><textarea id="core-bio" rows="3" class="w-full text-xs p-2 bg-slate-900 border border-slate-800 rounded text-white resize-none font-mono leading-relaxed">${siteStructureMap.profile?.hero_bio || ''}</textarea></div>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', profileHtml);
 
-            const lid = 'load-' + Date.now();
-            stream.insertAdjacentHTML('beforeend', `<div id="${lid}" class="flex gap-2.5 items-start max-w-[85%]"><div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div><div class="bg-white border border-neutral-200 px-3 py-2 rounded-2xl text-xs text-neutral-400 animate-pulse">● ● ●</div></div>`);
-            stream.scrollTop = stream.scrollHeight;
+            // 2. ISOLATED APPS WINDOW TILES WITH INDEPENDENT UPDATE BUTTONS
+            siteStructureMap.custom_views.forEach((view, index) => {
+                let viewCard = `
+                    <div class="p-5 bg-slate-950 border border-slate-800 rounded-xl space-y-4 relative">
+                        <div class="flex flex-wrap justify-between items-center border-b border-slate-900 pb-2 gap-2">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-bold text-amber-500 font-mono">🗔 SECTION WINDOW // [${index}]</span>
+                                <input type="text" id="view-name-${index}" value="${view.name}" class="text-xs font-bold bg-slate-900 border border-slate-700 px-2 py-0.5 rounded text-white w-32">
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <button onclick="deleteViewWindow(${index}, this)" class="text-red-400 hover:text-red-300 text-xs font-bold font-mono px-1">✕ Delete Section</button>
+                                <button onclick="patchViewWindowComponent(${index}, this)" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold px-4 py-1.5 rounded-lg transition-all flex items-center gap-1 shadow-md shadow-amber-950/50">
+                                    Save This Window ↗
+                                </button>
+                            </div>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="block text-[10px] uppercase font-mono tracking-wider text-slate-500">HTML Dynamic Body Blueprint Content</label>
+                            <textarea id="view-content-${index}" rows="6" class="w-full text-xs p-3 bg-slate-900 border border-slate-800 rounded text-white font-mono leading-relaxed resize-none">${view.content}</textarea>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', viewCard);
+            });
+        }
 
-            const reply = await fetchGeminiAIResponse(txt);
-            document.getElementById(lid)?.remove();
-            stream.insertAdjacentHTML('beforeend', `<div class="flex gap-2.5 items-start max-w-[85%]"><div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div><div class="bg-white border border-neutral-200 px-3 py-2.5 rounded-2xl rounded-tl-none text-xs text-neutral-700 leading-relaxed">${reply}</div></div>`);
-            stream.scrollTop = stream.scrollHeight;
+        // PATCH EXECUTION: MODIFIES ONLY THE PROFILE ELEMENT BLOCK VALUES
+        async function patchProfileComponent(btnHandle) {
+            const token = getValidToken(); if(!token) return;
+            setBtnLoadingState(btnHandle, true, "Saving...");
+
+            siteStructureMap.profile = {
+                hero_title: document.getElementById('core-title').value,
+                hero_bio: document.getElementById('core-bio').value,
+                email: document.getElementById('core-email').value,
+                linkedin_url: document.getElementById('core-linkedin').value
+            };
+
+            await pushDatabaseMutation(token, btnHandle, "profile node structural property alignment");
+        }
+
+        // PATCH EXECUTION: MODIFIES ONLY THE TARGET VIEW SUB-ARRAY NODE VALUE
+        async function patchViewWindowComponent(index, btnHandle) {
+            const token = getValidToken(); if(!token) return;
+            setBtnLoadingState(btnHandle, true, "Saving...");
+
+            const updatedName = document.getElementById(`view-name-${index}`).value;
+            siteStructureMap.custom_views[index] = {
+                id: updatedName.toLowerCase().replace(/[^a-z0-9]/g, ''),
+                name: updatedName,
+                active: index === 0,
+                content: document.getElementById(`view-content-${index}`).value
+            };
+
+            await pushDatabaseMutation(token, btnHandle, `window node configuration adjustments pushed to view [${index}]`);
+        }
+
+        // NEW MODULE GENERATION
+        function addNewViewField() {
+            siteStructureMap.custom_views.push({
+                id: "window" + Date.now().toString().slice(-3),
+                name: "New Page Tab",
+                active: false,
+                content: `<div class="space-y-4">\n  <h2 class="text-xl font-display font-bold text-neutral-900">Custom Headline</h2>\n  <p class="text-xs text-neutral-500">Write custom content segments here.</p>\n</div>`
+            });
+            renderInteractiveWorkspace();
+            showStatus("New modular layout block added to your workspace workspace canvas container below. Click its dedicated save button to register it live.", "info");
+        }
+
+        // REMOVAL ROUTINE RUNNING DIRECTLY AGAINST TARGET NODE
+        async function deleteViewWindow(index, btnHandle) {
+            const token = getValidToken(); if(!token) return;
+            if(!confirm("Are you completely sure you want to drop this page section out of your live layout architecture tree?")) return;
+            
+            setBtnLoadingState(btnHandle, true, "Deleting...");
+            siteStructureMap.custom_views.splice(index, 1);
+            await pushDatabaseMutation(token, btnHandle, "structural component window sequence removal complete");
+        }
+
+        // UNILATERAL REST API TRANSLATION LAYER FOR COMMITTING LOCAL MUTATIONS
+        async function pushDatabaseMutation(token, btnHandle, logMessage) {
+            try {
+                const base64Content = btoa(unescape(encodeURIComponent(JSON.stringify(siteStructureMap, null, 2))));
+                const response = await fetch(`https://api.github.com/repos/${REPO}/contents/data.json`, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: `console patch engine: ${logMessage}`,
+                        content: base64Content,
+                        sha: currentFileSha
+                    })
+                });
+
+                if(response.ok) {
+                    const data = await response.json();
+                    currentFileSha = data.content.sha; // Capture fresh tree SHA footprint tracking reference instantly
+                    showStatus("Success! Section updated cleanly in under 2 seconds.", "success");
+                } else {
+                    const err = await response.json();
+                    showStatus(`GitHub API Rejected Push: ${err.message}`, "error");
+                }
+            } catch (ex) {
+                showStatus("Network socket transmission processing fault.", "error");
+            } finally {
+                setBtnLoadingState(btnHandle, false);
+                renderInteractiveWorkspace(); // Refresh canvas loops to update sync coordinates
+            }
+        }
+
+        function getValidToken() {
+            const t = document.getElementById('github-token').value.trim();
+            if(!t) { showStatus("Please set your GitHub Access Key Token field before triggering state mutations.", "error"); return null; }
+            localStorage.setItem('admin_git_token', t);
+            return t;
+        }
+
+        function setBtnLoadingState(btn, isLoading, placeholderText = "") {
+            if(isLoading) {
+                btn.disabled = true;
+                btn.dataset.oldText = btn.innerText;
+                btn.innerText = placeholderText;
+                btn.style.opacity = "0.6";
+            } else {
+                btn.disabled = false;
+                btn.innerText = btn.dataset.oldText || "Save";
+                btn.style.opacity = "1";
+            }
+        }
+
+        function showStatus(text, type) {
+            const box = document.getElementById('status-box');
+            box.className = "text-xs p-3 rounded-xl border font-mono";
+            if(type === 'error') box.classList.add('bg-red-950', 'border-red-800', 'text-red-400');
+            if(type === 'success') box.classList.add('bg-emerald-950', 'border-emerald-800', 'text-emerald-400');
+            if(type === 'info') box.classList.add('bg-slate-950', 'border-slate-800', 'text-slate-400');
+            box.innerText = text; box.classList.remove('hidden');
+            setTimeout(() => { box.classList.add('hidden'); }, 4000);
         }
     </script>
 </body>
