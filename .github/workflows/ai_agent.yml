@@ -1,0 +1,57 @@
+name: "AI Admin Control Engine"
+
+on:
+  push:
+    paths:
+      - 'ai_instructions.txt' # Triggers the AI agent when you edit this file
+
+jobs:
+  process_ai_changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.ADMIN_PAT }}
+
+      - name: Initialize AI Context Processor
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Execute AI Semantic Extraction Analysis
+        id: ai_agent
+        run: |
+          # Read your plain English input text
+          USER_PROMPT=$(cat ai_instructions.txt)
+          echo "Processing user command: $USER_PROMPT"
+          
+          # Read current live site state
+          CURRENT_DATA=$(cat data.json)
+          
+          # System prompt instructing the AI framework how to return strict data structure output
+          SYSTEM_INSTRUCTION="You are an automated portfolio data parser. Read the user's natural language updates and merge them into the existing JSON structure. You must output ONLY a raw, valid JSON object matching the keys exactly. Do not output markdown fences or conversational text."
+          
+          # Execute a secure cURL request directly to the Gemini API layer using public server models
+          RESPONSE=$(curl -s -X POST "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${{ secrets.GEMINI_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"contents\": [{
+                \"parts\": [{
+                  \"text\": \"System Instruction: $SYSTEM_INSTRUCTION\nCurrent Data: $CURRENT_DATA\nUser Request: $USER_PROMPT\"
+                }]
+              }]
+            }")
+          
+          # Extract clean payload text out of response structure
+          CLEAN_JSON=$(echo "$RESPONSE" | jq -r '.candidates[0].content.parts[0].text' | tr -d '`' | sed 's/^json//g')
+          
+          # Validate and save JSON payload locally to repository root
+          echo "$CLEAN_JSON" | jq . > data.json
+          echo "AI successfully committed updates to state parameters."
+
+      - name: Commit and Push AI Synchronizations
+        run: |
+          git config --global user.name "AI_Admin_Agent"
+          git config --global user.email "ai-agent@vercel.updates"
+          git add data.json
+          git commit -m "automation: structural state adjustments updated via AI Admin Node"
+          git push
