@@ -1,7 +1,8 @@
 backend:
   name: github
   repo: jayasankar2007/personalsite
-  branch: main # change to master if your default branch is master
+  branch: main # or master
+  base_url: https://decap-cms-oauth.vercel.app # Secure external authentication provider
 
 media_folder: "images"
 public_folder: "/images"
