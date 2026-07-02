@@ -3,228 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Control Console // Core Terminal</title>
+    <title>Master Builder Framework Console</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0b0f19; }
+        body { font-family: 'Inter', sans-serif; background-color: #070a13; }
         .font-display { font-family: 'Space Grotesk', sans-serif; }
-        .tab-panel { display: none; }
-        .tab-panel.active { display: block; }
-        .tab-btn.active { background-color: #2563eb; color: white; border-color: #2563eb; }
     </style>
 </head>
 <body class="text-slate-200 min-h-screen py-10 px-4 flex flex-col items-center">
 
-    <div class="w-full max-w-3xl bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-6">
+    <div class="w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-6">
         
-        <!-- DASHBOARD HEADER -->
-        <div class="border-b border-slate-800 pb-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+        <!-- TOP CONTROL HEADLINE -->
+        <div class="border-b border-slate-800 pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
                 <h1 class="text-2xl font-display font-bold text-white tracking-tight flex items-center gap-2">
-                    <span>⚡</span> Core Terminal Panel
+                    <span>🏗️</span> Global Architecture Console
                 </h1>
-                <p class="text-xs text-slate-500 mt-1">Full-stack autonomous administration panel connected straight to GitHub APIs.</p>
+                <p class="text-xs text-slate-500 mt-1">Add, delete, or modify structural views and contextual data on your site.</p>
             </div>
             
-            <!-- SECURE CREDENTIAL TOKEN INPUT -->
-            <div class="w-full sm:w-64 space-y-1">
-                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400">GitHub Token (PAT)</label>
+            <div class="w-full md:w-64 space-y-1">
+                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400">GitHub Access Key (PAT)</label>
                 <input id="github-token" type="password" placeholder="ghp_..." class="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-slate-300 transition-all">
             </div>
         </div>
 
-        <!-- CONTROL PANELS VIEW TABS ROUTER -->
-        <div class="flex flex-wrap gap-2 border-b border-slate-800 pb-4">
-            <button onclick="switchTab('profile')" id="btn-profile" class="tab-btn active px-4 py-2 text-xs font-bold rounded-lg border border-slate-800 text-slate-400 hover:text-white transition-all">
-                👤 Profile Data
-            </button>
-            <button onclick="switchTab('resume')" id="btn-resume" class="tab-btn px-4 py-2 text-xs font-bold rounded-lg border border-slate-800 text-slate-400 hover:text-white transition-all">
-                🤖 Chatbot Knowledge Base
-            </button>
-        </div>
-
-        <!-- STATUS BOX NOTIFICATION VECTOR -->
+        <!-- STATUS LOG STREAM -->
         <div id="status-box" class="hidden text-xs p-3 rounded-xl border font-mono"></div>
 
-        <!-- TAB 1: SITE PROFILE PARAMETERS DATA EDITOR -->
-        <div id="panel-profile" class="tab-panel active space-y-4">
-            <div>
-                <h2 class="text-sm font-bold text-slate-300 uppercase tracking-wider">01 // Primary Information Fields</h2>
-                <p class="text-xs text-slate-500">Updates information loaded directly across your index page fields.</p>
-            </div>
-            
-            <form onsubmit="saveProfileData(event)" class="space-y-4">
-                <div class="space-y-1.5">
-                    <label class="block text-xs font-medium text-slate-400">Main Title Heading</label>
-                    <input id="form-title" type="text" required class="w-full text-sm px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white">
-                </div>
-
-                <div class="space-y-1.5">
-                    <label class="block text-xs font-medium text-slate-400">Biography Summary Box (Supports HTML text modifiers)</label>
-                    <textarea id="form-bio" rows="4" required class="w-full text-sm px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white font-mono resize-none"></textarea>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="space-y-1.5">
-                        <label class="block text-xs font-medium text-slate-400">LinkedIn Profile Link</label>
-                        <input id="form-linkedin" type="url" required class="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white">
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="block text-xs font-medium text-slate-400">Contact Email Address</label>
-                        <input id="form-email" type="email" required class="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white">
-                    </div>
-                </div>
-
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-3 rounded-xl transition-colors shadow-lg shadow-blue-950/40">
-                    Save Profile Metrics Live
+        <!-- CORE LAYOUT EDITOR SECTION -->
+        <div class="space-y-6">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                <h2 class="text-sm font-bold text-slate-300 uppercase tracking-wider">🖥️ Modular Site Windows / Sections</h2>
+                <button onclick="addNewViewField()" class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg transition-all">
+                    + Create New Window/View
                 </button>
-            </form>
-        </div>
-
-        <!-- TAB 2: RESUME CONTEXT TEXT BASE -->
-        <div id="panel-resume" class="tab-panel space-y-4">
-            <div>
-                <h2 class="text-sm font-bold text-slate-300 uppercase tracking-wider">02 // Chatbot Cognitive Engine Alignment</h2>
-                <p class="text-xs text-slate-500">Edit the reference material your floating AI assistant reviews before answering questions.</p>
             </div>
 
-            <form onsubmit="saveResumeContext(event)" class="space-y-4">
-                <div class="space-y-1.5">
-                    <label class="block text-xs font-medium text-slate-400">Master Text Context Document</label>
-                    <textarea id="form-context" rows="12" required placeholder="Paste complete details, milestones, project lists, and phone numbers..." class="w-full text-xs p-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white font-mono leading-relaxed resize-none"></textarea>
-                </div>
-
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-3 rounded-xl transition-colors shadow-lg shadow-blue-950/40">
-                    Deploy AI Knowledge Engine Base Updates
-                </button>
-            </form>
+            <!-- DYNAMIC SECTIONS CONTAINER CONTAINER -->
+            <div id="views-container" class="space-y-4">
+                <!-- Javascript will render all editable modules here dynamically -->
+                <p class="text-xs text-slate-500 italic">Streaming structural map layers from GitHub...</p>
+            </div>
         </div>
+
+        <!-- REPOSITION KNOWLEDGE BASE -->
+        <div class="space-y-2 pt-4 border-t border-slate-800">
+            <h2 class="text-sm font-bold text-slate-300 uppercase tracking-wider">🤖 Chatbot Cognitive Blueprint Context</h2>
+            <textarea id="chatbot-context" rows="6" class="w-full text-xs p-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white font-mono leading-relaxed resize-none" placeholder="Paste all resume details, project specs, and profile notes for your AI assistant..."></textarea>
+        </div>
+
+        <!-- MAIN SAVE ACTION ACTION -->
+        <button onclick="compileAndPushSystemChanges()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-4 rounded-xl transition-colors shadow-lg shadow-emerald-950/40">
+            Compile Layout & Deploy Live Changes
+        </button>
 
     </div>
 
-    <!-- MAIN ENGINE CONTROLLER SCRIPT CONNECTORS -->
     <script>
         const REPO = "jayasankar2007/personalsite";
-        let profileSha = "";
-        let resumeSha = "";
+        let targetShaData = {};
+        let activeSiteSchema = {
+            profile: { hero_title: "", hero_bio: "", linkedin_url: "", email: "" },
+            custom_views: []
+        };
 
-        window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('DOMContentLoaded', async () => {
             const savedToken = localStorage.getItem('admin_git_token');
             if(savedToken) document.getElementById('github-token').value = savedToken;
             
-            // Core Bootstrap Sequence execution fetch routines
-            fetchCurrentProfileData();
-            fetchCurrentResumeContext();
+            await loadSystemFiles();
         });
 
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        async function loadSystemFiles() {
+            try {
+                // Fetch Main Configuration Mapping JSON File
+                const dataRes = await fetch(`https://api.github.com/repos/${REPO}/contents/data.json`);
+                if(dataRes.ok) {
+                    const fileObj = await dataRes.json();
+                    targetShaData["data.json"] = fileObj.sha;
+                    const parsed = JSON.parse(atob(fileObj.content));
+                    
+                    activeSiteSchema.profile = {
+                        hero_title: parsed.hero_title || "",
+                        hero_bio: parsed.hero_bio || "",
+                        linkedin_url: parsed.linkedin_url || "",
+                        email: parsed.email || ""
+                    };
+                    activeSiteSchema.custom_views = parsed.custom_views || [
+                        { id: "home", name: "Overview", active: true, content: "Primary overview content details load here." },
+                        { id: "deployments", name: "Deployments", active: false, content: "Selected project card deployment maps display here." },
+                        { id: "track", name: "Track Record", active: false, content: "Professional experience timelines layout." }
+                    ];
+                }
+
+                // Fetch Chatbot Reference Matrix File Context
+                const contextRes = await fetch(`https://api.github.com/repos/${REPO}/contents/resume_context.txt`);
+                if(contextRes.ok) {
+                    const fileObj = await contextRes.json();
+                    targetShaData["resume_context.txt"] = fileObj.sha;
+                    document.getElementById('chatbot-context').value = decodeURIComponent(escape(atob(fileObj.content)));
+                }
+
+                renderLayoutWorkspace();
+            } catch (err) {
+                showStatus("Failed to safely connect to configuration records.", "error");
+            }
+        }
+
+        function renderLayoutWorkspace() {
+            const container = document.getElementById('views-container');
+            container.innerHTML = "";
+
+            // Render Core Profile Panel Base Box
+            let profileHtml = `
+                <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-blue-400 font-mono">⚡ ROOT // PROFILE_FIELD_BLOCK</span>
+                        <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-slate-400">Locked Global Core</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <input type="text" id="core-title" value="${activeSiteSchema.profile.hero_title}" placeholder="Hero Heading" class="text-xs p-2 bg-slate-900 border border-slate-800 rounded text-white">
+                        <input type="text" id="core-email" value="${activeSiteSchema.profile.email}" placeholder="Email Contact" class="text-xs p-2 bg-slate-900 border border-slate-800 rounded text-white">
+                        <input type="text" id="core-linkedin" value="${activeSiteSchema.profile.linkedin_url}" placeholder="LinkedIn URL" class="text-xs p-2 bg-slate-900 border border-slate-800 rounded text-white sm:col-span-2">
+                        <textarea id="core-bio" rows="2" placeholder="Bio description paragraph..." class="text-xs p-2 bg-slate-900 border border-slate-800 rounded text-white sm:col-span-2 resize-none">${activeSiteSchema.profile.hero_bio}</textarea>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', profileHtml);
+
+            // Render Dynamic App Window Blocks (Custom Views)
+            activeSiteSchema.custom_views.forEach((view, index) => {
+                let viewCard = `
+                    <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-3 relative group">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-bold text-amber-500 font-mono">🗔 WINDOW // CONTAINER [${index}]</span>
+                                <input type="text" onchange="updateViewKey(${index}, 'name', this.value)" value="${view.name}" class="text-xs font-bold bg-slate-900 border border-slate-700 px-2 py-0.5 rounded text-white w-32">
+                            </div>
+                            <button onclick="deleteViewWindow(${index})" class="text-red-400 hover:text-red-300 text-xs font-bold font-mono">✕ Delete Window</button>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="block text-[10px] uppercase font-mono tracking-wider text-slate-500">HTML Structure / Window Body Code Layout</label>
+                            <textarea rows="6" onchange="updateViewKey(${index}, 'content', this.value)" class="w-full text-xs p-2 bg-slate-900 border border-slate-800 rounded text-white font-mono leading-relaxed resize-none">${view.content}</textarea>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', viewCard);
+            });
+        }
+
+        function updateViewKey(index, key, val) {
+            activeSiteSchema.custom_views[index][key] = val;
+            if(key === 'name') {
+                activeSiteSchema.custom_views[index].id = val.toLowerCase().replace(/[^a-z0-9]/g, '');
+            }
+        }
+
+        function addNewViewField() {
+            activeSiteSchema.custom_views.push({
+                id: "newwindow" + Date.now().toString().slice(-4),
+                name: "New Window Page",
+                active: false,
+                content: `<div class="space-y-4">\n  <h2 class="text-2xl font-display font-bold text-neutral-900">Custom Section Title</h2>\n  <p class="text-sm text-neutral-500">Write your modular details inside this code block placeholder.</p>\n</div>`
+            });
+            renderLayoutWorkspace();
+        }
+
+        function deleteViewWindow(index) {
+            activeSiteSchema.custom_views.splice(index, 1);
+            renderLayoutWorkspace();
+        }
+
+        async function compileAndPushSystemChanges() {
+            const token = document.getElementById('github-token').value.trim();
+            if(!token) { showStatus("Please enter your GitHub Access Token (PAT) first.", "error"); return; }
+            localStorage.setItem('admin_git_token', token);
+
+            showStatus("Gathering local design mutations and building schema maps...", "info");
+
+            // Pull Core Input Elements back into deployment object configurations
+            activeSiteSchema.profile.hero_title = document.getElementById('core-title').value;
+            activeSiteSchema.profile.hero_bio = document.getElementById('core-bio').value;
+            activeSiteSchema.profile.email = document.getElementById('core-email').value;
+            activeSiteSchema.profile.linkedin_url = document.getElementById('core-linkedin').value;
+
+            const finalConfigJson = JSON.stringify(activeSiteSchema, null, 2);
+            const contextText = document.getElementById('chatbot-context').value;
+
+            // Commit 1: Update Data JSON Registry Structure Map
+            const dataSuccess = await pushFileToGit("data.json", finalConfigJson, targetShaData["data.json"], token);
             
-            document.getElementById(`panel-${tabId}`).classList.add('active');
-            document.getElementById(`btn-${tabId}`).classList.add('active');
-        }
+            // Commit 2: Update AI Knowledge Base
+            const contextSuccess = await pushFileToGit("resume_context.txt", contextText, targetShaData["resume_context.txt"], token);
 
-        // FETCH CURRENT PROFILE PARAMS SCHEMA
-        async function fetchCurrentProfileData() {
-            try {
-                const res = await fetch(`https://api.github.com/repos/${REPO}/contents/data.json`);
-                if(!res.ok) return;
-                const fileData = await res.json();
-                profileSha = fileData.sha;
-                
-                const content = JSON.parse(atob(fileData.content));
-                document.getElementById('form-title').value = content.hero_title || '';
-                document.getElementById('form-bio').value = content.hero_bio || '';
-                document.getElementById('form-linkedin').value = content.linkedin_url || '';
-                document.getElementById('form-email').value = content.email || '';
-            } catch (err) {
-                showStatus("Failed initialization connection to profile data targets.", "error");
+            if(dataSuccess && contextSuccess) {
+                showStatus("System architecture compiled and pushed live! Refresh site in 3 seconds.", "success");
+                loadSystemFiles(); // Synchronize baseline sha structures
             }
         }
 
-        // FETCH CURRENT LIVE RESUME CONTEXT MATRIX
-        async function fetchCurrentResumeContext() {
-            try {
-                const res = await fetch(`https://api.github.com/repos/${REPO}/contents/resume_context.txt`);
-                if(!res.ok) return;
-                const fileData = await res.json();
-                resumeSha = fileData.sha;
-                
-                // Decode UTF-8 cleanly via native conversion escaping rules
-                document.getElementById('form-context').value = decodeURIComponent(escape(atob(fileData.content)));
-            } catch (err) {
-                showStatus("Failed initialization connection to AI contextual frameworks.", "error");
-            }
-        }
-
-        // SAVE ACTION MAP: DATA.JSON OVERWRITE TARGET PUSH
-        async function saveProfileData(event) {
-            event.preventDefault();
-            const token = document.getElementById('github-token').value.trim();
-            if(!token) { showStatus("Authentication key sequence omitted.", "error"); return; }
-            localStorage.setItem('admin_git_token', token);
-
-            showStatus("Assembling system payload packets...", "info");
-
-            const payload = {
-                hero_title: document.getElementById('form-title').value,
-                hero_bio: document.getElementById('form-bio').value,
-                linkedin_url: document.getElementById('form-linkedin').value,
-                email: document.getElementById('form-email').value
-            };
-
-            const success = await pushFileToGit("data.json", JSON.stringify(payload, null, 2), profileSha, token);
-            if(success) {
-                showStatus("Profile data updated successfully! Live in 2 seconds.", "success");
-                fetchCurrentProfileData(); // Synchronize SHA structures
-            }
-        }
-
-        // SAVE ACTION MAP: RESUME_CONTEXT.TXT OVERWRITE TARGET PUSH
-        async function saveResumeContext(event) {
-            event.preventDefault();
-            const token = document.getElementById('github-token').value.trim();
-            if(!token) { showStatus("Authentication key sequence omitted.", "error"); return; }
-            localStorage.setItem('admin_git_token', token);
-
-            showStatus("Streaming semantic mapping lines onto core matrix stack...", "info");
-            const contextText = document.getElementById('form-context').value;
-
-            const success = await pushFileToGit("resume_context.txt", contextText, resumeSha, token);
-            if(success) {
-                showStatus("Chatbot context operational matrix loaded and updated successfully!", "success");
-                fetchCurrentResumeContext(); // Synchronize SHA structures
-            }
-        }
-
-        // REUSABLE REST API RUNTIME ENGINE COMPONENT
         async function pushFileToGit(filename, content, sha, token) {
             try {
-                // Handle complex characters across standard cross-origin boundaries cleanly via btoa wrappers
                 const base64Content = btoa(unescape(encodeURIComponent(content)));
-                
                 const response = await fetch(`https://api.github.com/repos/${REPO}/contents/${filename}`, {
                     method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${token}`,
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        message: `console patch: direct terminal dashboard adjust pushed to ${filename}`,
+                        message: `architecture update: dynamic workspace node rewrite targeting ${filename}`,
                         content: base64Content,
                         sha: sha
                     })
                 });
-
-                if(response.ok) return true;
-                
-                const errorReport = await response.json();
-                showStatus(`Push Execution Rejected: ${errorReport.message}`, "error");
-                return false;
+                return response.ok;
             } catch (err) {
-                showStatus("Critical structural network routing mutation failure.", "error");
                 return false;
             }
         }
@@ -232,11 +226,9 @@
         function showStatus(text, type) {
             const box = document.getElementById('status-box');
             box.className = "text-xs p-3 rounded-xl border font-mono";
-            
             if(type === 'error') box.classList.add('bg-red-950', 'border-red-800', 'text-red-400');
             if(type === 'success') box.classList.add('bg-emerald-950', 'border-emerald-800', 'text-emerald-400');
             if(type === 'info') box.classList.add('bg-slate-950', 'border-slate-800', 'text-slate-400');
-            
             box.innerText = text;
             box.classList.remove('hidden');
         }
