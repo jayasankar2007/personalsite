@@ -30,7 +30,6 @@
         body {
             background-color: #fafafa;
         }
-        /* Minimalist View Switcher Logic */
         .view-panel {
             display: none;
             opacity: 0;
@@ -43,9 +42,21 @@
             transform: translateY(0);
         }
         .nav-active {
-            color: #2563eb !important; /* Royal Blue */
+            color: #2563eb !important;
             font-weight: 500;
             border-bottom: 2px solid #2563eb;
+        }
+        /* Custom Chat App Transitions */
+        .chat-window {
+            transform: scale(0.9) translateY(20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+        }
+        .chat-window.open {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
         }
     </style>
 </head>
@@ -62,7 +73,6 @@
                 jayasankar.g
             </a>
             
-            <!-- Clean Tab Router Controls -->
             <nav class="flex gap-6 text-xs uppercase tracking-widest text-neutral-400 font-medium">
                 <button onclick="switchView('home')" id="nav-home" class="nav-active pb-1 border-b-2 border-transparent hover:text-neutral-900 transition-colors">
                     Overview
@@ -81,11 +91,8 @@
 
             <!-- VIEW 1: HOME OVERVIEW -->
             <div id="view-home" class="view-panel active-view space-y-16">
-                
-                <!-- Hero Core Header Frame -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
                     <div class="md:col-span-2 space-y-6">
-                        <!-- CMS TARGETS: Title and Bio elements are now dynamically populated via JavaScript below -->
                         <h1 id="cms-hero-title" class="text-4xl md:text-5xl font-display font-bold text-neutral-900 tracking-tight leading-none">
                             Loading...
                         </h1>
@@ -94,7 +101,6 @@
                         </p>
                     </div>
 
-                    <!-- Clean Profile Frame -->
                     <div class="flex justify-start md:justify-end">
                         <div class="relative group">
                             <div class="absolute -inset-0.5 bg-neutral-200 rounded-full blur-sm group-hover:bg-blue-200 transition duration-300"></div>
@@ -103,7 +109,6 @@
                     </div>
                 </div>
 
-                <!-- Structured Technical Categories Block -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-6 border-t border-neutral-200">
                     <div class="space-y-2">
                         <h3 class="text-xs font-bold uppercase tracking-wider text-blue-600">01 // Hardware</h3>
@@ -189,14 +194,13 @@
 
         </main>
 
-        <!-- HIGH-CONTRAST CONCISE CALL TO ACTION -->
+        <!-- HIGH-CONTRAST CALL TO ACTION -->
         <section class="mt-24 p-8 bg-neutral-900 rounded-2xl text-white flex flex-col md:flex-row justify-between items-center gap-6 shadow-md">
             <div class="space-y-1 text-center md:text-left">
                 <h3 class="text-lg font-display font-bold tracking-tight">Initialize Shared Execution</h3>
                 <p class="text-xs text-neutral-400 font-light">Available for engineering collaborations regarding hardware and automated loops.</p>
             </div>
             <div class="flex gap-4 shrink-0 font-medium text-xs">
-                <!-- CMS TARGETS: Contact actions are tied to dynamic script injections below -->
                 <a id="cms-email-btn" href="mailto:jayasankar4projects@gmail.com" class="px-4 py-2.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 rounded-lg transition-colors">
                     Email Terminal
                 </a>
@@ -206,7 +210,7 @@
             </div>
         </section>
 
-        <!-- MINIMAL INSTITUTIONAL FOOTER -->
+        <!-- FOOTER -->
         <footer class="mt-20 pt-6 border-t border-neutral-200 flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] uppercase tracking-wider text-neutral-400 font-medium">
             <div>© 2026 // Jayasankar Gnanadesigan.</div>
             <div class="flex gap-4 items-center font-bold text-neutral-500">
@@ -218,6 +222,63 @@
 
     </div>
 
+    <!-- PREMIUM FLOATING INTERACTIVE CHATBOT SYSTEM -->
+    <div class="fixed bottom-6 right-6 z-50 font-sans text-sm flex flex-col items-end">
+        
+        <!-- Interactive Slide-out Message Notification (Non-disturbing Pop-up) -->
+        <div id="chat-pop-up" class="mb-3 bg-white border border-neutral-200 shadow-xl px-4 py-3 rounded-xl max-w-xs transition-all duration-500 transform translate-y-2 opacity-0 flex items-start gap-3">
+            <div class="w-2 h-2 rounded-full bg-blue-600 mt-1.5 animate-pulse shrink-0"></div>
+            <div>
+                <p class="font-bold text-xs text-neutral-900">Jayasankar's Assistant</p>
+                <p class="text-neutral-500 text-xs mt-0.5 leading-normal">Hi! Looking to collaborate on an IoT or embedded systems project? Ask me anything.</p>
+            </div>
+            <button onclick="dismissPopup(event)" class="text-neutral-400 hover:text-neutral-600 text-xs font-bold px-1">×</button>
+        </div>
+
+        <!-- Chat Frame Interface View Window -->
+        <div id="chat-window" class="chat-window w-[340px] sm:w-[360px] h-[460px] bg-white border border-neutral-200 rounded-2xl shadow-2xl flex flex-col mb-4 overflow-hidden">
+            <!-- Chat Window Header -->
+            <div class="bg-neutral-900 text-white px-4 py-4 flex justify-between items-center border-b border-neutral-800">
+                <div class="flex items-center gap-2.5">
+                    <div class="relative">
+                        <img src="https://github.com/jayasankar2007/personalsite/blob/main/05%5B16%5D%20(1).jpg?raw=true" class="w-8 h-8 rounded-full object-cover border border-neutral-700 bg-neutral-800">
+                        <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-neutral-900 rounded-full"></span>
+                    </div>
+                    <div>
+                        <h4 class="font-display font-bold text-xs tracking-tight">Core-AI Terminal</h4>
+                        <p class="text-[10px] text-neutral-400">Automated Assistant Node</p>
+                    </div>
+                </div>
+                <button onclick="toggleChat()" class="text-neutral-400 hover:text-white transition-colors p-1 text-lg">✕</button>
+            </div>
+
+            <!-- Chat Message Delivery Stream Area -->
+            <div id="chat-stream" class="flex-1 p-4 overflow-y-auto space-y-4 bg-neutral-50">
+                <!-- Initial Automated Greeting Node Box -->
+                <div class="flex gap-2.5 items-start max-w-[85%]">
+                    <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div>
+                    <div class="bg-white border border-neutral-200 px-3 py-2.5 rounded-2xl rounded-tl-none shadow-sm text-xs text-neutral-700 leading-relaxed">
+                        Welcome to the portfolio channel. I can provide details regarding Jayasankar's hardware build expertise, Project SafeStitch, or his experience at SEIL Energy. What are you looking to build?
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Interface Form Input Line -->
+            <form id="chat-form" onsubmit="handleUserMessage(event)" class="p-3 bg-white border-t border-neutral-200 flex gap-2">
+                <input id="chat-input" type="text" placeholder="Inquire about hardware specs or projects..." autocomplete="off" class="flex-1 text-xs px-3 py-2.5 bg-neutral-100 border border-transparent rounded-xl focus:outline-none focus:bg-white focus:border-blue-600 transition-all">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 rounded-xl transition-colors shrink-0">Send</button>
+            </form>
+        </div>
+
+        <!-- Floating Core Launcher Circle Button Trigger -->
+        <button onclick="toggleChat()" class="w-12 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-xl flex items-center justify-center transition-transform active:scale-95 group relative">
+            <span class="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white animate-ping"></span>
+            <span class="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white"></span>
+            <!-- Custom graphic code vector for a messaging chat bubble bubble logo shape -->
+            <svg class="w-5 h-5 transition-transform group-hover:rotate-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+        </button>
+    </div>
+
     <!-- Interface View Router Controller Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -227,7 +288,6 @@
         fetch('./data.json')
             .then(response => response.json())
             .then(data => {
-                // Safely update DOM targets with fresh data values
                 if(data.hero_title) document.getElementById('cms-hero-title').innerText = data.hero_title;
                 if(data.hero_bio) document.getElementById('cms-hero-bio').innerHTML = data.hero_bio;
                 if(data.email) document.getElementById('cms-email-btn').href = `mailto:${data.email}`;
@@ -235,7 +295,6 @@
             })
             .catch(error => {
                 console.error("CMS integration sync error:", error);
-                // Fallback messaging values if file fetching encounters roadblocks
                 document.getElementById('cms-hero-title').innerText = "Jayasankar Gnanadesigan";
                 document.getElementById('cms-hero-bio').innerText = "Operating at the vector intersections of Embedded System Architecture and automated Agentic AI Workflows.";
             });
@@ -253,6 +312,117 @@
             
             window.scrollTo({ top: 0, behavior: 'instant' });
             AOS.refresh();
+        }
+
+        /* ----- CHATBOT ARCHITECTURE INTERACTION LOGIC ----- */
+        
+        // Softly slide the non-intrusive pop-up indicator window into view 2.5 seconds after page load
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const popup = document.getElementById('chat-pop-up');
+                if(popup) {
+                    popup.classList.remove('translate-y-2', 'opacity-0');
+                }
+            }, 2500);
+        });
+
+        function toggleChat() {
+            const chatWindow = document.getElementById('chat-window');
+            const popup = document.getElementById('chat-pop-up');
+            chatWindow.classList.toggle('open');
+            
+            // Dismiss pop-up banner instantly if main interaction engine view window opens
+            if(chatWindow.classList.contains('open') && popup) {
+                popup.style.display = 'none';
+            }
+        }
+
+        function dismissPopup(e) {
+            e.stopPropagation();
+            const popup = document.getElementById('chat-pop-up');
+            if(popup) popup.style.display = 'none';
+        }
+
+        // Lightweight portfolio expert response map rules
+        function generateLocalAIResponse(input) {
+            const text = input.toLowerCase();
+            
+            if (text.includes('safestitch') || text.includes('stitch') || text.includes('safety') || text.includes('machine')) {
+                return "Project SafeStitch is an award-winning IoT hardware system designed to retrofit industrial sewing machines. Using high-speed optical sensors mapped to low-latency loops, it detects hand movements near needles and triggers an instant safety stop, preventing accidents in the textile sector.";
+            }
+            if (text.includes('hardware') || text.includes('esp32') || text.includes('sensor') || text.includes('microcontroller')) {
+                return "Jayasankar specializes in embedded hardware engineering, specifically deploying dual-core ESP32 microprocessors, asynchronous communication data packet links, automation routines via Make.com, and circuit analysis within Cadence environments.";
+            }
+            if (text.includes('intern') || text.includes('seil') || text.includes('experience') || text.includes('work')) {
+                return "In 2025, Jayasankar interned at SEIL Energy India Limited, where he spent time analyzing high-voltage telemetry networks, grid protection systems, and active plant control loops.";
+            }
+            if (text.includes('contact') || text.includes('email') || text.includes('hire') || text.includes('linkedin')) {
+                return "You can reach out directly via email at jayasankar4projects@gmail.com, or tap the LinkedIn link right above the footer to sync up on code/hardware collaborations!";
+            }
+            if (text.includes('hello') || text.includes('hi') || text.includes('hey')) {
+                return "Hello! I am calibrated with details regarding Jayasankar's portfolio. Ask me about his award-winning 'Project SafeStitch' IoT kit, his technical skills, or his operational timeline.";
+            }
+            
+            return "Interesting question! I am optimized to talk about Jayasankar's technical project profiles. Feel free to ask about 'Project SafeStitch', his hardware skills, or how to contact him directly.";
+        }
+
+        function handleUserMessage(event) {
+            event.preventDefault();
+            const inputField = document.getElementById('chat-input');
+            const userText = inputField.value.trim();
+            if(!userText) return;
+
+            const stream = document.getElementById('chat-stream');
+
+            // 1. Render User Message Node
+            const userMsgHtml = `
+                <div class="flex gap-2.5 items-start max-w-[85%] ml-auto justify-end">
+                    <div class="bg-blue-600 text-white px-3 py-2.5 rounded-2xl rounded-tr-none shadow-sm text-xs leading-relaxed">
+                        ${escapeHtml(userText)}
+                    </div>
+                </div>
+            `;
+            stream.insertAdjacentHTML('beforeend', userMsgHtml);
+            inputField.value = '';
+            stream.scrollTop = stream.scrollHeight;
+
+            // 2. Render Loading Simulated Processing Indicator State
+            const loadId = 'loading-' + Date.now();
+            const loadingHtml = `
+                <div id="${loadId}" class="flex gap-2.5 items-start max-w-[85%]">
+                    <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div>
+                    <div class="bg-white border border-neutral-200 px-3 py-2 rounded-2xl rounded-tl-none shadow-sm text-xs text-neutral-400 flex items-center gap-1">
+                        <span class="animate-bounce">●</span><span class="animate-bounce [animation-delay:0.2s]">●</span><span class="animate-bounce [animation-delay:0.4s]">●</span>
+                    </div>
+                </div>
+            `;
+            
+            setTimeout(() => {
+                stream.insertAdjacentHTML('beforeend', loadingHtml);
+                stream.scrollTop = stream.scrollHeight;
+            }, 300);
+
+            // 3. Process Response Output and Replace Loading Block Frame
+            setTimeout(() => {
+                const loadEl = document.getElementById(loadId);
+                if(loadEl) loadEl.remove();
+
+                const systemReply = generateLocalAIResponse(userText);
+                const botMsgHtml = `
+                    <div class="flex gap-2.5 items-start max-w-[85%]">
+                        <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div>
+                        <div class="bg-white border border-neutral-200 px-3 py-2.5 rounded-2xl rounded-tl-none shadow-sm text-xs text-neutral-700 leading-relaxed">
+                            ${systemReply}
+                        </div>
+                    </div>
+                `;
+                stream.insertAdjacentHTML('beforeend', botMsgHtml);
+                stream.scrollTop = stream.scrollHeight;
+            }, 1200);
+        }
+
+        function escapeHtml(string) {
+            return String(string).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         }
     </script>
 </body>
