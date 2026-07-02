@@ -29,7 +29,8 @@ jobs:
           
           echo "Contacting Gemini API Engine Layer..."
           
-          RESPONSE=$(curl -s -X POST "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${{ secrets.GEMINI_API_KEY }}" \
+          # Upgraded URL to use the active production v1 / gemini-2.5-flash path
+          RESPONSE=$(curl -s -X POST "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${{ secrets.GEMINI_API_KEY }}" \
             -H "Content-Type: application/json" \
             -d "{
               \"contents\": [{
@@ -39,15 +40,12 @@ jobs:
               }]
             }")
           
-          # DIAGNOSTIC: Print out raw response to logs if execution hits a roadblock
-          echo "===== RAW API RESPONSE FROM GOOGLE ====="
-          echo "$RESPONSE"
-          echo "========================================"
-          
           RAW_TEXT=$(echo "$RESPONSE" | jq -r '.candidates[0].content.parts[0].text // empty')
           
           if [ -z "$RAW_TEXT" ]; then
-            echo "API structural failure or invalid API key. Read response printout above."
+            echo "===== RAW API RESPONSE FROM GOOGLE ====="
+            echo "$RESPONSE"
+            echo "========================================"
             exit 1
           fi
           
