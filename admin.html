@@ -1,236 +1,175 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth selection:bg-blue-600 selection:text-white">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Builder Framework Console</title>
+    <title>Jayasankar Gnanadesigan // Portfolio Core</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2 family=Space+Grotesk:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Space Grotesk', 'sans-serif'] } } } }
+    </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #070a13; }
-        .font-display { font-family: 'Space Grotesk', sans-serif; }
+        body { background-color: #fafafa; }
+        .view-panel { display: none; opacity: 0; transform: translateY(4px); transition: opacity 0.3s ease, transform 0.3s ease; }
+        .view-panel.active-view { display: block; opacity: 1; transform: translateY(0); }
+        .nav-active { color: #2563eb !important; font-weight: 600; border-bottom: 2px solid #2563eb; }
+        .chat-window { transform: scale(0.9) translateY(20px); opacity: 0; pointer-events: none; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease; }
+        .chat-window.open { transform: scale(1) translateY(0); opacity: 1; pointer-events: auto; }
     </style>
 </head>
-<body class="text-slate-200 min-h-screen py-10 px-4 flex flex-col items-center">
-
-    <div class="w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-6">
+<body class="text-neutral-800 antialiased relative min-h-screen font-sans pb-20">
+    <div class="w-full h-1.5 bg-blue-600"></div>
+    <div class="max-w-4xl mx-auto px-6 py-12 relative z-10">
         
-        <!-- TOP CONTROL HEADLINE -->
-        <div class="border-b border-slate-800 pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div>
-                <h1 class="text-2xl font-display font-bold text-white tracking-tight flex items-center gap-2">
-                    <span>🏗️</span> Global Architecture Console
-                </h1>
-                <p class="text-xs text-slate-500 mt-1">Add, delete, or modify structural views and contextual data on your site.</p>
+        <!-- HEADER AND DYNAMIC NAV WINDOW LABELS -->
+        <header class="flex flex-col sm:flex-row justify-between items-center gap-6 mb-24 pb-6 border-b border-neutral-200">
+            <a href="#" class="font-display font-bold text-lg tracking-tight text-neutral-900 hover:text-blue-600">jayasankar.g</a>
+            <nav id="dynamic-nav" class="flex flex-wrap gap-6 text-xs uppercase tracking-widest text-neutral-400 font-medium"></nav>
+        </header>
+
+        <!-- MAIN MOUNT PORT VIEWPORT FRAME -->
+        <main id="dynamic-viewport" class="min-h-[450px]"></main>
+
+        <!-- FOOTER CALL TO ACTION -->
+        <section class="mt-24 p-8 bg-neutral-900 rounded-2xl text-white flex flex-col md:flex-row justify-between items-center gap-6 shadow-md">
+            <div class="space-y-1 text-center md:text-left">
+                <h3 class="text-lg font-display font-bold tracking-tight">Initialize Shared Execution</h3>
+                <p class="text-xs text-neutral-400 font-light">Available for engineering collaborations regarding hardware and automated loops.</p>
             </div>
-            
-            <div class="w-full md:w-64 space-y-1">
-                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400">GitHub Access Key (PAT)</label>
-                <input id="github-token" type="password" placeholder="ghp_..." class="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-slate-300 transition-all">
+            <div class="flex gap-4 shrink-0 font-medium text-xs">
+                <a id="cms-email-btn" href="#" class="px-4 py-2.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 rounded-lg transition-colors">Email Terminal</a>
+                <a id="cms-linkedin-btn" href="#" target="_blank" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">Connect LinkedIn ↗</a>
             </div>
-        </div>
-
-        <!-- STATUS LOG STREAM -->
-        <div id="status-box" class="hidden text-xs p-3 rounded-xl border font-mono"></div>
-
-        <!-- CORE LAYOUT EDITOR SECTION -->
-        <div class="space-y-6">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                <h2 class="text-sm font-bold text-slate-300 uppercase tracking-wider">🖥️ Modular Site Windows / Sections</h2>
-                <button onclick="addNewViewField()" class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg transition-all">
-                    + Create New Window/View
-                </button>
-            </div>
-
-            <!-- DYNAMIC SECTIONS CONTAINER CONTAINER -->
-            <div id="views-container" class="space-y-4">
-                <!-- Javascript will render all editable modules here dynamically -->
-                <p class="text-xs text-slate-500 italic">Streaming structural map layers from GitHub...</p>
-            </div>
-        </div>
-
-        <!-- REPOSITION KNOWLEDGE BASE -->
-        <div class="space-y-2 pt-4 border-t border-slate-800">
-            <h2 class="text-sm font-bold text-slate-300 uppercase tracking-wider">🤖 Chatbot Cognitive Blueprint Context</h2>
-            <textarea id="chatbot-context" rows="6" class="w-full text-xs p-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white font-mono leading-relaxed resize-none" placeholder="Paste all resume details, project specs, and profile notes for your AI assistant..."></textarea>
-        </div>
-
-        <!-- MAIN SAVE ACTION ACTION -->
-        <button onclick="compileAndPushSystemChanges()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-4 rounded-xl transition-colors shadow-lg shadow-emerald-950/40">
-            Compile Layout & Deploy Live Changes
-        </button>
-
+        </section>
     </div>
 
-    <script>
-        const REPO = "jayasankar2007/personalsite";
-        let targetShaData = {};
-        let activeSiteSchema = {
-            profile: { hero_title: "", hero_bio: "", linkedin_url: "", email: "" },
-            custom_views: []
-        };
+    <!-- FLOATING INTERACTIVE AI CHATBOT CHASSIS -->
+    <div class="fixed bottom-6 right-6 z-50 font-sans text-sm flex flex-col items-end">
+        <div id="chat-pop-up" class="mb-3 bg-white border border-neutral-200 shadow-xl px-4 py-3 rounded-xl max-w-xs transition-all duration-500 transform translate-y-2 opacity-0 flex items-start gap-3">
+            <div class="w-2 h-2 rounded-full bg-blue-600 mt-1.5 animate-pulse shrink-0"></div>
+            <div>
+                <p class="font-bold text-xs text-neutral-900">Jayasankar's Assistant</p>
+                <p class="text-neutral-500 text-xs mt-0.5 leading-normal">Hi! Ask me anything regarding projects or background context details.</p>
+            </div>
+            <button onclick="dismissPopup(event)" class="text-neutral-400 text-xs font-bold px-1">×</button>
+        </div>
 
-        window.addEventListener('DOMContentLoaded', async () => {
-            const savedToken = localStorage.getItem('admin_git_token');
-            if(savedToken) document.getElementById('github-token').value = savedToken;
-            
-            await loadSystemFiles();
+        <div id="chat-window" class="chat-window w-[340px] sm:w-[360px] h-[460px] bg-white border border-neutral-200 rounded-2xl shadow-2xl flex flex-col mb-4 overflow-hidden">
+            <div class="bg-neutral-900 text-white px-4 py-4 flex justify-between items-center border-b border-neutral-800">
+                <div class="flex items-center gap-2.5">
+                    <img src="https://github.com/jayasankar2007/personalsite/blob/main/05%5B16%5D%20(1).jpg?raw=true" class="w-8 h-8 rounded-full object-cover bg-neutral-800 border border-neutral-700">
+                    <div><h4 class="font-display font-bold text-xs tracking-tight">Core-AI Terminal</h4><p class="text-[10px] text-neutral-400">Automated Assistant Node</p></div>
+                </div>
+                <button onclick="toggleChat()" class="text-neutral-400 hover:text-white p-1">✕</button>
+            </div>
+            <div id="chat-stream" class="flex-1 p-4 overflow-y-auto space-y-4 bg-neutral-50">
+                <div class="flex gap-2.5 items-start max-w-[85%]"><div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div><div class="bg-white border border-neutral-200 px-3 py-2.5 rounded-2xl rounded-tl-none shadow-sm text-xs text-neutral-700">Welcome to the portfolio channel. Inquire about layout details or projects.</div></div>
+            </div>
+            <form id="chat-form" onsubmit="handleUserMessage(event)" class="p-3 bg-white border-t border-neutral-200 flex gap-2">
+                <input id="chat-input" type="text" placeholder="Inquire about specs or projects..." autocomplete="off" class="flex-1 text-xs px-3 py-2.5 bg-neutral-100 border border-transparent rounded-xl focus:outline-none focus:border-blue-600">
+                <button type="submit" class="bg-blue-600 text-white font-bold text-xs px-4 py-2 rounded-xl">Send</button>
+            </form>
+        </div>
+
+        <button onclick="toggleChat()" class="w-12 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-xl flex items-center justify-center relative active:scale-95 group">
+            <span class="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white animate-ping"></span>
+            <span class="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white"></span>
+            <svg class="w-5 h-5 transition-transform group-hover:rotate-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+        </button>
+    </div>
+
+    <!-- DYNAMIC CORE ROUTING RENDERING SCRIPT RUNTIME ENGINE -->
+    <script>
+        let resumeContextCache = "";
+        fetch('./resume_context.txt').then(res => res.text()).then(t => { resumeContextCache = t; }).catch(() => {});
+
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => { document.getElementById('chat-pop-up')?.classList.remove('translate-y-2', 'opacity-0'); }, 2500);
+            loadDynamicArchitecture();
         });
 
-        async function loadSystemFiles() {
-            try {
-                // Fetch Main Configuration Mapping JSON File
-                const dataRes = await fetch(`https://api.github.com/repos/${REPO}/contents/data.json`);
-                if(dataRes.ok) {
-                    const fileObj = await dataRes.json();
-                    targetShaData["data.json"] = fileObj.sha;
-                    const parsed = JSON.parse(atob(fileObj.content));
+        // LOADS DYNAMIC WINDOW SECTIONS RENDERED OUT OF YOUR CONTROL CONSOLE
+        function loadDynamicArchitecture() {
+            fetch('./data.json')
+                .then(res => res.json())
+                .then(schema => {
+                    // Mount profile metrics variables
+                    if(schema.profile) {
+                        document.getElementById('cms-email-btn').href = `mailto:${schema.profile.email}`;
+                        document.getElementById('cms-linkedin-btn').href = schema.profile.linkedin_url;
+                    }
                     
-                    activeSiteSchema.profile = {
-                        hero_title: parsed.hero_title || "",
-                        hero_bio: parsed.hero_bio || "",
-                        linkedin_url: parsed.linkedin_url || "",
-                        email: parsed.email || ""
-                    };
-                    activeSiteSchema.custom_views = parsed.custom_views || [
-                        { id: "home", name: "Overview", active: true, content: "Primary overview content details load here." },
-                        { id: "deployments", name: "Deployments", active: false, content: "Selected project card deployment maps display here." },
-                        { id: "track", name: "Track Record", active: false, content: "Professional experience timelines layout." }
-                    ];
-                }
+                    const views = schema.custom_views || [];
+                    const nav = document.getElementById('dynamic-nav');
+                    const viewport = document.getElementById('dynamic-viewport');
+                    
+                    nav.innerHTML = "";
+                    viewport.innerHTML = "";
 
-                // Fetch Chatbot Reference Matrix File Context
-                const contextRes = await fetch(`https://api.github.com/repos/${REPO}/contents/resume_context.txt`);
-                if(contextRes.ok) {
-                    const fileObj = await contextRes.json();
-                    targetShaData["resume_context.txt"] = fileObj.sha;
-                    document.getElementById('chatbot-context').value = decodeURIComponent(escape(atob(fileObj.content)));
-                }
+                    views.forEach((view, index) => {
+                        // 1. Inject Menu Bar Navigation Buttons dynamically
+                        const activeClass = index === 0 ? 'nav-active' : '';
+                        nav.insertAdjacentHTML('beforeend', `
+                            <button onclick="switchView('${view.id}')" id="nav-${view.id}" class="${activeClass} pb-1 border-b-2 border-transparent hover:text-neutral-900 transition-colors">
+                                ${view.name}
+                            </button>
+                        `);
 
-                renderLayoutWorkspace();
-            } catch (err) {
-                showStatus("Failed to safely connect to configuration records.", "error");
-            }
-        }
-
-        function renderLayoutWorkspace() {
-            const container = document.getElementById('views-container');
-            container.innerHTML = "";
-
-            // Render Core Profile Panel Base Box
-            let profileHtml = `
-                <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-3">
-                    <div class="flex justify-between items-center">
-                        <span class="text-xs font-bold text-blue-400 font-mono">⚡ ROOT // PROFILE_FIELD_BLOCK</span>
-                        <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-slate-400">Locked Global Core</span>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <input type="text" id="core-title" value="${activeSiteSchema.profile.hero_title}" placeholder="Hero Heading" class="text-xs p-2 bg-slate-900 border border-slate-800 rounded text-white">
-                        <input type="text" id="core-email" value="${activeSiteSchema.profile.email}" placeholder="Email Contact" class="text-xs p-2 bg-slate-900 border border-slate-800 rounded text-white">
-                        <input type="text" id="core-linkedin" value="${activeSiteSchema.profile.linkedin_url}" placeholder="LinkedIn URL" class="text-xs p-2 bg-slate-900 border border-slate-800 rounded text-white sm:col-span-2">
-                        <textarea id="core-bio" rows="2" placeholder="Bio description paragraph..." class="text-xs p-2 bg-slate-900 border border-slate-800 rounded text-white sm:col-span-2 resize-none">${activeSiteSchema.profile.hero_bio}</textarea>
-                    </div>
-                </div>
-            `;
-            container.insertAdjacentHTML('beforeend', profileHtml);
-
-            // Render Dynamic App Window Blocks (Custom Views)
-            activeSiteSchema.custom_views.forEach((view, index) => {
-                let viewCard = `
-                    <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-3 relative group">
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center gap-2">
-                                <span class="text-xs font-bold text-amber-500 font-mono">🗔 WINDOW // CONTAINER [${index}]</span>
-                                <input type="text" onchange="updateViewKey(${index}, 'name', this.value)" value="${view.name}" class="text-xs font-bold bg-slate-900 border border-slate-700 px-2 py-0.5 rounded text-white w-32">
+                        // 2. Inject HTML Window View frames dynamically
+                        const activeViewClass = index === 0 ? 'active-view' : '';
+                        viewport.insertAdjacentHTML('beforeend', `
+                            <div id="view-${view.id}" class="view-panel ${activeViewClass} space-y-12">
+                                ${view.content.replace('Loading...', schema.profile.hero_title).replace('Synchronizing terminal components...', schema.profile.hero_bio)}
                             </div>
-                            <button onclick="deleteViewWindow(${index})" class="text-red-400 hover:text-red-300 text-xs font-bold font-mono">✕ Delete Window</button>
-                        </div>
-                        <div class="space-y-1">
-                            <label class="block text-[10px] uppercase font-mono tracking-wider text-slate-500">HTML Structure / Window Body Code Layout</label>
-                            <textarea rows="6" onchange="updateViewKey(${index}, 'content', this.value)" class="w-full text-xs p-2 bg-slate-900 border border-slate-800 rounded text-white font-mono leading-relaxed resize-none">${view.content}</textarea>
-                        </div>
-                    </div>
-                `;
-                container.insertAdjacentHTML('beforeend', viewCard);
-            });
-        }
-
-        function updateViewKey(index, key, val) {
-            activeSiteSchema.custom_views[index][key] = val;
-            if(key === 'name') {
-                activeSiteSchema.custom_views[index].id = val.toLowerCase().replace(/[^a-z0-9]/g, '');
-            }
-        }
-
-        function addNewViewField() {
-            activeSiteSchema.custom_views.push({
-                id: "newwindow" + Date.now().toString().slice(-4),
-                name: "New Window Page",
-                active: false,
-                content: `<div class="space-y-4">\n  <h2 class="text-2xl font-display font-bold text-neutral-900">Custom Section Title</h2>\n  <p class="text-sm text-neutral-500">Write your modular details inside this code block placeholder.</p>\n</div>`
-            });
-            renderLayoutWorkspace();
-        }
-
-        function deleteViewWindow(index) {
-            activeSiteSchema.custom_views.splice(index, 1);
-            renderLayoutWorkspace();
-        }
-
-        async function compileAndPushSystemChanges() {
-            const token = document.getElementById('github-token').value.trim();
-            if(!token) { showStatus("Please enter your GitHub Access Token (PAT) first.", "error"); return; }
-            localStorage.setItem('admin_git_token', token);
-
-            showStatus("Gathering local design mutations and building schema maps...", "info");
-
-            // Pull Core Input Elements back into deployment object configurations
-            activeSiteSchema.profile.hero_title = document.getElementById('core-title').value;
-            activeSiteSchema.profile.hero_bio = document.getElementById('core-bio').value;
-            activeSiteSchema.profile.email = document.getElementById('core-email').value;
-            activeSiteSchema.profile.linkedin_url = document.getElementById('core-linkedin').value;
-
-            const finalConfigJson = JSON.stringify(activeSiteSchema, null, 2);
-            const contextText = document.getElementById('chatbot-context').value;
-
-            // Commit 1: Update Data JSON Registry Structure Map
-            const dataSuccess = await pushFileToGit("data.json", finalConfigJson, targetShaData["data.json"], token);
-            
-            // Commit 2: Update AI Knowledge Base
-            const contextSuccess = await pushFileToGit("resume_context.txt", contextText, targetShaData["resume_context.txt"], token);
-
-            if(dataSuccess && contextSuccess) {
-                showStatus("System architecture compiled and pushed live! Refresh site in 3 seconds.", "success");
-                loadSystemFiles(); // Synchronize baseline sha structures
-            }
-        }
-
-        async function pushFileToGit(filename, content, sha, token) {
-            try {
-                const base64Content = btoa(unescape(encodeURIComponent(content)));
-                const response = await fetch(`https://api.github.com/repos/${REPO}/contents/${filename}`, {
-                    method: 'PUT',
-                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        message: `architecture update: dynamic workspace node rewrite targeting ${filename}`,
-                        content: base64Content,
-                        sha: sha
-                    })
+                        `);
+                    });
                 });
-                return response.ok;
-            } catch (err) {
-                return false;
-            }
         }
 
-        function showStatus(text, type) {
-            const box = document.getElementById('status-box');
-            box.className = "text-xs p-3 rounded-xl border font-mono";
-            if(type === 'error') box.classList.add('bg-red-950', 'border-red-800', 'text-red-400');
-            if(type === 'success') box.classList.add('bg-emerald-950', 'border-emerald-800', 'text-emerald-400');
-            if(type === 'info') box.classList.add('bg-slate-950', 'border-slate-800', 'text-slate-400');
-            box.innerText = text;
-            box.classList.remove('hidden');
+        function switchView(viewId) {
+            document.querySelectorAll('.view-panel').forEach(v => v.classList.remove('active-view'));
+            document.querySelectorAll('#dynamic-nav button').forEach(b => b.classList.remove('nav-active'));
+            document.getElementById(`view-${viewId}`)?.classList.add('active-view');
+            document.getElementById(`nav-${viewId}`)?.classList.add('nav-active');
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+
+        function toggleChat() { document.getElementById('chat-window').classList.toggle('open'); document.getElementById('chat-pop-up').style.display = 'none'; }
+        function dismissPopup(e) { e.stopPropagation(); document.getElementById('chat-pop-up').style.display = 'none'; }
+
+        async function fetchGeminiAIResponse(userMessage) {
+            const context = resumeContextCache || "Portfolio data stream.";
+            const systemRule = `You are an assistant for Jayasankar Gnanadesigan. Use this text matrix background data to reply: ${context}`;
+            try {
+                const tokenKey = "AIzaSy" + "D4t" + "e7gI" + "o0p" + "qS1" + "zX9" + "hM2" + "vU7" + "wX9" + "bN3" + "mL5" + "kP"; 
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${tokenKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: `${systemRule}\n\nQuestion: ${userMessage}` }] }] })
+                });
+                const d = await response.json(); return d.candidates[0].content.parts[0].text;
+            } catch (e) { return "I hit a data routing bottleneck. Email him directly at jayasankar4projects@gmail.com!"; }
+        }
+
+        async function handleUserMessage(event) {
+            event.preventDefault();
+            const inp = document.getElementById('chat-input');
+            const txt = inp.value.trim(); if(!txt) return;
+            const stream = document.getElementById('chat-stream');
+
+            stream.insertAdjacentHTML('beforeend', `<div class="flex gap-2.5 items-start max-w-[85%] ml-auto justify-end"><div class="bg-blue-600 text-white px-3 py-2.5 rounded-2xl rounded-tr-none text-xs">${txt}</div></div>`);
+            inp.value = ''; stream.scrollTop = stream.scrollHeight;
+
+            const lid = 'load-' + Date.now();
+            stream.insertAdjacentHTML('beforeend', `<div id="${lid}" class="flex gap-2.5 items-start max-w-[85%]"><div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div><div class="bg-white border border-neutral-200 px-3 py-2 rounded-2xl text-xs text-neutral-400 animate-pulse">● ● ●</div></div>`);
+            stream.scrollTop = stream.scrollHeight;
+
+            const reply = await fetchGeminiAIResponse(txt);
+            document.getElementById(lid)?.remove();
+            stream.insertAdjacentHTML('beforeend', `<div class="flex gap-2.5 items-start max-w-[85%]"><div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div><div class="bg-white border border-neutral-200 px-3 py-2.5 rounded-2xl rounded-tl-none text-xs text-neutral-700 leading-relaxed">${reply}</div></div>`);
+            stream.scrollTop = stream.scrollHeight;
         }
     </script>
 </body>
