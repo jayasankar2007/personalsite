@@ -3,7 +3,7 @@ name: "AI Admin Control Engine"
 on:
   push:
     paths:
-      - 'ai_instructions.txt' # Triggers the AI agent when you edit this file
+      - 'ai_instructions.txt'
 
 jobs:
   process_ai_changes:
@@ -14,44 +14,60 @@ jobs:
         with:
           token: ${{ secrets.ADMIN_PAT }}
 
-      - name: Initialize AI Context Processor
-        uses: google-github-actions/setup-gcloud@v2
-
-      - name: Execute AI Semantic Extraction Analysis
+      - name: Execute Gemini API Text Processing
         id: ai_agent
         run: |
-          # Read your plain English input text
+          # Read plain text user prompt
           USER_PROMPT=$(cat ai_instructions.txt)
-          echo "Processing user command: $USER_PROMPT"
           
-          # Read current live site state
+          # Read current state payload
           CURRENT_DATA=$(cat data.json)
           
-          # System prompt instructing the AI framework how to return strict data structure output
-          SYSTEM_INSTRUCTION="You are an automated portfolio data parser. Read the user's natural language updates and merge them into the existing JSON structure. You must output ONLY a raw, valid JSON object matching the keys exactly. Do not output markdown fences or conversational text."
+          # Combine instructions into a clean prompt format
+          SYSTEM_INSTRUCTION="You are an automated portfolio database parser. Read the user's update request and merge it into the existing JSON structure. You must output ONLY a raw, valid JSON object matching the existing keys exactly: hero_title, hero_bio, linkedin_url, email. Do not include markdown formatting code blocks, backticks, or any conversational text. Output raw pure JSON text only."
           
-          # Execute a secure cURL request directly to the Gemini API layer using public server models
+          # Combine system guidelines with live parameters
+          PROMPT_BODY="System Guidelines: $SYSTEM_INSTRUCTION \n Current State Data: $CURRENT_DATA \n Modification Request: $USER_PROMPT"
+          
+          echo "Contacting Gemini API Layer..."
+          
+          # Make a direct, unencumbered API request straight to the Gemini server endpoint
           RESPONSE=$(curl -s -X POST "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${{ secrets.GEMINI_API_KEY }}" \
             -H "Content-Type: application/json" \
             -d "{
               \"contents\": [{
                 \"parts\": [{
-                  \"text\": \"System Instruction: $SYSTEM_INSTRUCTION\nCurrent Data: $CURRENT_DATA\nUser Request: $USER_PROMPT\"
+                  \"text\": $(echo -n "$PROMPT_BODY" | jq -R -s .)
                 }]
               }]
             }")
           
-          # Extract clean payload text out of response structure
-          CLEAN_JSON=$(echo "$RESPONSE" | jq -r '.candidates[0].content.parts[0].text' | tr -d '`' | sed 's/^json//g')
+          # Extract the text property out of the nested JSON answer structure
+          RAW_TEXT=$(echo "$RESPONSE" | jq -r '.candidates[0].content.parts[0].text')
           
-          # Validate and save JSON payload locally to repository root
-          echo "$CLEAN_JSON" | jq . > data.json
-          echo "AI successfully committed updates to state parameters."
+          # Strip out any lingering markdown code fences if the model accidentally prints them
+          CLEAN_JSON=$(echo "$RAW_TEXT" | sed 's/```json//g' | sed 's/```//g' | tr -d '\r')
+          
+          # Validate that it is safe, well-formed JSON before attempting a file overwrite
+          if echo "$CLEAN_JSON" | jq . > /dev/null 2>&1; then
+            echo "$CLEAN_JSON" | jq . > data.json
+            echo "Successfully parsed and saved fresh parameters."
+          else
+            echo "Error: Gemini response was not a valid raw JSON object."
+            echo "Raw Output received was: $RAW_TEXT"
+            exit 1
+          fi
 
-      - name: Commit and Push AI Synchronizations
+      - name: Push AI State Updates to Main
         run: |
           git config --global user.name "AI_Admin_Agent"
           git config --global user.email "ai-agent@vercel.updates"
-          git add data.json
-          git commit -m "automation: structural state adjustments updated via AI Admin Node"
-          git push
+          
+          # Check if changes were actually made to prevent empty commit errors
+          if ! git diff --exit-code data.json; then
+            git add data.json
+            git commit -m "automation: data.json properties updated via Gemini Engine Node"
+            git push
+          else
+            echo "No structural field changes detected. Skipping repository write push."
+          fi
