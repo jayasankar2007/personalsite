@@ -85,11 +85,12 @@
                 <!-- Hero Core Header Frame -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
                     <div class="md:col-span-2 space-y-6">
-                        <h1 class="text-4xl md:text-5xl font-display font-bold text-neutral-900 tracking-tight leading-none">
-                            Electronics engineer focusing on hardware architectures and dynamic automation.
+                        <!-- CMS TARGETS: Title and Bio elements are now dynamically populated via JavaScript below -->
+                        <h1 id="cms-hero-title" class="text-4xl md:text-5xl font-display font-bold text-neutral-900 tracking-tight leading-none">
+                            Loading...
                         </h1>
-                        <p class="text-base text-neutral-500 font-light leading-relaxed max-w-xl">
-                            Operating at the intersections of <span class="text-neutral-900 font-medium">Embedded System Architecture</span> and automated <span class="text-blue-600 font-medium">Agentic AI Workflows</span>. Architecting custom hardware retrofitting modifications and building autonomous logic routines.
+                        <p id="cms-hero-bio" class="text-base text-neutral-500 font-light leading-relaxed max-w-xl">
+                            Synchronizing terminal components...
                         </p>
                     </div>
 
@@ -127,7 +128,6 @@
                 </div>
 
                 <div class="space-y-8">
-                    <!-- Project Case Item 1 -->
                     <div class="p-8 bg-white border border-neutral-200 rounded-2xl shadow-sm space-y-4 hover:border-neutral-300 transition-all">
                         <div class="flex flex-wrap gap-2 justify-between items-start">
                             <div>
@@ -147,12 +147,10 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Project Case Item 2 -->
                         <div class="p-6 bg-white border border-neutral-200 rounded-2xl shadow-sm space-y-2">
                             <h4 class="font-bold text-neutral-900">Asynchronous IoT Threat Interceptor</h4>
                             <p class="text-xs text-neutral-500 font-light leading-relaxed">Assembled a physical secure tracking asset executing low-latency asynchronous server architectures on microprocessors to deploy localized relay warnings and alert vectors.</p>
                         </div>
-                        <!-- Project Case Item 3 -->
                         <div class="p-6 bg-white border border-neutral-200 rounded-2xl shadow-sm space-y-2">
                             <h4 class="font-bold text-neutral-900">Autonomous Agentic Automations</h4>
                             <p class="text-xs text-neutral-500 font-light leading-relaxed">Engineered production automated systems routines integrating multi-app logic modules and processing sequences to handle multi-step semantic actions without manual processing overhead.</p>
@@ -169,7 +167,6 @@
                 </div>
 
                 <div class="border-l-2 border-neutral-200 pl-6 space-y-10 relative left-1">
-                    <!-- Timeline Item 1 -->
                     <div class="space-y-2 relative">
                         <div class="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-white border-2 border-blue-600"></div>
                         <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-1">
@@ -179,7 +176,6 @@
                         <p class="text-xs text-neutral-500 font-light leading-relaxed max-w-2xl">Analyzed active plant telemetry networks, control mechanisms, and large-scale protection infrastructure systems in live utility grid nodes.</p>
                     </div>
 
-                    <!-- Timeline Item 2 -->
                     <div class="space-y-2 relative">
                         <div class="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-white border-2 border-blue-600"></div>
                         <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-1">
@@ -200,10 +196,11 @@
                 <p class="text-xs text-neutral-400 font-light">Available for engineering collaborations regarding hardware and automated loops.</p>
             </div>
             <div class="flex gap-4 shrink-0 font-medium text-xs">
-                <a href="mailto:jayasankar4projects@gmail.com" class="px-4 py-2.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 rounded-lg transition-colors">
+                <!-- CMS TARGETS: Contact actions are tied to dynamic script injections below -->
+                <a id="cms-email-btn" href="mailto:jayasankar4projects@gmail.com" class="px-4 py-2.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 rounded-lg transition-colors">
                     Email Terminal
                 </a>
-                <a href="https://www.linkedin.com/in/jayasankar-gnanadesigan-5642b932a/" target="_blank" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                <a id="cms-linkedin-btn" href="#" target="_blank" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
                     Connect LinkedIn ↗
                 </a>
             </div>
@@ -226,21 +223,34 @@
     <script>
         AOS.init({ once: true, offset: 20 });
 
+        // Dynamic CMS Content Pipeline Fetcher
+        fetch('./data.json')
+            .then(response => response.json())
+            .then(data => {
+                // Safely update DOM targets with fresh data values
+                if(data.hero_title) document.getElementById('cms-hero-title').innerText = data.hero_title;
+                if(data.hero_bio) document.getElementById('cms-hero-bio').innerHTML = data.hero_bio;
+                if(data.email) document.getElementById('cms-email-btn').href = `mailto:${data.email}`;
+                if(data.linkedin_url) document.getElementById('cms-linkedin-btn').href = data.linkedin_url;
+            })
+            .catch(error => {
+                console.error("CMS integration sync error:", error);
+                // Fallback messaging values if file fetching encounters roadblocks
+                document.getElementById('cms-hero-title').innerText = "Jayasankar Gnanadesigan";
+                document.getElementById('cms-hero-bio').innerText = "Operating at the vector intersections of Embedded System Architecture and automated Agentic AI Workflows.";
+            });
+
         function switchView(viewId) {
-            // Unmount active panels
             document.querySelectorAll('.view-panel').forEach(view => {
                 view.classList.remove('active-view');
             });
-            // Drop styling configurations from all tabs
             document.getElementById('nav-home').classList.remove('nav-active');
             document.getElementById('nav-deployments').classList.remove('nav-active');
             document.getElementById('nav-track').classList.remove('nav-active');
 
-            // Apply target active rules
             document.getElementById(`view-${viewId}`).classList.add('active-view');
             document.getElementById(`nav-${viewId}`).classList.add('nav-active');
             
-            // Instantly snap screen coordinates to top on panel shifts
             window.scrollTo({ top: 0, behavior: 'instant' });
             AOS.refresh();
         }
