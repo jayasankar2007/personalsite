@@ -1,1 +1,1 @@
-"Change my title to 'Embedded Systems Architect' and rewrite my bio to emphasize my hands-on work with ESP32 microcontrollers at Saveetha Engineering College. Keep the same LinkedIn link."
+Change my subtitle to Aspiring SDE
