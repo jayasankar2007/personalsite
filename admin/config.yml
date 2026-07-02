@@ -1,0 +1,20 @@
+backend:
+  name: github
+  repo: jayasankar2007/personalsite
+  branch: main # change to master if your default branch is master
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "portfolio"
+    label: "Portfolio Data"
+    files:
+      - file: "data.json"
+        name: "content"
+        label: "Homepage Content"
+        fields:
+          - { label: "Hero Title", name: "hero_title", widget: "string" }
+          - { label: "Hero Bio", name: "hero_bio", widget: "text" }
+          - { label: "LinkedIn URL", name: "linkedin_url", widget: "string" }
+          - { label: "Email Address", name: "email", widget: "string" }
