@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jayasankar Gnanadesigan // Portfolio Core</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Premium Display Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -28,31 +31,39 @@
         body {
             background-color: #030712;
         }
-        /* Glassmorphism panel styling */
+        /* High-End Custom Glassmorphism panel styling */
         .premium-glass {
-            background: rgba(17, 24, 39, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(11, 15, 25, 0.4);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .premium-glass:hover {
-            border-color: rgba(6, 182, 212, 0.2);
-            background: rgba(17, 24, 39, 0.6);
+            border-color: rgba(6, 182, 212, 0.25);
+            background: rgba(11, 15, 25, 0.65);
+            transform: translateY(-2px);
         }
-        /* Custom smooth scroll behavior */
-        html {
-            scroll-behavior: smooth;
+        /* Active Tab Styling State */
+        .active-tab {
+            color: #22d3ee !important;
+            border-color: #06b6d4 !important;
+            background: rgba(6, 182, 212, 0.05);
         }
     </style>
 </head>
 <body class="text-slate-300 antialiased relative min-h-screen overflow-x-hidden">
 
+    <!-- Interactive Background Glow Tracker Tool -->
     <div id="ambient-glow" class="absolute top-0 left-0 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-cyan-500/10 to-fuchsia-500/5 blur-[130px] pointer-events-none transition-transform duration-300 ease-out z-0"></div>
 
-    <div class="absolute inset-0 bg-[linear-gradient(to_right,#1f29370a_1px,transparent_1px),linear-gradient(to_bottom,#1f29370a_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none z-0"></div>
+    <!-- Fine Tech Grid Mesh Background Overlay -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#1f29370b_1px,transparent_1px),linear-gradient(to_bottom,#1f29370a_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none z-0"></div>
 
-    <div class="max-w-4xl mx-auto px-6 py-12 md:py-20 relative z-10">
+    <!-- Main Core Layout Wrapper -->
+    <div class="max-w-4xl mx-auto px-6 py-12 relative z-10">
         
+        <!-- Premium Floating Header Navigation -->
         <header class="flex justify-between items-center mb-28 sticky top-6 z-50 px-6 py-3 rounded-full premium-glass backdrop-blur-md" data-aos="fade-down" data-aos-duration="1000">
             <a href="#" class="font-mono text-xs font-semibold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-300">
                 JAYASANKAR.CORE //
@@ -64,11 +75,12 @@
             </nav>
         </header>
 
+        <!-- Cinematic Hero Identity Frame -->
         <main class="mb-36 space-y-8">
             <div class="flex flex-col-reverse md:flex-row md:items-center justify-between gap-10">
                 <div class="space-y-4 flex-grow" data-aos="fade-up" data-aos-duration="1200">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/30 border border-cyan-800/20 text-xs font-mono text-cyan-400">
-                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 stable status-pulse animate-pulse"></span>
                         SYSTEM ACTIVE // LIVE INTERFACE
                     </div>
                     
@@ -77,9 +89,10 @@
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-400 to-fuchsia-400">Gnanadesigan</span>
                     </h1>
                 </div>
+                <!-- Profile Image with Continuous Subtle Pulse Glow -->
                 <div class="shrink-0 flex justify-center md:justify-end" data-aos="zoom-in" data-aos-duration="1400">
-                    <div class="relative p-1 rounded-full bg-gradient-to-tr from-cyan-500/40 via-transparent to-fuchsia-500/30 shadow-2xl shadow-cyan-500/10">
-                        <img src="https://github.com/jayasankar2007/personalsite/blob/main/05%5B16%5D%20(1).jpg?raw=true" class="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover object-top border border-cyan-500/20 shadow-xl shadow-cyan-500/5 hover:scale-105 transition-transform duration-300">
+                    <div class="relative p-1 rounded-full bg-gradient-to-tr from-cyan-500/40 via-transparent to-fuchsia-500/30 shadow-xl shadow-cyan-500/10">
+                       <img src="https://github.com/jayasankar2007/personalsite/blob/main/05%5B16%5D%20(1).jpg?raw=true" class="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover object-top border border-cyan-500/20 shadow-xl shadow-cyan-500/5 hover:scale-105 transition-transform duration-300">
                     </div>
                 </div>
             </div>
@@ -101,14 +114,15 @@
             </div>
         </main>
 
+        <!-- Chronological Track Record -->
         <section id="experience" class="mb-36 space-y-12">
             <div class="space-y-2" data-aos="fade-right">
                 <p class="font-mono text-xs font-semibold uppercase tracking-widest text-cyan-400">01 // OPERATIONS</p>
                 <h2 class="text-3xl font-display font-bold text-white tracking-tight">Professional Track</h2>
             </div>
 
-            <div class="space-y-6 relative">
-                <div class="p-6 rounded-2xl premium-glass transition-all duration-300 group" data-aos="fade-up" data-aos-duration="1000">
+            <div class="space-y-6">
+                <div class="p-6 rounded-2xl premium-glass group" data-aos="fade-up" data-aos-duration="1000">
                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-2 mb-3">
                         <h3 class="text-lg font-semibold text-white group-hover:text-cyan-400 transition-colors">Engineering Intern — SEIL Energy India Limited</h3>
                         <span class="text-xs font-mono text-slate-500 bg-slate-900/80 px-2.5 py-1 rounded border border-slate-800">Jul 2025 – Aug 2025</span>
@@ -118,7 +132,7 @@
                     </p>
                 </div>
 
-                <div class="p-6 rounded-2xl premium-glass transition-all duration-300 group" data-aos="fade-up" data-aos-duration="1000">
+                <div class="p-6 rounded-2xl premium-glass group" data-aos="fade-up" data-aos-duration="1000">
                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-2 mb-3">
                         <h3 class="text-lg font-semibold text-white group-hover:text-cyan-400 transition-colors">Workshop Trainer — Agentic AI Automation</h3>
                         <span class="text-xs font-mono text-slate-500 bg-slate-900/80 px-2.5 py-1 rounded border border-slate-800">Technical Presenter</span>
@@ -130,6 +144,7 @@
             </div>
         </section>
 
+        <!-- Premium Deployments Framework -->
         <section id="projects" class="mb-36 space-y-12">
             <div class="space-y-2" data-aos="fade-right">
                 <p class="font-mono text-xs font-semibold uppercase tracking-widest text-cyan-400">02 // ARCHITECTURE</p>
@@ -137,18 +152,19 @@
             </div>
 
             <div class="grid grid-cols-1 gap-6">
-                <div class="p-8 rounded-2xl premium-glass transition-all duration-500 group relative overflow-hidden" data-aos="fade-up" data-aos-duration="1200">
+                <!-- Deployment Card 1: SafeStitch -->
+                <div class="p-8 rounded-2xl premium-glass group relative overflow-hidden" data-aos="fade-up" data-aos-duration="1200">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-cyan-500/5 to-transparent rounded-bl-full pointer-events-none"></div>
                     
-                    <div class="flex flex-wrap gap-2 items-center justify-between mb-4">
+                    <div class="flex flex-wrap gap-3 items-center justify-between mb-4">
                         <h3 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">
                             Safety-Enhanced Stitching Machine Ecosystem
                         </h3>
-                        <div class="flex gap-2">
-                            <span class="text-[10px] font-mono font-medium text-emerald-400 bg-emerald-950/40 px-2.5 py-1 rounded border border-emerald-900/30">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-[10px] font-mono font-medium text-emerald-400 bg-emerald-950/40 px-2.5 py-1 rounded border border-emerald-900/30 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
                                 🥇 1st Prize (Mini Project)
                             </span>
-                            <span class="text-[10px] font-mono font-medium text-cyan-400 bg-cyan-950/40 px-2.5 py-1 rounded border border-cyan-900/30">
+                            <span class="text-[10px] font-mono font-medium text-cyan-400 bg-cyan-950/40 px-2.5 py-1 rounded border border-cyan-900/30 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
                                 Stage 1 Verified (Ideathon '26)
                             </span>
                         </div>
@@ -161,7 +177,8 @@
                     </div>
                 </div>
 
-                <div class="p-8 rounded-2xl premium-glass transition-all duration-500 group relative overflow-hidden" data-aos="fade-up" data-aos-duration="1200">
+                <!-- Deployment Card 2: Burglar Alarm -->
+                <div class="p-8 rounded-2xl premium-glass group relative overflow-hidden" data-aos="fade-up" data-aos-duration="1200">
                     <div class="flex justify-between items-start mb-4">
                         <h3 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">
                             Asynchronous IoT Threat Interceptor
@@ -176,7 +193,8 @@
                     </div>
                 </div>
 
-                <div class="p-8 rounded-2xl premium-glass transition-all duration-500 group relative overflow-hidden" data-aos="fade-up" data-aos-duration="1200">
+                <!-- Deployment Card 3: Agentic AI -->
+                <div class="p-8 rounded-2xl premium-glass group relative overflow-hidden" data-aos="fade-up" data-aos-duration="1200">
                     <div class="flex justify-between items-start mb-4">
                         <h3 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">
                             Autonomous Agentic Flows
@@ -193,32 +211,34 @@
             </div>
         </section>
 
-        <section id="skills" class="mb-36 space-y-12" data-aos="fade-up" data-aos-duration="1200">
+        <!-- Advanced Technical Matrix via JavaScript Controlled Filtering Tabs -->
+        <section id="skills" class="mb-36 space-y-8" data-aos="fade-up" data-aos-duration="1200">
             <div class="space-y-2">
-                <p class="font-mono text-xs font-semibold uppercase tracking-widest text-cyan-400">03 // LOGIC PACKETS</p>
+                <p class="font-mono text-xs font-semibold uppercase tracking-widest text-cyan-400">03 // CORE PACKETS</p>
                 <h2 class="text-3xl font-display font-bold text-white tracking-tight">Technical Matrix</h2>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="p-5 rounded-xl bg-gradient-to-br from-slate-900/60 to-slate-950/80 border border-slate-900 space-y-2 hover:border-cyan-500/20 transition-colors">
-                    <div class="text-white font-medium text-sm tracking-wide">Hardware Architecture</div>
-                    <div class="text-slate-400 text-xs leading-relaxed font-light">ESP32 microprocessors, Arduino integration ecosystems, sensor array calibration, physical automated relay arrays.</div>
-                </div>
-                <div class="p-5 rounded-xl bg-gradient-to-br from-slate-900/60 to-slate-950/80 border border-slate-900 space-y-2 hover:border-cyan-500/20 transition-colors">
-                    <div class="text-white font-medium text-sm tracking-wide">Core Compilation</div>
-                    <div class="text-slate-400 text-xs leading-relaxed font-light">Embedded C optimizations, Python development scripting languages, firmware flashing via native Arduino compiler nodes.</div>
-                </div>
-                <div class="p-5 rounded-xl bg-gradient-to-br from-slate-900/60 to-slate-950/80 border border-slate-900 space-y-2 hover:border-cyan-500/20 transition-colors">
-                    <div class="text-white font-medium text-sm tracking-wide">Autonomous Engine Routing</div>
-                    <div class="text-slate-400 text-xs leading-relaxed font-light">Multi-tier Make.com orchestration layouts, targeted prompt structuring arrays, dynamic integration workflows.</div>
-                </div>
-                <div class="p-5 rounded-xl bg-gradient-to-br from-slate-900/60 to-slate-950/80 border border-slate-900 space-y-2 hover:border-cyan-500/20 transition-colors">
-                    <div class="text-white font-medium text-sm tracking-wide">Circuit Simulation Nodes</div>
-                    <div class="text-slate-400 text-xs leading-relaxed font-light">Schematic evaluation using Cadence Virtuoso terminals, micro-tier circuit routing via LTSpice processing maps.</div>
-                </div>
+            <!-- Custom Modern Sub-Tab Toolbar Component -->
+            <div class="flex gap-2 border-b border-slate-900 pb-3 font-mono text-xs overflow-x-auto">
+                <button onclick="switchTab('hardware')" id="btn-hardware" class="active-tab px-4 py-2 rounded-lg text-slate-400 border border-transparent hover:text-white transition-all">
+                    /hardware-iot
+                </button>
+                <button onclick="switchTab('logic')" id="btn-logic" class="px-4 py-2 rounded-lg text-slate-400 border border-transparent hover:text-white transition-all">
+                    /ai-logic
+                </button>
+                <button onclick="switchTab('simulation')" id="btn-simulation" class="px-4 py-2 rounded-lg text-slate-400 border border-transparent hover:text-white transition-all">
+                    /eda-simulation
+                </button>
+            </div>
+
+            <!-- Dynamic Tab Content Displays -->
+            <div id="tab-content" class="min-h-[140px] p-6 rounded-2xl bg-gradient-to-br from-slate-900/50 to-slate-950/80 border border-slate-900/60 flex flex-col justify-center transition-all duration-300">
+                <div id="content-title" class="text-white font-medium text-base tracking-wide mb-2">Hardware Architecture</div>
+                <div id="content-desc" class="text-slate-400 text-sm leading-relaxed font-light">ESP32 microprocessors, Arduino integration ecosystems, sensor array calibration, physical automated relay arrays, and asynchronous microchip data packets.</div>
             </div>
         </section>
 
+        <!-- Premium Network Action Panel -->
         <section class="mb-20" data-aos="zoom-in" data-aos-duration="1200">
             <div class="p-10 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900 to-cyan-950/20 border border-slate-800/40 text-center space-y-6 relative overflow-hidden">
                 <div class="absolute -top-24 -left-24 w-48 h-48 rounded-full bg-cyan-500/5 blur-3xl pointer-events-none"></div>
@@ -236,6 +256,7 @@
             </div>
         </section>
 
+        <!-- Institutional Footer Layout -->
         <footer class="pt-8 border-t border-slate-900 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-mono text-slate-600">
             <div>
                 © 2026 // JAYASANKAR GNANADESIGAN.
@@ -249,6 +270,7 @@
 
     </div>
 
+    <!-- Animation and Interactive Matrix Controls Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
@@ -256,13 +278,50 @@
             offset: 80
         });
 
-        // Advanced Mouse tracking spotlight backdrop animation logic
+        // Advanced Mouse Tracking Spotlight Script
         const glowElement = document.getElementById('ambient-glow');
         document.addEventListener('mousemove', (e) => {
             const x = e.clientX - 300;
             const y = e.clientY - 300;
             glowElement.style.transform = `translate3d(${x}px, ${y}px, 0)`;
         });
+
+        // Data Package for Matrix Interactive Tab Switcher
+        const tabData = {
+            hardware: {
+                title: "Hardware & Embedded IoT Architecture",
+                desc: "ESP32 microprocessors, Arduino integration ecosystems, sensor array calibration, physical automated relay arrays, and asynchronous microchip telemetry tracking loops."
+            },
+            logic: {
+                title: "Core Programming & AI Logic Workflows",
+                desc: "Optimized Embedded C compiling, Python data automation, cross-platform firmware execution loops, and autonomous multi-step orchestration workflows configured across Make.com engines."
+            },
+            simulation: {
+                title: "EDA Circuit Modeling & Verification Nodes",
+                desc: "Precision micro-tier electrical blueprinting using Cadence Virtuoso terminal pipelines and structural electronic signal simulation configurations via LTSpice maps."
+            }
+        };
+
+        // JavaScript Interface Interactive Controller for Tab Swapping Engine
+        function switchTab(tabKey) {
+            // Remove active classes from all tab nodes
+            document.getElementById('btn-hardware').classList.remove('active-tab');
+            document.getElementById('btn-logic').classList.remove('active-tab');
+            document.getElementById('btn-simulation').classList.remove('active-tab');
+            
+            // Apply active class highlight to targeted node trigger
+            document.getElementById(`btn-${tabKey}`).classList.add('active-tab');
+            
+            // Apply fluid opacity reveal transition effects during content injections
+            const container = document.getElementById('tab-content');
+            container.style.opacity = '0';
+            
+            setTimeout(() => {
+                document.getElementById('content-title').innerText = tabData[tabKey].title;
+                document.getElementById('content-desc').innerText = tabData[tabKey].desc;
+                container.style.opacity = '1';
+            }, 150);
+        }
     </script>
 </body>
 </html>
