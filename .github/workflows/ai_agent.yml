@@ -17,17 +17,21 @@ jobs:
       - name: Execute Gemini API Text Processing
         id: ai_agent
         run: |
+          # Read raw user content blocks
           USER_PROMPT=$(cat ai_instructions.txt)
+          
+          # Check if data.json is empty or valid. If missing, create a template profile
+          if [ ! -s data.json ] || ! jq . data.json >/dev/null 2>&1; then
+            echo '{"hero_title":"Jayasankar Gnanadesigan","hero_bio":"Embedded Systems Architect","linkedin_url":"#","email":"jayasankar4projects@gmail.com"}' > data.json
+          fi
           CURRENT_DATA=$(cat data.json)
           
-          # Upgraded system prompt forcing raw JSON string compilation
-          SYSTEM_INSTRUCTION="You are a data parser. Combine the user changes into the current data structure. You must output a raw JSON object with keys exactly matching: hero_title, hero_bio, linkedin_url, email. Do NOT include markdown fences, backticks, or text before/after the object. Example output: {\"hero_title\":\"Text\",\"hero_bio\":\"Text\",\"linkedin_url\":\"Link\",\"email\":\"Mail\"}"
-          
+          SYSTEM_INSTRUCTION="You are a strict data formatter. Combine the user changes into the current json properties. You must output a single, raw valid JSON object with keys matching exactly: hero_title, hero_bio, linkedin_url, email. Do NOT include markdown blocks, backticks, or any explanatory text. Output pure JSON only."
           PROMPT_BODY="System Guidelines: $SYSTEM_INSTRUCTION \n Current State Data: $CURRENT_DATA \n Modification Request: $USER_PROMPT"
           
-          echo "Contacting Gemini API Layer..."
+          echo "Contacting Gemini API Engine Layer..."
           
-          RESPONSE=$(curl -s -X POST "[https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$](https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$){{ secrets.GEMINI_API_KEY }}" \
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${{ secrets.GEMINI_API_KEY }}" \
             -H "Content-Type: application/json" \
             -d "{
               \"contents\": [{
@@ -37,25 +41,37 @@ jobs:
               }]
             }")
           
-          # Robust data cleaning pipeline
-          RAW_TEXT=$(echo "$RESPONSE" | jq -r '.candidates[0].content.parts[0].text')
+          # Separate out payload strings from return codes
+          HTTP_STATUS=$(echo "$RESPONSE" | tail -n1)
+          RAW_RESPONSE=$(echo "$RESPONSE" | sed '$d')
           
-          # Strip backticks, json blocks, leading/trailing white spaces, and newlines
+          if [ "$HTTP_STATUS" -ne 200 ]; then
+            echo "API Server connection obstacle encountered. HTTP Status: $HTTP_STATUS"
+            exit 1
+          fi
+          
+          # Extract the textual property element out safely
+          RAW_TEXT=$(echo "$RAW_RESPONSE" | jq -r '.candidates[0].content.parts[0].text // empty')
+          
+          if [ -z "$RAW_TEXT" ]; then
+            echo "Warning: Received empty text packet payload from AI model layers."
+            exit 1
+          fi
+          
+          # Self-cleaning string logic lines
           CLEAN_JSON=$(echo "$RAW_TEXT" | sed 's/```json//g' | sed 's/```//g' | tr -d '\r' | tr -d '\n' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
           
-          # Validate layout structure before committing
           if echo "$CLEAN_JSON" | jq . > /dev/null 2>&1; then
             echo "$CLEAN_JSON" | jq . > data.json
-            echo "Successfully parsed and saved fresh parameters."
+            echo "Parameters successfully synchronized."
           else
-            echo "Format Mismatch. Attempting emergency extraction..."
-            # Regex fallback tool if Gemini still appends markdown lines
+            # Emergency positional regex extraction block
             EXTRACTED_JSON=$(echo "$RAW_TEXT" | grep -o '{.*}')
             if echo "$EXTRACTED_JSON" | jq . > /dev/null 2>&1; then
               echo "$EXTRACTED_JSON" | jq . > data.json
               echo "Emergency extraction successful."
             else
-              echo "Error: Output structural integrity check failed."
+              echo "Structural verification error. Raw output: $RAW_TEXT"
               exit 1
             fi
           fi
@@ -67,8 +83,8 @@ jobs:
           
           if ! git diff --exit-code data.json; then
             git add data.json
-            git commit -m "automation: data.json properties updated via Gemini Engine Node"
+            git commit -m "automation: data.json updated via Gemini Engine Node"
             git push
           else
-            echo "No changes detected."
+            echo "No changes detected to push."
           fi
