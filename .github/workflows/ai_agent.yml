@@ -17,10 +17,8 @@ jobs:
       - name: Execute Gemini API Text Processing
         id: ai_agent
         run: |
-          # Read raw user content blocks
           USER_PROMPT=$(cat ai_instructions.txt)
           
-          # Check if data.json is empty or valid. If missing, create a template profile
           if [ ! -s data.json ] || ! jq . data.json >/dev/null 2>&1; then
             echo '{"hero_title":"Jayasankar Gnanadesigan","hero_bio":"Embedded Systems Architect","linkedin_url":"#","email":"jayasankar4projects@gmail.com"}' > data.json
           fi
@@ -31,7 +29,7 @@ jobs:
           
           echo "Contacting Gemini API Engine Layer..."
           
-          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${{ secrets.GEMINI_API_KEY }}" \
+          RESPONSE=$(curl -s -X POST "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${{ secrets.GEMINI_API_KEY }}" \
             -H "Content-Type: application/json" \
             -d "{
               \"contents\": [{
@@ -41,37 +39,28 @@ jobs:
               }]
             }")
           
-          # Separate out payload strings from return codes
-          HTTP_STATUS=$(echo "$RESPONSE" | tail -n1)
-          RAW_RESPONSE=$(echo "$RESPONSE" | sed '$d')
+          # DIAGNOSTIC: Print out raw response to logs if execution hits a roadblock
+          echo "===== RAW API RESPONSE FROM GOOGLE ====="
+          echo "$RESPONSE"
+          echo "========================================"
           
-          if [ "$HTTP_STATUS" -ne 200 ]; then
-            echo "API Server connection obstacle encountered. HTTP Status: $HTTP_STATUS"
-            exit 1
-          fi
-          
-          # Extract the textual property element out safely
-          RAW_TEXT=$(echo "$RAW_RESPONSE" | jq -r '.candidates[0].content.parts[0].text // empty')
+          RAW_TEXT=$(echo "$RESPONSE" | jq -r '.candidates[0].content.parts[0].text // empty')
           
           if [ -z "$RAW_TEXT" ]; then
-            echo "Warning: Received empty text packet payload from AI model layers."
+            echo "API structural failure or invalid API key. Read response printout above."
             exit 1
           fi
           
-          # Self-cleaning string logic lines
           CLEAN_JSON=$(echo "$RAW_TEXT" | sed 's/```json//g' | sed 's/```//g' | tr -d '\r' | tr -d '\n' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
           
           if echo "$CLEAN_JSON" | jq . > /dev/null 2>&1; then
             echo "$CLEAN_JSON" | jq . > data.json
-            echo "Parameters successfully synchronized."
           else
-            # Emergency positional regex extraction block
             EXTRACTED_JSON=$(echo "$RAW_TEXT" | grep -o '{.*}')
             if echo "$EXTRACTED_JSON" | jq . > /dev/null 2>&1; then
               echo "$EXTRACTED_JSON" | jq . > data.json
-              echo "Emergency extraction successful."
             else
-              echo "Structural verification error. Raw output: $RAW_TEXT"
+              echo "Parsing failure."
               exit 1
             fi
           fi
