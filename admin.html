@@ -3,229 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instant Modular Panel Console</title>
+    <title>Master Control Console // Core Terminal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #060911; }
+        body { font-family: 'Inter', sans-serif; background-color: #0b0f19; }
         .font-display { font-family: 'Space Grotesk', sans-serif; }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+        .tab-btn.active { background-color: #2563eb; color: white; border-color: #2563eb; }
     </style>
 </head>
 <body class="text-slate-200 min-h-screen py-10 px-4 flex flex-col items-center">
 
-    <div class="w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-6">
+    <div class="w-full max-w-3xl bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-6">
         
-        <!-- DASHBOARD HEADER SECURITY LINE -->
-        <div class="border-b border-slate-800 pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <!-- DASHBOARD HEADER -->
+        <div class="border-b border-slate-800 pb-4 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
             <div>
-                <h1 class="text-xl font-display font-bold text-white tracking-tight flex items-center gap-2">
-                    <span>⚡</span> Precision Micro-Patch Panel
+                <h1 class="text-2xl font-display font-bold text-white tracking-tight flex items-center gap-2">
+                    <span>⚡</span> Core Terminal Panel
                 </h1>
-                <p class="text-xs text-slate-500 mt-1">Saves changes instantly item-by-item without disturbing the rest of your site layout.</p>
+                <p class="text-xs text-slate-500 mt-1">Full-stack autonomous administration panel connected straight to GitHub APIs.</p>
             </div>
             
-            <div class="w-full md:w-64 space-y-1">
-                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400">GitHub Access Token (PAT)</label>
+            <!-- SECURE CREDENTIAL TOKEN INPUT -->
+            <div class="w-full sm:w-64 space-y-1">
+                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400">GitHub Token (PAT)</label>
                 <input id="github-token" type="password" placeholder="ghp_..." class="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-slate-300 transition-all">
             </div>
         </div>
 
-        <!-- GLOBAL OPERATION NOTIFICATION BOX -->
+        <!-- CONTROL PANELS VIEW TABS ROUTER -->
+        <div class="flex flex-wrap gap-2 border-b border-slate-800 pb-4">
+            <button onclick="switchTab('profile')" id="btn-profile" class="tab-btn active px-4 py-2 text-xs font-bold rounded-lg border border-slate-800 text-slate-400 hover:text-white transition-all">
+                👤 Profile Data
+            </button>
+            <button onclick="switchTab('resume')" id="btn-resume" class="tab-btn px-4 py-2 text-xs font-bold rounded-lg border border-slate-800 text-slate-400 hover:text-white transition-all">
+                🤖 Chatbot Knowledge Base
+            </button>
+        </div>
+
+        <!-- STATUS BOX NOTIFICATION VECTOR -->
         <div id="status-box" class="hidden text-xs p-3 rounded-xl border font-mono"></div>
 
-        <!-- CORE LAYOUT WORKING TILES -->
-        <div class="space-y-6">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider font-mono">🧱 Isolated Layout Sub-Modules</h2>
-                <button onclick="addNewViewField()" class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg transition-all">
-                    + Insert New Page Window
+        <!-- TAB 1: SITE PROFILE PARAMETERS DATA EDITOR -->
+        <div id="panel-profile" class="tab-panel active space-y-4">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-sm font-bold text-slate-300 uppercase tracking-wider">01 // Primary Information Fields</h2>
+                    <p class="text-xs text-slate-500">Updates profile content fields directly without touching your resume file.</p>
+                </div>
+                <button onclick="saveProfileData(this)" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-md">
+                    Update Profile Only ↗
+                </button>
+            </div>
+            
+            <div class="space-y-4 pt-2">
+                <div class="space-y-1.5">
+                    <label class="block text-xs font-medium text-slate-400">Main Title Heading</label>
+                    <input id="form-title" type="text" required class="w-full text-sm px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white">
+                </div>
+
+                <div class="space-y-1.5">
+                    <label class="block text-xs font-medium text-slate-400">Biography Summary Box</label>
+                    <textarea id="form-bio" rows="4" required class="w-full text-sm px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white font-mono resize-none"></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label class="block text-xs font-medium text-slate-400">LinkedIn Profile Link</label>
+                        <input id="form-linkedin" type="url" required class="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="block text-xs font-medium text-slate-400">Contact Email Address</label>
+                        <input id="form-email" type="email" required class="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: RESUME CONTEXT TEXT BASE -->
+        <div id="panel-resume" class="tab-panel space-y-4">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-sm font-bold text-slate-300 uppercase tracking-wider">02 // Chatbot Cognitive Engine Alignment</h2>
+                    <p class="text-xs text-slate-500">Edit the reference material your AI assistant reviews without altering your profile content.</p>
+                </div>
+                <button onclick="saveResumeContext(this)" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-md">
+                    Update Chatbot Data Only ↗
                 </button>
             </div>
 
-            <div id="workspace-container" class="space-y-6">
-                <!-- JavaScript automatically mounts structural editor tiles here -->
-                <p class="text-xs text-slate-500 italic animate-pulse">Syncing matrix modules from repository maps...</p>
+            <div class="space-y-4 pt-2">
+                <div class="space-y-1.5">
+                    <label class="block text-xs font-medium text-slate-400">Master Text Context Document</label>
+                    <textarea id="form-context" rows="12" required placeholder="Paste complete details, milestones, project lists, and phone numbers..." class="w-full text-xs p-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white font-mono leading-relaxed resize-none"></textarea>
+                </div>
             </div>
         </div>
 
     </div>
 
+    <!-- MAIN ENGINE CONTROLLER SCRIPT CONNECTORS -->
     <script>
         const REPO = "jayasankar2007/personalsite";
-        let currentFileSha = "";
-        let siteStructureMap = { profile: {}, custom_views: [] };
+        let profileSha = "";
+        let resumeSha = "";
 
-        window.addEventListener('DOMContentLoaded', async () => {
+        window.addEventListener('DOMContentLoaded', () => {
             const savedToken = localStorage.getItem('admin_git_token');
             if(savedToken) document.getElementById('github-token').value = savedToken;
-            await loadSystemDataMap();
+            
+            fetchCurrentProfileData();
+            fetchCurrentResumeContext();
         });
 
-        async function loadSystemDataMap() {
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(`panel-${tabId}`).classList.add('active');
+            document.getElementById(`btn-${tabId}`).classList.add('active');
+        }
+
+        async function fetchCurrentProfileData() {
             try {
                 const res = await fetch(`https://api.github.com/repos/${REPO}/contents/data.json`);
                 if(!res.ok) return;
-                const fileObj = await res.json();
-                currentFileSha = fileObj.sha;
-                siteStructureMap = JSON.parse(atob(fileObj.content));
+                const fileData = await res.json();
+                profileSha = fileData.sha;
                 
-                // Set default views if clean array missing
-                if(!siteStructureMap.custom_views) siteStructureMap.custom_views = [];
-                
-                renderInteractiveWorkspace();
+                const content = JSON.parse(atob(fileData.content));
+                document.getElementById('form-title').value = content.hero_title || '';
+                document.getElementById('form-bio').value = content.hero_bio || '';
+                document.getElementById('form-linkedin').value = content.linkedin_url || '';
+                document.getElementById('form-email').value = content.email || '';
             } catch (err) {
-                showStatus("Failed connection routine loading system property files.", "error");
+                showStatus("Failed connection to profile data targets.", "error");
             }
         }
 
-        function renderInteractiveWorkspace() {
-            const container = document.getElementById('workspace-container');
-            container.innerHTML = "";
-
-            // 1. ISOLATED PROFILE BLOCK COMPONENT WITH LOCALIZED SAVE
-            let profileHtml = `
-                <div class="p-5 bg-slate-950 border border-slate-800 rounded-xl space-y-4 relative">
-                    <div class="flex justify-between items-center border-b border-slate-900 pb-2">
-                        <span class="text-xs font-bold text-blue-400 font-mono">👤 PROFILE PARAMETER OBJECT</span>
-                        <button onclick="patchProfileComponent(this)" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-1.5 rounded-lg transition-all flex items-center gap-1 shadow-md shadow-blue-950/50">
-                            Save Profile Only ↗
-                        </button>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div class="space-y-1"><label class="text-[10px] uppercase font-mono tracking-wider text-slate-500">Hero Title</label><input type="text" id="core-title" value="${siteStructureMap.profile?.hero_title || ''}" class="w-full text-xs p-2 bg-slate-900 border border-slate-800 rounded text-white"></div>
-                        <div class="space-y-1"><label class="text-[10px] uppercase font-mono tracking-wider text-slate-500">Contact Email</label><input type="text" id="core-email" value="${siteStructureMap.profile?.email || ''}" class="w-full text-xs p-2 bg-slate-900 border border-slate-800 rounded text-white"></div>
-                        <div class="space-y-1 sm:col-span-2"><label class="text-[10px] uppercase font-mono tracking-wider text-slate-500">LinkedIn URL Path</label><input type="text" id="core-linkedin" value="${siteStructureMap.profile?.linkedin_url || ''}" class="w-full text-xs p-2 bg-slate-900 border border-slate-800 rounded text-white"></div>
-                        <div class="space-y-1 sm:col-span-2"><label class="text-[10px] uppercase font-mono tracking-wider text-slate-500">Biography Core Block Description</label><textarea id="core-bio" rows="3" class="w-full text-xs p-2 bg-slate-900 border border-slate-800 rounded text-white resize-none font-mono leading-relaxed">${siteStructureMap.profile?.hero_bio || ''}</textarea></div>
-                    </div>
-                </div>
-            `;
-            container.insertAdjacentHTML('beforeend', profileHtml);
-
-            // 2. ISOLATED APPS WINDOW TILES WITH INDEPENDENT UPDATE BUTTONS
-            siteStructureMap.custom_views.forEach((view, index) => {
-                let viewCard = `
-                    <div class="p-5 bg-slate-950 border border-slate-800 rounded-xl space-y-4 relative">
-                        <div class="flex flex-wrap justify-between items-center border-b border-slate-900 pb-2 gap-2">
-                            <div class="flex items-center gap-2">
-                                <span class="text-xs font-bold text-amber-500 font-mono">🗔 SECTION WINDOW // [${index}]</span>
-                                <input type="text" id="view-name-${index}" value="${view.name}" class="text-xs font-bold bg-slate-900 border border-slate-700 px-2 py-0.5 rounded text-white w-32">
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <button onclick="deleteViewWindow(${index}, this)" class="text-red-400 hover:text-red-300 text-xs font-bold font-mono px-1">✕ Delete Section</button>
-                                <button onclick="patchViewWindowComponent(${index}, this)" class="bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold px-4 py-1.5 rounded-lg transition-all flex items-center gap-1 shadow-md shadow-amber-950/50">
-                                    Save This Window ↗
-                                </button>
-                            </div>
-                        </div>
-                        <div class="space-y-1">
-                            <label class="block text-[10px] uppercase font-mono tracking-wider text-slate-500">HTML Dynamic Body Blueprint Content</label>
-                            <textarea id="view-content-${index}" rows="6" class="w-full text-xs p-3 bg-slate-900 border border-slate-800 rounded text-white font-mono leading-relaxed resize-none">${view.content}</textarea>
-                        </div>
-                    </div>
-                `;
-                container.insertAdjacentHTML('beforeend', viewCard);
-            });
-        }
-
-        // PATCH EXECUTION: MODIFIES ONLY THE PROFILE ELEMENT BLOCK VALUES
-        async function patchProfileComponent(btnHandle) {
-            const token = getValidToken(); if(!token) return;
-            setBtnLoadingState(btnHandle, true, "Saving...");
-
-            siteStructureMap.profile = {
-                hero_title: document.getElementById('core-title').value,
-                hero_bio: document.getElementById('core-bio').value,
-                email: document.getElementById('core-email').value,
-                linkedin_url: document.getElementById('core-linkedin').value
-            };
-
-            await pushDatabaseMutation(token, btnHandle, "profile node structural property alignment");
-        }
-
-        // PATCH EXECUTION: MODIFIES ONLY THE TARGET VIEW SUB-ARRAY NODE VALUE
-        async function patchViewWindowComponent(index, btnHandle) {
-            const token = getValidToken(); if(!token) return;
-            setBtnLoadingState(btnHandle, true, "Saving...");
-
-            const updatedName = document.getElementById(`view-name-${index}`).value;
-            siteStructureMap.custom_views[index] = {
-                id: updatedName.toLowerCase().replace(/[^a-z0-9]/g, ''),
-                name: updatedName,
-                active: index === 0,
-                content: document.getElementById(`view-content-${index}`).value
-            };
-
-            await pushDatabaseMutation(token, btnHandle, `window node configuration adjustments pushed to view [${index}]`);
-        }
-
-        // NEW MODULE GENERATION
-        function addNewViewField() {
-            siteStructureMap.custom_views.push({
-                id: "window" + Date.now().toString().slice(-3),
-                name: "New Page Tab",
-                active: false,
-                content: `<div class="space-y-4">\n  <h2 class="text-xl font-display font-bold text-neutral-900">Custom Headline</h2>\n  <p class="text-xs text-neutral-500">Write custom content segments here.</p>\n</div>`
-            });
-            renderInteractiveWorkspace();
-            showStatus("New modular layout block added to your workspace workspace canvas container below. Click its dedicated save button to register it live.", "info");
-        }
-
-        // REMOVAL ROUTINE RUNNING DIRECTLY AGAINST TARGET NODE
-        async function deleteViewWindow(index, btnHandle) {
-            const token = getValidToken(); if(!token) return;
-            if(!confirm("Are you completely sure you want to drop this page section out of your live layout architecture tree?")) return;
-            
-            setBtnLoadingState(btnHandle, true, "Deleting...");
-            siteStructureMap.custom_views.splice(index, 1);
-            await pushDatabaseMutation(token, btnHandle, "structural component window sequence removal complete");
-        }
-
-        // UNILATERAL REST API TRANSLATION LAYER FOR COMMITTING LOCAL MUTATIONS
-        async function pushDatabaseMutation(token, btnHandle, logMessage) {
+        async function fetchCurrentResumeContext() {
             try {
-                const base64Content = btoa(unescape(encodeURIComponent(JSON.stringify(siteStructureMap, null, 2))));
-                const response = await fetch(`https://api.github.com/repos/${REPO}/contents/data.json`, {
+                const res = await fetch(`https://api.github.com/repos/${REPO}/contents/resume_context.txt`);
+                if(!res.ok) return;
+                const fileData = await res.json();
+                resumeSha = fileData.sha;
+                
+                document.getElementById('form-context').value = decodeURIComponent(escape(atob(fileData.content)));
+            } catch (err) {
+                showStatus("Failed connection to AI contextual frameworks.", "error");
+            }
+        }
+
+        // UPDATES ONLY PROFILE DATA (DATA.JSON)
+        async function saveProfileData(btnHandle) {
+            const token = document.getElementById('github-token').value.trim();
+            if(!token) { showStatus("Authentication token missing.", "error"); return; }
+            localStorage.setItem('admin_git_token', token);
+
+            setBtnLoading(btnHandle, true, "Saving...");
+            showStatus("Updating profile parameters...", "info");
+
+            const payload = {
+                hero_title: document.getElementById('form-title').value,
+                hero_bio: document.getElementById('form-bio').value,
+                linkedin_url: document.getElementById('form-linkedin').value,
+                email: document.getElementById('form-email').value
+            };
+
+            const success = await pushFileToGit("data.json", JSON.stringify(payload, null, 2), profileSha, token);
+            setBtnLoading(btnHandle, false);
+            
+            if(success) {
+                showStatus("Profile data updated successfully!", "success");
+                await fetchCurrentProfileData();
+            }
+        }
+
+        // UPDATES ONLY CHATBOT DATA (RESUME_CONTEXT.TXT)
+        async function saveResumeContext(btnHandle) {
+            const token = document.getElementById('github-token').value.trim();
+            if(!token) { showStatus("Authentication token missing.", "error"); return; }
+            localStorage.setItem('admin_git_token', token);
+
+            setBtnLoading(btnHandle, true, "Deploying...");
+            showStatus("Uploading text data to AI chatbot layer...", "info");
+            const contextText = document.getElementById('form-context').value;
+
+            const success = await pushFileToGit("resume_context.txt", contextText, resumeSha, token);
+            setBtnLoading(btnHandle, false);
+            
+            if(success) {
+                showStatus("Chatbot memory matrix updated successfully!", "success");
+                await fetchCurrentResumeContext();
+            }
+        }
+
+        async function pushFileToGit(filename, content, sha, token) {
+            try {
+                const base64Content = btoa(unescape(encodeURIComponent(content)));
+                const response = await fetch(`https://api.github.com/repos/${REPO}/contents/${filename}`, {
                     method: 'PUT',
-                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify({
-                        message: `console patch engine: ${logMessage}`,
+                        message: `console patch: item-specific adjust to ${filename}`,
                         content: base64Content,
-                        sha: currentFileSha
+                        sha: sha
                     })
                 });
 
-                if(response.ok) {
-                    const data = await response.json();
-                    currentFileSha = data.content.sha; // Capture fresh tree SHA footprint tracking reference instantly
-                    showStatus("Success! Section updated cleanly in under 2 seconds.", "success");
-                } else {
-                    const err = await response.json();
-                    showStatus(`GitHub API Rejected Push: ${err.message}`, "error");
-                }
-            } catch (ex) {
-                showStatus("Network socket transmission processing fault.", "error");
-            } finally {
-                setBtnLoadingState(btnHandle, false);
-                renderInteractiveWorkspace(); // Refresh canvas loops to update sync coordinates
+                if(response.ok) return true;
+                
+                const errorReport = await response.json();
+                showStatus(`Push Rejected: ${errorReport.message}`, "error");
+                return false;
+            } catch (err) {
+                showStatus("Network socket data transmission error.", "error");
+                return false;
             }
         }
 
-        function getValidToken() {
-            const t = document.getElementById('github-token').value.trim();
-            if(!t) { showStatus("Please set your GitHub Access Key Token field before triggering state mutations.", "error"); return null; }
-            localStorage.setItem('admin_git_token', t);
-            return t;
-        }
-
-        function setBtnLoadingState(btn, isLoading, placeholderText = "") {
-            if(isLoading) {
+        function setBtnLoading(btn, isLoading, text) {
+            if (isLoading) {
                 btn.disabled = true;
                 btn.dataset.oldText = btn.innerText;
-                btn.innerText = placeholderText;
-                btn.style.opacity = "0.6";
+                btn.innerText = text;
+                btn.style.opacity = "0.7";
             } else {
                 btn.disabled = false;
-                btn.innerText = btn.dataset.oldText || "Save";
+                btn.innerText = btn.dataset.oldText || "Update";
                 btn.style.opacity = "1";
             }
         }
@@ -233,11 +244,13 @@
         function showStatus(text, type) {
             const box = document.getElementById('status-box');
             box.className = "text-xs p-3 rounded-xl border font-mono";
+            
             if(type === 'error') box.classList.add('bg-red-950', 'border-red-800', 'text-red-400');
             if(type === 'success') box.classList.add('bg-emerald-950', 'border-emerald-800', 'text-emerald-400');
             if(type === 'info') box.classList.add('bg-slate-950', 'border-slate-800', 'text-slate-400');
-            box.innerText = text; box.classList.remove('hidden');
-            setTimeout(() => { box.classList.add('hidden'); }, 4000);
+            
+            box.innerText = text;
+            box.classList.remove('hidden');
         }
     </script>
 </body>
