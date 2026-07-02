@@ -49,24 +49,19 @@
 
         <!-- TAB 1: SITE PROFILE PARAMETERS DATA EDITOR -->
         <div id="panel-profile" class="tab-panel active space-y-4">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h2 class="text-sm font-bold text-slate-300 uppercase tracking-wider">01 // Primary Information Fields</h2>
-                    <p class="text-xs text-slate-500">Updates profile content fields directly without touching your resume file.</p>
-                </div>
-                <button onclick="saveProfileData(this)" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-md">
-                    Update Profile Only ↗
-                </button>
+            <div>
+                <h2 class="text-sm font-bold text-slate-300 uppercase tracking-wider">01 // Primary Information Fields</h2>
+                <p class="text-xs text-slate-500">Updates information loaded directly across your index page fields.</p>
             </div>
             
-            <div class="space-y-4 pt-2">
+            <form onsubmit="saveProfileData(event)" class="space-y-4">
                 <div class="space-y-1.5">
                     <label class="block text-xs font-medium text-slate-400">Main Title Heading</label>
                     <input id="form-title" type="text" required class="w-full text-sm px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white">
                 </div>
 
                 <div class="space-y-1.5">
-                    <label class="block text-xs font-medium text-slate-400">Biography Summary Box</label>
+                    <label class="block text-xs font-medium text-slate-400">Biography Summary Box (Supports HTML text modifiers)</label>
                     <textarea id="form-bio" rows="4" required class="w-full text-sm px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white font-mono resize-none"></textarea>
                 </div>
 
@@ -80,27 +75,30 @@
                         <input id="form-email" type="email" required class="w-full text-xs px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white">
                     </div>
                 </div>
-            </div>
+
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-3 rounded-xl transition-colors shadow-lg shadow-blue-950/40">
+                    Save Profile Metrics Live
+                </button>
+            </form>
         </div>
 
         <!-- TAB 2: RESUME CONTEXT TEXT BASE -->
         <div id="panel-resume" class="tab-panel space-y-4">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h2 class="text-sm font-bold text-slate-300 uppercase tracking-wider">02 // Chatbot Cognitive Engine Alignment</h2>
-                    <p class="text-xs text-slate-500">Edit the reference material your AI assistant reviews without altering your profile content.</p>
-                </div>
-                <button onclick="saveResumeContext(this)" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition-colors shadow-md">
-                    Update Chatbot Data Only ↗
-                </button>
+            <div>
+                <h2 class="text-sm font-bold text-slate-300 uppercase tracking-wider">02 // Chatbot Cognitive Engine Alignment</h2>
+                <p class="text-xs text-slate-500">Edit the reference material your floating AI assistant reviews before answering questions.</p>
             </div>
 
-            <div class="space-y-4 pt-2">
+            <form onsubmit="saveResumeContext(event)" class="space-y-4">
                 <div class="space-y-1.5">
                     <label class="block text-xs font-medium text-slate-400">Master Text Context Document</label>
                     <textarea id="form-context" rows="12" required placeholder="Paste complete details, milestones, project lists, and phone numbers..." class="w-full text-xs p-3 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white font-mono leading-relaxed resize-none"></textarea>
                 </div>
-            </div>
+
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-3 rounded-xl transition-colors shadow-lg shadow-blue-950/40">
+                    Deploy AI Knowledge Engine Base Updates
+                </button>
+            </form>
         </div>
 
     </div>
@@ -115,6 +113,7 @@
             const savedToken = localStorage.getItem('admin_git_token');
             if(savedToken) document.getElementById('github-token').value = savedToken;
             
+            // Core Bootstrap Sequence execution fetch routines
             fetchCurrentProfileData();
             fetchCurrentResumeContext();
         });
@@ -127,6 +126,7 @@
             document.getElementById(`btn-${tabId}`).classList.add('active');
         }
 
+        // FETCH CURRENT PROFILE PARAMS SCHEMA
         async function fetchCurrentProfileData() {
             try {
                 const res = await fetch(`https://api.github.com/repos/${REPO}/contents/data.json`);
@@ -140,10 +140,11 @@
                 document.getElementById('form-linkedin').value = content.linkedin_url || '';
                 document.getElementById('form-email').value = content.email || '';
             } catch (err) {
-                showStatus("Failed connection to profile data targets.", "error");
+                showStatus("Failed initialization connection to profile data targets.", "error");
             }
         }
 
+        // FETCH CURRENT LIVE RESUME CONTEXT MATRIX
         async function fetchCurrentResumeContext() {
             try {
                 const res = await fetch(`https://api.github.com/repos/${REPO}/contents/resume_context.txt`);
@@ -151,20 +152,21 @@
                 const fileData = await res.json();
                 resumeSha = fileData.sha;
                 
+                // Decode UTF-8 cleanly via native conversion escaping rules
                 document.getElementById('form-context').value = decodeURIComponent(escape(atob(fileData.content)));
             } catch (err) {
-                showStatus("Failed connection to AI contextual frameworks.", "error");
+                showStatus("Failed initialization connection to AI contextual frameworks.", "error");
             }
         }
 
-        // UPDATES ONLY PROFILE DATA (DATA.JSON)
-        async function saveProfileData(btnHandle) {
+        // SAVE ACTION MAP: DATA.JSON OVERWRITE TARGET PUSH
+        async function saveProfileData(event) {
+            event.preventDefault();
             const token = document.getElementById('github-token').value.trim();
-            if(!token) { showStatus("Authentication token missing.", "error"); return; }
+            if(!token) { showStatus("Authentication key sequence omitted.", "error"); return; }
             localStorage.setItem('admin_git_token', token);
 
-            setBtnLoading(btnHandle, true, "Saving...");
-            showStatus("Updating profile parameters...", "info");
+            showStatus("Assembling system payload packets...", "info");
 
             const payload = {
                 hero_title: document.getElementById('form-title').value,
@@ -174,36 +176,35 @@
             };
 
             const success = await pushFileToGit("data.json", JSON.stringify(payload, null, 2), profileSha, token);
-            setBtnLoading(btnHandle, false);
-            
             if(success) {
-                showStatus("Profile data updated successfully!", "success");
-                await fetchCurrentProfileData();
+                showStatus("Profile data updated successfully! Live in 2 seconds.", "success");
+                fetchCurrentProfileData(); // Synchronize SHA structures
             }
         }
 
-        // UPDATES ONLY CHATBOT DATA (RESUME_CONTEXT.TXT)
-        async function saveResumeContext(btnHandle) {
+        // SAVE ACTION MAP: RESUME_CONTEXT.TXT OVERWRITE TARGET PUSH
+        async function saveResumeContext(event) {
+            event.preventDefault();
             const token = document.getElementById('github-token').value.trim();
-            if(!token) { showStatus("Authentication token missing.", "error"); return; }
+            if(!token) { showStatus("Authentication key sequence omitted.", "error"); return; }
             localStorage.setItem('admin_git_token', token);
 
-            setBtnLoading(btnHandle, true, "Deploying...");
-            showStatus("Uploading text data to AI chatbot layer...", "info");
+            showStatus("Streaming semantic mapping lines onto core matrix stack...", "info");
             const contextText = document.getElementById('form-context').value;
 
             const success = await pushFileToGit("resume_context.txt", contextText, resumeSha, token);
-            setBtnLoading(btnHandle, false);
-            
             if(success) {
-                showStatus("Chatbot memory matrix updated successfully!", "success");
-                await fetchCurrentResumeContext();
+                showStatus("Chatbot context operational matrix loaded and updated successfully!", "success");
+                fetchCurrentResumeContext(); // Synchronize SHA structures
             }
         }
 
+        // REUSABLE REST API RUNTIME ENGINE COMPONENT
         async function pushFileToGit(filename, content, sha, token) {
             try {
+                // Handle complex characters across standard cross-origin boundaries cleanly via btoa wrappers
                 const base64Content = btoa(unescape(encodeURIComponent(content)));
+                
                 const response = await fetch(`https://api.github.com/repos/${REPO}/contents/${filename}`, {
                     method: 'PUT',
                     headers: {
@@ -211,7 +212,7 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        message: `console patch: item-specific adjust to ${filename}`,
+                        message: `console patch: direct terminal dashboard adjust pushed to ${filename}`,
                         content: base64Content,
                         sha: sha
                     })
@@ -220,24 +221,11 @@
                 if(response.ok) return true;
                 
                 const errorReport = await response.json();
-                showStatus(`Push Rejected: ${errorReport.message}`, "error");
+                showStatus(`Push Execution Rejected: ${errorReport.message}`, "error");
                 return false;
             } catch (err) {
-                showStatus("Network socket data transmission error.", "error");
+                showStatus("Critical structural network routing mutation failure.", "error");
                 return false;
-            }
-        }
-
-        function setBtnLoading(btn, isLoading, text) {
-            if (isLoading) {
-                btn.disabled = true;
-                btn.dataset.oldText = btn.innerText;
-                btn.innerText = text;
-                btn.style.opacity = "0.7";
-            } else {
-                btn.disabled = false;
-                btn.innerText = btn.dataset.oldText || "Update";
-                btn.style.opacity = "1";
             }
         }
 
