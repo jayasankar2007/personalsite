@@ -110,6 +110,7 @@
     <script>
         AOS.init({ once: true, offset: 20, duration: 600, easing: 'ease-out' });
 
+        // Immutable structural dataset cache matrix
         let schema = {
           "profile": {
             "hero_title": "Operating at the Vector Intersections",
@@ -155,6 +156,7 @@
                         if(networkData.hero_bio) schema.profile.hero_bio = networkData.hero_bio;
                         if(networkData.email) schema.profile.email = networkData.email;
                         if(networkData.linkedin_url) schema.profile.linkedin_url = networkData.linkedin_url;
+                        if(networkData.avatar_url) schema.profile.avatar_url = networkData.avatar_url;
                     }
                     if(networkData.sections) schema.sections = networkData.sections;
                     loadDynamicArchitecture();
@@ -245,8 +247,8 @@
                     sectionContentHtml = `
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center mb-16 pb-12 border-b border-slate-800/60 text-left">
                             <div class="md:col-span-2 space-y-4">
-                                <h1 class="text-4xl md:text-5xl font-display font-bold text-white tracking-tight leading-none neon-text-glow">${profile.hero_title}</h1>
-                                <p class="text-base text-slate-400 font-light leading-relaxed max-w-xl">${profile.hero_bio}</p>
+                                <h1 id="cms-hero-title" class="text-4xl md:text-5xl font-display font-bold text-white tracking-tight leading-none neon-text-glow">${profile.hero_title}</h1>
+                                <p id="cms-hero-bio" class="text-base text-slate-400 font-light leading-relaxed max-w-xl">${profile.hero_bio}</p>
                             </div>
                             <div class="flex justify-start md:justify-end">
                                 <div class="relative group">
@@ -293,6 +295,53 @@
         window.dismissPopup = function(e) {
             e.stopPropagation();
             document.getElementById('chat-pop-up').style.display = 'none';
+        };
+
+        // ==========================================
+        // 🤖 BACKEND CHATBOT CORE MESSAGE HANDLER
+        // ==========================================
+        window.handleUserMessage = function(event) {
+            event.preventDefault();
+            const input = document.getElementById('chat-input');
+            const stream = document.getElementById('chat-stream');
+            const msg = input.value.trim();
+            if (!msg) return;
+
+            // Render user bubble text
+            stream.insertAdjacentHTML('beforeend', `
+                <div class="flex gap-2.5 items-start justify-end text-right ml-auto max-w-[85%]">
+                    <div class="bg-blue-600 px-3 py-2.5 rounded-2xl rounded-tr-none text-xs text-white leading-normal">
+                        ${msg}
+                    </div>
+                </div>
+            `);
+            input.value = "";
+            stream.scrollTop = stream.scrollHeight;
+
+            // Simple client-side response mapper matching your context logs
+            let reply = "Processing connection request on terminal node. For project specific engineering inquiries, reach out directly via the email pipeline below!";
+            const lowMsg = msg.toLowerCase();
+
+            if (lowMsg.includes('safestitch') || lowMsg.includes('safety') || lowMsg.includes('sewing')) {
+                reply = "Project SafeStitch operates as a custom hardware safety framework utilizing high-speed infrared optical sensor arrays mapped to microcontrollers to instantly arrest industrial needle movements.";
+            } else if (lowMsg.includes('intern') || lowMsg.includes('seil') || lowMsg.includes('energy')) {
+                reply = "Jayasankar completed an engineering internship at SEIL Energy India Limited, evaluating plant telemetry networks and protection systems within live grid nodes.";
+            } else if (lowMsg.includes('hardware') || lowMsg.includes('esp32')) {
+                reply = "Technical focal architectures cover ESP32 microprocessor arrays, physical automated relays, and asynchronous packet protocols.";
+            }
+
+            // Simulate slight AI thinking latency loop
+            setTimeout(() => {
+                stream.insertAdjacentHTML('beforeend', `
+                    <div class="flex gap-2.5 items-start max-w-[85%]">
+                        <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div>
+                        <div class="bg-neutral-900 border border-neutral-800 px-3 py-2.5 rounded-2xl rounded-tl-none text-xs text-neutral-300 leading-normal">
+                            ${reply}
+                        </div>
+                    </div>
+                `);
+                stream.scrollTop = stream.scrollHeight;
+            }, 600);
         };
     </script>
 </body>
