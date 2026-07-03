@@ -239,10 +239,10 @@
                 logs.push("<span class='text-emerald-400'>[PASS] Database configuration tree verification clear.</span>");
             }
 
-            // Test Core 2: Check active API keys
+            // Test Core 2: Check active API keys (Updated to accept new 2026 AQ. Auth Keys)
             const activeKey = document.getElementById('hero-gemini-key').value.trim() || siteConfig.profile?.gemini_key;
-            if (activeKey && activeKey.startsWith("AIzaSy")) {
-                logs.push("<span class='text-emerald-400'>[PASS] AI neural connection token verified and format checked.</span>");
+            if (activeKey && (activeKey.startsWith("AIzaSy") || activeKey.startsWith("AQ."))) {
+                logs.push("<span class='text-emerald-400'>[PASS] AI neural connection token verified (Auth Key format detected).</span>");
             } else {
                 logs.push("<span class='text-red-400'>[FAIL] AI Chatbot core credentials missing or unlinked.</span>");
                 unhandledUnusualError = true;
