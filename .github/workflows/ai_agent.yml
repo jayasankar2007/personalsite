@@ -57,10 +57,7 @@ jobs:
             echo "[System Idle: Waiting for next user instruction]" > ai_instructions.txt
           fi
 
-      - name: Inject Chatbot Secret Key Token Securely
-        run: |
-          # Replaces the public placeholder variable with your hidden vault key string during compilation
-          sed -i 's/"PROXIED_BUILD_VARIABLE"/"${{ secrets.GEMINI_API_KEY }}"/g' index.html
+      
 
       - name: Push AI State Updates to Main
         run: |
