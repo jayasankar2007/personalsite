@@ -437,22 +437,28 @@
                     sec.items.forEach((item, itemIdx) => {
                         let mediaBlockHtml = '';
                         
-                        // Dynamic parser parsing uploaded elements metadata vectors automatically
                         if (item.media_url) {
-                            const isVideo = item.media_type === 'VIDEO';
-                            const iconSymbol = isVideo ? "🎬" : "📸";
-                            
-                            mediaBlockHtml = `
-                                <div class="media-container mb-4 group/media relative">
-                                    <div class="absolute inset-0 bg-slate-900 flex flex-col items-center justify-center text-slate-500 text-xs gap-2 font-mono">
-                                        <span class="text-3xl">${iconSymbol}</span>
-                                        <span>Click Play Frame Matrix Target</span>
+                            if (item.media_type === 'VIDEO') {
+                                // Videos require user click play action overlay triggers
+                                mediaBlockHtml = `
+                                    <div class="media-container mb-4 group/media relative">
+                                        <div class="absolute inset-0 bg-slate-900 flex flex-col items-center justify-center text-slate-500 text-xs gap-2 font-mono">
+                                            <span class="text-3xl">🎬</span>
+                                            <span>Click Play Frame Target</span>
+                                        </div>
+                                        <div class="media-overlay" onclick="executeMediaPlayNode(this, '${item.media_url}', 'VIDEO')">
+                                            <div class="play-btn font-sans">&#9654;</div>
+                                        </div>
                                     </div>
-                                    <div class="media-overlay" onclick="executeMediaPlayNode(this, '${item.media_url}', '${item.media_type}')">
-                                        <div class="play-btn font-sans">&#9654;</div>
+                                `;
+                            } else {
+                                // Images immediately pop on screen automatically
+                                mediaBlockHtml = `
+                                    <div class="w-full rounded-xl overflow-hidden bg-slate-900 aspect-[16/9] mb-4 border border-slate-800" style="aspect-ratio: 16/9; position: relative;">
+                                        <img src="${item.media_url}" class="w-full h-full object-cover rounded-xl" onclick="window.open('${item.media_url}', '_blank')">
                                     </div>
-                                </div>
-                            `;
+                                `;
+                            }
                         }
 
                         cardsHtml += `
@@ -504,7 +510,6 @@
             const defaultTargetTab = previouslyActiveTabId && doc.getElementById('view-' + previouslyActiveTabId) ? previouslyActiveTabId : (sections[0] ? sections[0].id : '');
             if(defaultTargetTab) previewWindowReference.switchLocalTab(defaultTargetTab);
         }
-
         async function saveEverythingLive() {
             const token = localStorage.getItem('admin_session_token');
             const box = document.getElementById('status-box');
