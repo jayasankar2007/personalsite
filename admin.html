@@ -115,8 +115,9 @@
             const token = document.getElementById('github-token').value.trim();
             if(!token) return alert("Cryptographic authorization string required.");
             
+            // REMOVED 'Cache-Control' header to fix the CORS Preflight error
             fetch(`https://api.github.com/repos/${REPO}/contents/data.json`, {
-                headers: { 'Authorization': `token ${token}`, 'Cache-Control': 'no-cache' }
+                headers: { 'Authorization': `token ${token}` }
             })
             .then(res => {
                 if(!res.ok) throw new Error("Verification failed: Clear authorization credentials rejected.");
@@ -125,7 +126,6 @@
             .then(fileData => {
                 currentSha = fileData.sha;
                 
-                // Decode UTF-8 string gracefully handling non-ASCII strings
                 const decodedString = decodeURIComponent(escape(atob(fileData.content.replace(/\s/g, ''))));
                 siteConfig = JSON.parse(decodedString);
                 
@@ -139,7 +139,6 @@
         }
 
         function renderEditorDashboard() {
-            // Check nesting architecture resilience patterns 
             const profile = siteConfig.profile || siteConfig;
             
             document.getElementById('hero-title').value = profile.hero_title || '';
@@ -233,14 +232,13 @@
             box.className = "text-xs p-4 rounded-xl border font-mono bg-blue-950/60 text-blue-400 border-blue-900/60 block";
             box.innerText = "Initializing runtime deployment workflow over GitHub API streams...";
 
-            // Robust Base64 binary generation loop supporting wide character ranges
             const jsonString = JSON.stringify(siteConfig, null, 2);
             const base64Content = btoa(unescape(encodeURIComponent(jsonString)));
             
             try {
-                // Fetch fresh SHA layer snapshot right before overriding to mitigate structural concurrency collisions
+                // REMOVED 'Cache-Control' from this fetch request as well to eliminate CORS preflight blocks completely
                 const checkRes = await fetch(`https://api.github.com/repos/${REPO}/contents/data.json`, {
-                    headers: { 'Authorization': `token ${token}`, 'Cache-Control': 'no-cache' }
+                    headers: { 'Authorization': `token ${token}` }
                 });
                 if(checkRes.ok) {
                     const freshData = await checkRes.json();
