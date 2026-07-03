@@ -336,8 +336,11 @@
            // Looks for the variable on your Vercel deployment server natively
 // Pulls the key dynamically from your repository data tree loaded at runtime
 // Pulls your custom Gemini API key dynamically from your securely stored repository schema 
-const SECURE_UPSTREAM_KEY = schema.profile?.gemini_key || schema.gemini_key || "PROXIED_BUILD_VARIABLE";
+// Pulls your newly saved Auth Key directly from the dataset tree
+            const SECURE_UPSTREAM_KEY = schema.gemini_key || schema.profile?.gemini_key || "PROXIED_BUILD_VARIABLE";
 
+            // If the key is missing, fall back to offline messaging
+            if (SECURE_UPSTREAM_KEY === "PROXIED_BUILD_VARIABLE" || !SECURE_UPSTREAM_KEY) {
             // If the GitHub Actions workflow hasn't injected the secret key yet, fall back gracefully to standard routing rules
             if (SECURE_UPSTREAM_KEY === "PROXIED_BUILD_VARIABLE" || !SECURE_UPSTREAM_KEY) {
                 setTimeout(() => {
