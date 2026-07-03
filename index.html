@@ -110,7 +110,6 @@
     <script>
         AOS.init({ once: true, offset: 20, duration: 600, easing: 'ease-out' });
 
-        // Immutable structural dataset cache matrix
         let schema = {
           "profile": {
             "hero_title": "Operating at the Vector Intersections",
@@ -298,7 +297,7 @@
         };
 
         // ==========================================
-        // 🤖 BACKEND CHATBOT CORE MESSAGE HANDLER
+        // 🤖 LIVE GEMINI-POWERED NEURAL CHATBOT LAYER
         // ==========================================
         window.handleUserMessage = function(event) {
             event.preventDefault();
@@ -318,30 +317,84 @@
             input.value = "";
             stream.scrollTop = stream.scrollHeight;
 
-            // Simple client-side response mapper matching your context logs
-            let reply = "Processing connection request on terminal node. For project specific engineering inquiries, reach out directly via the email pipeline below!";
-            const lowMsg = msg.toLowerCase();
+            // Generate an automatic placeholder token to show the chatbot is processing live telemetry text
+            const uniqueBotMessageId = 'bot-loading-' + Date.now();
+            stream.insertAdjacentHTML('beforeend', `
+                <div id="${uniqueBotMessageId}" class="flex gap-2.5 items-start max-w-[85%]">
+                    <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div>
+                    <div class="bg-neutral-900 border border-neutral-800 px-3 py-2.5 rounded-2xl rounded-tl-none text-xs text-neutral-400 font-mono tracking-wide animate-pulse">
+                        Analyzing telemetry vector...
+                    </div>
+                </div>
+            `);
+            stream.scrollTop = stream.scrollHeight;
 
-            if (lowMsg.includes('safestitch') || lowMsg.includes('safety') || lowMsg.includes('sewing')) {
-                reply = "Project SafeStitch operates as a custom hardware safety framework utilizing high-speed infrared optical sensor arrays mapped to microcontrollers to instantly arrest industrial needle movements.";
-            } else if (lowMsg.includes('intern') || lowMsg.includes('seil') || lowMsg.includes('energy')) {
-                reply = "Jayasankar completed an engineering internship at SEIL Energy India Limited, evaluating plant telemetry networks and protection systems within live grid nodes.";
-            } else if (lowMsg.includes('hardware') || lowMsg.includes('esp32')) {
-                reply = "Technical focal architectures cover ESP32 microprocessor arrays, physical automated relays, and asynchronous packet protocols.";
+            // System Instruction prompt context matrix framing the bot's core identity parameters
+            const identityContext = `You are the autonomous AI assistant for Jayasankar Gnanadesigan, an ECE student at Saveetha Engineering College and AICTE Idea Lab Ambassador. Answer professionally as his representative using this live website structural dataset context: ${JSON.stringify(schema)}. Focus on his embedded systems engineering skills, Arduino/ESP32 hardware architectures, automated AI agent workflows (Make.com), and project deployments like Project SafeStitch. Keep answers clear, smart, concise, and focused on tech or collaboration requests.`;
+
+            // CRITICAL: Public placeholder configuration variable targeted by your GitHub Actions automation
+            const SECURE_UPSTREAM_KEY = "PROXIED_BUILD_VARIABLE";
+
+            // If the GitHub Actions workflow hasn't injected the secret key yet, fall back gracefully to standard routing rules
+            if (SECURE_UPSTREAM_KEY === "PROXIED_BUILD_VARIABLE" || !SECURE_UPSTREAM_KEY) {
+                setTimeout(() => {
+                    const loadingBubble = document.getElementById(uniqueBotMessageId);
+                    if (loadingBubble) {
+                        loadingBubble.innerHTML = `
+                            <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div>
+                            <div class="bg-neutral-900 border border-neutral-800 px-3 py-2.5 rounded-2xl rounded-tl-none text-xs text-amber-400 font-mono">
+                                [OFFLINE MODE] Connection request queued. To inquire regarding hardware specs or engineering collaborations, route directly via: ${schema.profile.email}.
+                            </div>
+                        `;
+                    }
+                }, 600);
+                return;
             }
 
-            // Simulate slight AI thinking latency loop
-            setTimeout(() => {
+            // Issue dynamic request pipelines directly over to the Google Gemini API live server nodes
+            fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${SECURE_UPSTREAM_KEY}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: `${identityContext}\n\nUser Question: ${msg}\nAutonomous AI Response:`
+                        }]
+                    }]
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                const loadingBubble = document.getElementById(uniqueBotMessageId);
+                if (loadingBubble) loadingBubble.remove();
+
+                const rawAiReply = data.candidates?.[0]?.content?.parts?.[0]?.text || "System connection timed out. Please route your engineering inquiries directly via the email terminal connection links.";
+                
+                // Format plain-text carriage returns cleanly into readable paragraph display elements
+                const formattedResponse = rawAiReply.replace(/\n/g, '<br>');
+
                 stream.insertAdjacentHTML('beforeend', `
                     <div class="flex gap-2.5 items-start max-w-[85%]">
                         <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div>
                         <div class="bg-neutral-900 border border-neutral-800 px-3 py-2.5 rounded-2xl rounded-tl-none text-xs text-neutral-300 leading-normal">
-                            ${reply}
+                            ${formattedResponse}
                         </div>
                     </div>
                 `);
                 stream.scrollTop = stream.scrollHeight;
-            }, 600);
+            })
+            .catch(err => {
+                console.error("API Telemetry Disruption Anomaly:", err);
+                const loadingBubble = document.getElementById(uniqueBotMessageId);
+                if (loadingBubble) {
+                    loadingBubble.innerHTML = `
+                        <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div>
+                        <div class="bg-neutral-900 border border-neutral-800 px-3 py-2.5 rounded-2xl rounded-tl-none text-xs text-red-400 font-mono">
+                            [ERROR] Telemetry disruption caught: ${err.message}. Route your query to the active system email.
+                        </div>
+                    `;
+                }
+            });
         };
     </script>
 </body>
