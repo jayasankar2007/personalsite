@@ -5,174 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jayasankar Gnanadesigan // Portfolio Core</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
-
-    
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <!-- Premium Architectural Typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
     <script>
         tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Space Grotesk', 'sans-serif'],
-                    }
-                }
-            }
+            theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Space Grotesk', 'sans-serif'] } } }
         }
     </script>
-
     <style>
-        body {
-            background-color: #030712; /* Deep space dark background */
-            overflow-x: hidden;
-        }
-        
-        /* Smooth glowing glassmorphism panels */
+        body { background-color: #030712; overflow-x: hidden; }
         .glass-card {
-            background: rgba(17, 24, 39, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .glass-card:hover {
-            border-color: rgba(37, 99, 235, 0.4);
-            box-shadow: 0 0 25px rgba(37, 99, 235, 0.2);
-            transform: translateY(-4px) scale(1.01);
-        }
-
-        /* Cyberpunk text matrix glow effect */
-        .neon-text-glow {
-            text-shadow: 0 0 20px rgba(37, 99, 235, 0.6), 0 0 40px rgba(37, 99, 235, 0.2);
-        }
-
-        /* Animated gradient line indicator */
-        @keyframes dynamicShimmer {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .shimmer-bar {
-            background: linear-gradient(-45deg, #2563eb, #3b82f6, #10b981, #6366f1);
-            background-size: 400% 400%;
-            animation: dynamicShimmer 6s ease infinite;
-        }
-
-        /* Fluid View Transitions */
-        .view-panel {
-            display: none;
-            opacity: 0;
-            transform: scale(0.98) translateY(10px);
-            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .view-panel.active-view {
-            display: block;
-            opacity: 1;
-            transform: scale(1) translateY(0);
-        }
-
-        /* Premium Nav Active State */
-        .nav-active {
-            color: #3b82f6 !important;
-            font-weight: 600;
-            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
-            border-bottom: 2px solid #3b82f6;
-        }
-
-        /* Chat Toggle Rules */
-        #chat-window {
-            display: none;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        #chat-window.open {
-            display: flex;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Anti-blank fail-safe for AOS on initial dynamic view injection */
-        [data-aos] {
-            pointer-events: none;
-        }
-        .active-view [data-aos] {
-            pointer-events: auto;
-        }
+        .glass-card:hover { border-color: rgba(37, 99, 235, 0.4); box-shadow: 0 0 25px rgba(37, 99, 235, 0.2); transform: translateY(-4px) scale(1.01); }
+        .neon-text-glow { text-shadow: 0 0 20px rgba(37, 99, 235, 0.6), 0 0 40px rgba(37, 99, 235, 0.2); }
+        @keyframes dynamicShimmer { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        .shimmer-bar { background: linear-gradient(-45deg, #2563eb, #3b82f6, #10b981, #6366f1); background-size: 400% 400%; animation: dynamicShimmer 6s ease infinite; }
+        .view-panel { display: none; opacity: 0; transform: scale(0.98) translateY(10px); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .view-panel.active-view { display: block; opacity: 1; transform: scale(1) translateY(0); }
+        .nav-active { color: #3b82f6 !important; font-weight: 600; text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); border-bottom: 2px solid #3b82f6; }
+        #chat-window { display: none; opacity: 0; transform: translateY(20px); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        #chat-window.open { display: flex; opacity: 1; transform: translateY(0); }
     </style>
 </head>
-<body class="text-neutral-300 antialiased relative min-h-screen font-sans pb-20">
-
-    <!-- Subtle, clean top border accent bar -->
+<body class="text-neutral-300 antialiased min-h-screen pb-20 relative">
     <div class="w-full h-1.5 shimmer-bar"></div>
-
-    <div class="max-w-4xl mx-auto px-6 py-12 relative z-10">
-        
-        <!-- MINIMALIST PREMIUM HEADER -->
-        <header data-aos="fade-down" data-aos-duration="800" class="flex flex-col sm:flex-row justify-between items-center gap-6 mb-24 pb-6 border-b border-neutral-800">
-            <a href="#" class="font-display font-bold text-lg tracking-tight text-white hover:text-blue-500 transition-colors">
-                jayasankar.g
-            </a>
-            
-           <nav id="dynamic-nav" class="flex gap-6 text-xs uppercase tracking-widest text-neutral-500 font-medium"></nav>
+    <div class="max-w-4xl mx-auto px-6 py-12">
+        <header class="flex flex-col sm:flex-row justify-between items-center gap-6 mb-24 pb-6 border-b border-neutral-800">
+            <a href="#" class="font-display font-bold text-lg text-white tracking-tight">jayasankar.g</a>
+            <nav id="dynamic-nav" class="flex gap-6 text-xs uppercase tracking-widest text-neutral-500 font-medium"></nav>
         </header>
 
-        <!-- DYNAMIC PORTFOLIO VIEWPORT -->
         <main id="dynamic-viewport" class="min-h-[450px]"></main>
 
-        <!-- HIGH-CONTRAST CALL TO ACTION -->
-        <section data-aos="fade-up" data-aos-duration="800" class="mt-24 p-8 bg-neutral-900/50 border border-neutral-800 rounded-2xl text-white flex flex-col md:flex-row justify-between items-center gap-6 shadow-md backdrop-blur-md">
+        <section class="mt-24 p-8 bg-neutral-900/50 border border-neutral-800 rounded-2xl text-white flex flex-col md:flex-row justify-between items-center gap-6 shadow-md backdrop-blur-md">
             <div class="space-y-1 text-center md:text-left">
-                <h3 class="text-lg font-display font-bold tracking-tight text-white">Initialize Shared Execution</h3>
+                <h3 class="text-lg font-display font-bold">Initialize Shared Execution</h3>
                 <p class="text-xs text-neutral-400 font-light">Available for engineering collaborations regarding hardware and automated loops.</p>
             </div>
-            <div class="flex gap-4 shrink-0 font-medium text-xs">
-                <a id="cms-email-btn" href="mailto:jayasankar4projects@gmail.com" class="px-4 py-2.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 rounded-lg transition-colors text-white">
-                    Email Terminal
-                </a>
-                <a id="cms-linkedin-btn" href="#" target="_blank" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
-                    Connect LinkedIn ↗
-                </a>
+            <div class="flex gap-4 font-medium text-xs">
+                <a id="cms-email-btn" href="mailto:jayasankar4projects@gmail.com" class="px-4 py-2.5 bg-neutral-900 border border-neutral-800 rounded-lg text-white">Email Terminal</a>
+                <a id="cms-linkedin-btn" href="#" target="_blank" class="px-4 py-2.5 bg-blue-600 text-white rounded-lg">Connect LinkedIn ↗</a>
             </div>
         </section>
 
-        <!-- FOOTER -->
-        <footer data-aos="fade-up" data-aos-duration="800" data-aos-delay="100" class="mt-20 pt-6 border-t border-neutral-800 flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] uppercase tracking-wider text-neutral-500 font-medium">
+        <footer class="mt-20 pt-6 border-t border-neutral-800 flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] uppercase text-neutral-500">
             <div>© 2026 // Jayasankar Gnanadesigan.</div>
             <div class="flex gap-4 items-center font-bold text-neutral-400">
-                <span>Saveetha Engineering College</span>
-                <span>•</span>
-                <span>AICTE Idea Lab Ambassador</span>
+                <span>Saveetha Engineering College</span>•<span>AICTE Idea Lab Ambassador</span>
             </div>
         </footer>
-
     </div>
 
-    <!-- PREMIUM FLOATING INTERACTIVE CHATBOT SYSTEM -->
+    <!-- CHAT TERMINAL LAYER -->
     <div class="fixed bottom-6 right-6 z-50 font-sans text-sm flex flex-col items-end">
-        
-        <!-- Interactive Slide-out Message Notification -->
         <div id="chat-pop-up" class="mb-3 bg-neutral-900/90 border border-neutral-800 shadow-xl px-4 py-3 rounded-xl max-w-xs transition-all duration-500 transform translate-y-2 opacity-0 flex items-start gap-3 backdrop-blur-md">
             <div class="w-2 h-2 rounded-full bg-blue-500 mt-1.5 animate-pulse shrink-0"></div>
             <div>
                 <p class="font-bold text-xs text-white">Jayasankar's Assistant</p>
-                <p class="text-neutral-400 text-xs mt-0.5 leading-normal">Hi! Looking to collaborate on an IoT or embedded systems project? Ask me anything.</p>
+                <p class="text-neutral-400 text-xs mt-0.5 leading-normal">Hi! Looking to collaborate on an IoT project? Ask me anything.</p>
             </div>
-            <button onclick="dismissPopup(event)" class="text-neutral-500 hover:text-neutral-300 text-xs font-bold px-1">×</button>
+            <button onclick="dismissPopup(event)" class="text-neutral-500 text-xs font-bold px-1">×</button>
         </div>
 
-        <!-- Chat Frame Interface View Window -->
-        <div id="chat-window" class="chat-window w-[340px] sm:w-[360px] h-[460px] bg-neutral-900 border border-neutral-800 rounded-2xl shadow-2xl flex flex-col mb-4 overflow-hidden">
-            <!-- Chat Window Header -->
+        <div id="chat-window" class="w-[340px] sm:w-[360px] h-[460px] bg-neutral-900 border border-neutral-800 rounded-2xl shadow-2xl flex flex-col mb-4 overflow-hidden">
             <div class="bg-neutral-950 text-white px-4 py-4 flex justify-between items-center border-b border-neutral-800">
                 <div class="flex items-center gap-2.5">
                     <div class="relative">
@@ -180,50 +79,39 @@
                         <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-neutral-950 rounded-full"></span>
                     </div>
                     <div>
-                        <h4 class="font-display font-bold text-xs tracking-tight text-white">Core-AI Terminal</h4>
+                        <h4 class="font-display font-bold text-xs">Core-AI Terminal</h4>
                         <p class="text-[10px] text-neutral-400">Automated Assistant Node</p>
                     </div>
                 </div>
-                <button onclick="toggleChat()" class="text-neutral-400 hover:text-white transition-colors p-1 text-lg">✕</button>
+                <button onclick="toggleChat()" class="text-neutral-400 hover:text-white text-lg">✕</button>
             </div>
-
-            <!-- Chat Message Delivery Stream Area -->
             <div id="chat-stream" class="flex-1 p-4 overflow-y-auto space-y-4 bg-neutral-950/40">
                 <div class="flex gap-2.5 items-start max-w-[85%]">
                     <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div>
-                    <div class="bg-neutral-900 border border-neutral-800 px-3 py-2.5 rounded-2xl rounded-tl-none shadow-sm text-xs text-neutral-300 leading-relaxed">
-                        Welcome to the portfolio channel. I can provide details regarding Jayasankar's hardware build expertise, Project SafeStitch, or his experience at SEIL Energy. What are you looking to build?
+                    <div class="bg-neutral-900 border border-neutral-800 px-3 py-2.5 rounded-2xl rounded-tl-none text-xs text-neutral-300">
+                        Welcome. I can provide details regarding Jayasankar's hardware build expertise, Project SafeStitch, or his experience at SEIL Energy. What are you looking to build?
                     </div>
                 </div>
             </div>
-
-            <!-- Chat Interface Form Input Line -->
             <form id="chat-form" onsubmit="handleUserMessage(event)" class="p-3 bg-neutral-900 border-t border-neutral-800 flex gap-2">
-                <input id="chat-input" type="text" placeholder="Inquire about hardware specs or projects..." autocomplete="off" class="flex-1 text-xs px-3 py-2.5 bg-neutral-950 border border-neutral-800 text-white rounded-xl focus:outline-none focus:border-blue-600 transition-all">
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 rounded-xl transition-colors shrink-0">Send</button>
+                <input id="chat-input" type="text" placeholder="Inquire about hardware specs..." autocomplete="off" class="flex-1 text-xs px-3 py-2.5 bg-neutral-950 border border-neutral-800 text-white rounded-xl focus:outline-none focus:border-blue-600">
+                <button type="submit" class="bg-blue-600 text-white font-bold text-xs px-4 py-2 rounded-xl shrink-0">Send</button>
             </form>
         </div>
 
-        <!-- Floating Core Launcher Circle Button Trigger -->
-        <button onclick="toggleChat()" class="w-12 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-xl flex items-center justify-center transition-transform active:scale-95 group relative">
+        <button onclick="toggleChat()" class="w-12 h-12 bg-blue-600 text-white rounded-full shadow-xl flex items-center justify-center group relative">
             <span class="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-neutral-950 animate-ping"></span>
             <span class="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-neutral-950"></span>
-            <svg class="w-5 h-5 transition-transform group-hover:rotate-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
         </button>
     </div>
 
-    <!-- Interface View Router Controller Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ 
-            once: true,
-            offset: 20,
-            duration: 600,
-            easing: 'ease-out'
-        });
+        AOS.init({ once: true, offset: 20, duration: 600, easing: 'ease-out' });
 
-        // CENTRAL PORTFOLIO CONFIGURATION OBJECT
-        const schema = {
+        // Immutable structural dataset cache matrix
+        let schema = {
           "profile": {
             "hero_title": "Operating at the Vector Intersections",
             "hero_bio": "Developing embedded system architectures, low-cost IoT hardware modifications, and automated agentic AI workflows.",
@@ -232,9 +120,7 @@
           },
           "sections": [
             {
-              "id": "overview",
-              "heading": "Core Matrix Architecture",
-              "subheading": "Primary Technical Focus Areas",
+              "id": "overview", "heading": "Core Matrix Architecture", "subheading": "Primary Technical Focus Areas",
               "items": [
                 { "title": "01 // Hardware", "description": "ESP32 microprocessors, sensor array calibration, physical automated relays, and asynchronous packet transfer protocols." },
                 { "title": "02 // Automation", "description": "Autonomous multi-step orchestration workflows configured across Make.com engines paired with structural language parsing frames." },
@@ -242,9 +128,7 @@
               ]
             },
             {
-              "id": "deployments",
-              "heading": "Selected Deployments",
-              "subheading": "Engineering solutions, functional prototypes, and software platforms.",
+              "id": "deployments", "heading": "Selected Deployments", "subheading": "Engineering solutions, functional prototypes, and software platforms.",
               "items": [
                 { "title": "Safety-Enhanced Stitching Machine Ecosystem (Project SafeStitch)", "description": "Engineered a custom hardware safety modification framework utilizing high-speed infrared optical sensor arrays mapped to low-latency microcontroller processing loops to prevent industrial needle injuries." },
                 { "title": "Asynchronous IoT Threat Interceptor", "description": "Assembled a physical secure tracking asset executing low-latency asynchronous server architectures on microprocessors to deploy localized relay warnings." },
@@ -252,9 +136,7 @@
               ]
             },
             {
-              "id": "track",
-              "heading": "Professional Track Record",
-              "subheading": "Institutional experience and technical operational background.",
+              "id": "track", "heading": "Professional Track Record", "subheading": "Institutional experience and technical operational background.",
               "items": [
                 { "title": "Engineering Intern — SEIL Energy India Limited", "description": "Analyzed active plant telemetry networks, control mechanisms, and large-scale protection infrastructure systems in live utility grid nodes (Jul 2025 – Aug 2025)." },
                 { "title": "Workshop Trainer — Systems Orchestration", "description": "Designed, structured, and presented comprehensive engineering courses introducing student clusters to systemic prompt orchestration and Make.com integrations." }
@@ -264,184 +146,113 @@
         };
 
         window.addEventListener('DOMContentLoaded', () => {
-            loadDynamicArchitecture();
-            
+            // First, try loading external runtime file modifications if they exist safely
+            fetch('./data.json')
+                .then(res => res.json())
+                .then(networkData => {
+                    if(networkData.hero_title) schema.profile.hero_title = networkData.hero_title;
+                    if(networkData.hero_bio) schema.profile.hero_bio = networkData.hero_bio;
+                    if(networkData.email) schema.profile.email = networkData.email;
+                    if(networkData.linkedin_url) schema.profile.linkedin_url = networkData.linkedin_url;
+                    loadDynamicArchitecture();
+                })
+                .catch(() => {
+                    // Fallback directly to local schema properties if fetch fails
+                    loadDynamicArchitecture();
+                });
+
             setTimeout(() => {
                 const popup = document.getElementById('chat-pop-up');
-                if(popup) {
-                    popup.classList.remove('translate-y-2', 'opacity-0');
-                }
+                if(popup) popup.classList.remove('translate-y-2', 'opacity-0');
             }, 2500);
         });
 
         function loadDynamicArchitecture() {
-            const profile = schema.profile || {};
-            const sections = schema.sections || [];
-            
+            const profile = schema.profile;
             const nav = document.getElementById('dynamic-nav');
             const viewport = document.getElementById('dynamic-viewport');
-            if (!nav || !viewport) return;
             
-            nav.innerHTML = "";
-            viewport.innerHTML = "";
+            nav.innerHTML = ""; viewport.innerHTML = "";
 
-            if(profile.email && document.getElementById('cms-email-btn')) {
-                document.getElementById('cms-email-btn').href = `mailto:${profile.email}`;
-            }
-            if(profile.linkedin_url && document.getElementById('cms-linkedin-btn')) {
-                document.getElementById('cms-linkedin-btn').href = profile.linkedin_url;
-            }
+            document.getElementById('cms-email-btn').href = `mailto:${profile.email}`;
+            document.getElementById('cms-linkedin-btn').href = profile.linkedin_url;
 
-            sections.forEach((sec, index) => {
-                if (!sec || !sec.heading) return;
-                
+            schema.sections.forEach((sec, index) => {
                 const activeNavClass = index === 0 ? 'nav-active' : '';
                 const cleanNavName = sec.heading.includes('//') ? sec.heading.split('//').pop().trim() : sec.heading;
-                const sectionId = sec.id || `section-${index}`;
                 
                 nav.insertAdjacentHTML('beforeend', `
-                    <button onclick="switchView('${sectionId}')" id="nav-${sectionId}" class="${activeNavClass} pb-1 border-b-2 border-transparent hover:text-white transition-colors">
+                    <button onclick="switchView('${sec.id}')" id="nav-${sec.id}" class="${activeNavClass} pb-1 border-b-2 border-transparent hover:text-white transition-colors">
                         ${cleanNavName}
                     </button>
                 `);
 
-                const activeViewClass = index === 0 ? 'active-view' : '';
                 let cardsHtml = '';
-                
-                if (sec.items && Array.isArray(sec.items)) {
-                    sec.items.forEach((item, itemIndex) => {
-                        const cardDelay = itemIndex * 50;
-                        cardsHtml += `
-                            <div class="glass-card p-6 rounded-2xl space-y-3">
-                                <h4 class="font-display font-bold text-white tracking-tight text-base">${item.title || ''}</h4>
-                                <p class="text-xs text-neutral-400 font-light leading-relaxed">${item.description || ''}</p>
-                            </div>
-                        `;
-                    });
-                }
+                sec.items.forEach((item, itemIndex) => {
+                    cardsHtml += `
+                        <div class="glass-card p-6 rounded-2xl space-y-3">
+                            <h4 class="font-display font-bold text-white tracking-tight text-base">${item.title}</h4>
+                            <p class="text-xs text-neutral-400 font-light leading-relaxed">${item.description}</p>
+                        </div>
+                    `;
+                });
 
-                let sectionContentHtml = `
+                let contentHtml = `
                     <div class="space-y-1">
                         <h2 class="text-2xl font-display font-bold text-white tracking-tight neon-text-glow">${sec.heading}</h2>
-                        <p class="text-xs text-neutral-400">${sec.subheading || ''}</p>
+                        <p class="text-xs text-neutral-400">${sec.subheading}</p>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">${cardsHtml}</div>
                 `;
 
-                if (sectionId === 'overview') {
-                    sectionContentHtml = `
+                if (sec.id === 'overview') {
+                    contentHtml = `
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start mb-12 pb-12 border-b border-neutral-800">
                             <div class="md:col-span-2 space-y-6">
-                                <h1 id="cms-hero-title" class="text-4xl md:text-5xl font-display font-bold text-white tracking-tight leading-none">${profile.hero_title || 'Core Matrix Architecture'}</h1>
-                                <p id="cms-hero-bio" class="text-base text-neutral-400 font-light leading-relaxed max-w-xl">${profile.hero_bio || ''}</p>
+                                <h1 class="text-4xl md:text-5xl font-display font-bold text-white tracking-tight leading-none">${profile.hero_title}</h1>
+                                <p class="text-base text-neutral-400 font-light leading-relaxed max-w-xl">${profile.hero_bio}</p>
                             </div>
                             <div class="flex justify-start md:justify-end">
                                 <div class="relative group">
-                                    <div class="absolute -inset-0.5 shimmer-bar rounded-full blur-sm opacity-70 group-hover:opacity-100 transition duration-300"></div>
+                                    <div class="absolute -inset-0.5 shimmer-bar rounded-full blur-sm opacity-70"></div>
                                     <img src="https://github.com/jayasankar2007/personalsite/blob/main/05%5B16%5D%20(1).jpg?raw=true" class="relative w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border border-neutral-800 bg-neutral-900">
                                 </div>
                             </div>
                         </div>
-                        <div class="space-y-1">
-                            <h2 class="text-xs font-bold uppercase tracking-wider text-neutral-500">${sec.subheading || ''}</h2>
-                        </div>
+                        <div class="space-y-1"><h2 class="text-xs font-bold uppercase tracking-wider text-neutral-500">${sec.subheading}</h2></div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">${cardsHtml}</div>
                     `;
                 }
 
                 viewport.insertAdjacentHTML('beforeend', `
-                    <div id="view-${sectionId}" class="view-panel ${activeViewClass} space-y-6">
-                        ${sectionContentHtml}
+                    <div id="view-${sec.id}" class="view-panel ${index === 0 ? 'active-view' : ''} space-y-6">
+                        ${contentHtml}
                     </div>
                 `);
             });
-
-            setTimeout(() => {
-                AOS.refresh();
-            }, 50);
+            AOS.refresh();
         }
 
-        function switchView(viewId) {
+        // Window Switch Router Core Functionality
+        window.switchView = function(viewId) {
             document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active-view'));
             document.querySelectorAll('#dynamic-nav button').forEach(b => b.classList.remove('nav-active'));
             
             const targetView = document.getElementById(`view-${viewId}`);
             const targetNav = document.getElementById(`nav-${viewId}`);
             
-            if(targetView) {
-                targetView.classList.add('active-view');
-                setTimeout(() => { AOS.refresh(); }, 10);
-            }
+            if(targetView) targetView.classList.add('active-view');
             if(targetNav) targetNav.classList.add('nav-active');
-        }
+            AOS.refresh();
+        };
 
-        function toggleChat() {
-            const chatWindow = document.getElementById('chat-window');
-            chatWindow.classList.toggle('open');
-            const popup = document.getElementById('chat-pop-up');
-            if(chatWindow.classList.contains('open') && popup) { popup.style.display = 'none'; }
-        }
-
-        function dismissPopup(e) {
+        window.toggleChat = function() {
+            document.getElementById('chat-window').classList.toggle('open');
+        };
+        window.dismissPopup = function(e) {
             e.stopPropagation();
-            const popup = document.getElementById('chat-pop-up');
-            if(popup) popup.style.display = 'none';
-        }
-
-        let resumeContextCache = "";
-        fetch('./resume_context.txt')
-            .then(res => res.text())
-            .then(text => { resumeContextCache = text; })
-            .catch(err => { console.error("Could not initialize context stream:", err); });
-
-        async function fetchGeminiAIResponse(userMessage) {
-            const context = resumeContextCache || "Jayasankar Gnanadesigan is an ECE Student at Saveetha Engineering College focusing on Project SafeStitch.";
-            const systemRule = `You are an AI Assistant representing Jayasankar Gnanadesigan. Keep responses concise (2-3 sentences max).\n\n=== CONTEXT ===\n${context}`;
-
-            try {
-                const tokenKey = "AQ" + ".Ab8RN6" + "ICbHySK8dIG" + "ZZMwmhZDclfnp" + "O5HShooOyP9UW2" + "0uUyDA";
-                const url = `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${tokenKey}`;
-                
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: `${systemRule}\n\nUser Question: ${userMessage}` }] }]
-                    })
-                });
-                const data = await response.json();
-                return data.candidates[0].content.parts[0].text;
-            } catch (error) {
-                return "My apologies! I hit a data routing bottleneck. Please email Jayasankar directly!";
-            }
-        }
-
-        async function handleUserMessage(event) {
-            event.preventDefault();
-            const inputField = document.getElementById('chat-input');
-            const userText = inputField.value.trim();
-            if(!userText) return;
-
-            const stream = document.getElementById('chat-stream');
-            stream.insertAdjacentHTML('beforeend', `<div class="flex max-w-[85%] ml-auto justify-end"><div class="bg-blue-600 text-white px-3 py-2.5 rounded-2xl rounded-tr-none text-xs">${escapeHtml(userText)}</div></div>`);
-            inputField.value = '';
-            stream.scrollTop = stream.scrollHeight;
-
-            const loadId = 'loading-' + Date.now();
-            stream.insertAdjacentHTML('beforeend', `<div id="${loadId}" class="flex gap-2.5 items-start max-w-[85%]"><div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div><div class="bg-neutral-900 border border-neutral-800 px-3 py-2 rounded-2xl rounded-tl-none text-xs text-neutral-500 flex items-center gap-1"><span class="animate-bounce">●</span><span class="animate-bounce [animation-delay:0.2s]">●</span><span class="animate-bounce [animation-delay:0.4s]">●</span></div></div>`);
-            stream.scrollTop = stream.scrollHeight;
-
-            const systemReply = await fetchGeminiAIResponse(userText);
-            const loadEl = document.getElementById(loadId);
-            if(loadEl) loadEl.remove();
-
-            stream.insertAdjacentHTML('beforeend', `<div class="flex gap-2.5 items-start max-w-[85%]"><div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div><div class="bg-neutral-900 border border-neutral-800 px-3 py-2.5 rounded-2xl rounded-tl-none text-xs text-neutral-300 leading-relaxed">${systemReply}</div></div>`);
-            stream.scrollTop = stream.scrollHeight;
-        }
-
-        function escapeHtml(string) {
-            return String(string).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-        }
+            document.getElementById('chat-pop-up').style.display = 'none';
+        };
     </script>
 </body>
 </html>
