@@ -288,47 +288,94 @@
             }, 2500);
         });
 
-        // LOADS DATA DIRECTLY FROM YOUR FLAT DATA.JSON SCHEMA
+       // BOOTSTRAPS AND RENDERS THE DYNAMIC SCHEMA LAYOUTS DYNAMICALLY
         function loadDynamicArchitecture() {
             fetch('./data.json')
                 .then(res => res.json())
                 .then(schema => {
-                    // Extract your flat JSON properties safely
-                    const heroTitle = schema.hero_title || "Jayasankar Gnanadesigan";
-                    const heroBio = schema.hero_bio || "Electronics and Communication Engineering Student";
+                    const profile = schema.profile || schema;
                     
-                    // Directly swap the placeholder text using explicit DOM node references
-                    document.getElementById('cms-hero-title').innerText = heroTitle;
-                    document.getElementById('cms-hero-bio').innerText = heroBio;
+                    // Set Profile Details
+                    if(document.getElementById('cms-hero-title')) {
+                        document.getElementById('cms-hero-title').innerText = profile.hero_title || "Jayasankar Gnanadesigan";
+                    }
+                    if(document.getElementById('cms-hero-bio')) {
+                        document.getElementById('cms-hero-bio').innerText = profile.hero_bio || "";
+                    }
                     
-                    if(schema.email) document.getElementById('cms-email-btn').href = `mailto:${schema.email}`;
-                    if(schema.linkedin_url) document.getElementById('cms-linkedin-btn').href = schema.linkedin_url;
-                })
-                .catch(err => {
-                    console.error("Data mapping initialization anomaly:", err);
-                });
+                    if(profile.email && document.getElementById('cms-email-btn')) {
+                        document.getElementById('cms-email-btn').href = `mailto:${profile.email}`;
+                    }
+                    if(profile.linkedin_url && document.getElementById('cms-linkedin-btn')) {
+                        document.getElementById('cms-linkedin-btn').href = profile.linkedin_url;
+                    }
+                    
+                    const nav = document.getElementById('dynamic-nav');
+                    const viewport = document.getElementById('dynamic-viewport');
+                    
+                    if (!nav || !viewport) return;
+                    
+                    nav.innerHTML = "";
+                    viewport.innerHTML = "";
+
+                    const sections = schema.sections || [];
+
+                    // If no custom views exist yet, mount a clean fallback overview panel
+                    if (sections.length === 0) {
+                        viewport.innerHTML = `
+                            <div class="view-panel active-view space-y-6">
+                                <h1 class="text-5xl font-display font-bold text-neutral-900 tracking-tight">${profile.hero_title}</h1>
+                                <p class="text-neutral-500 max-w-2xl leading-relaxed">${profile.hero_bio}</p>
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    // Dynamically map navigation buttons and text panels from data.json config arrays
+                    sections.forEach((sec, index) => {
+                        const activeNavClass = index === 0 ? 'nav-active' : '';
+                        nav.insertAdjacentHTML('beforeend', `
+                            <button onclick="switchView('${sec.id}')" id="nav-${sec.id}" class="${activeNavClass} pb-1 border-b-2 border-transparent hover:text-neutral-900 transition-colors">
+                                ${sec.heading.includes('//') ? sec.heading.split('//').pop().trim() : sec.heading}
+                            </button>
+                        `);
+
+                        const activeViewClass = index === 0 ? 'active-view' : '';
+                        let cardsHtml = '';
+                        
+                        if (sec.items && Array.isArray(sec.items)) {
+                            sec.items.forEach(item => {
+                                cardsHtml += `
+                                    <div class="p-6 bg-white border border-neutral-200 rounded-2xl shadow-sm space-y-2 hover:border-neutral-300 transition-all">
+                                        <h4 class="font-bold text-neutral-900">${item.title}</h4>
+                                        <p class="text-xs text-neutral-500 font-light leading-relaxed">${item.description}</p>
+                                    </div>
+                                `;
+                            });
+                        }
+
+                        viewport.insertAdjacentHTML('beforeend', `
+                            <div id="view-${sec.id}" class="view-panel ${activeViewClass} space-y-6">
+                                <div class="space-y-1">
+                                    <h2 class="text-2xl font-display font-bold text-neutral-900 tracking-tight">${sec.heading}</h2>
+                                    <p class="text-xs text-neutral-400">${sec.subheading || ''}</p>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">${cardsHtml}</div>
+                            </div>
+                        `);
+                    });
+                }).catch(err => console.error("Dynamic layout initialization anomaly:", err));
         }
 
-        // TABS CORE NAVIGATION ROUTER LAYER
         function switchView(viewId) {
-            // Hide all active layout views
-            document.querySelectorAll('.view-panel').forEach(panel => {
-                panel.classList.remove('active-view');
-            });
+            document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active-view'));
+            document.querySelectorAll('#dynamic-nav button').forEach(b => b.classList.remove('nav-active'));
             
-            // De-activate all custom header button underlines
-            document.querySelectorAll('nav button').forEach(btn => {
-                btn.classList.remove('nav-active');
-            });
+            const targetView = document.getElementById(`view-${viewId}`);
+            const targetNav = document.getElementById(`nav-${viewId}`);
             
-            // Mount target view window structure smoothly
-            const targetPanel = document.getElementById(`view-${viewId}`);
-            const targetBtn = document.getElementById(`nav-${viewId}`);
-            
-            if (targetPanel) targetPanel.classList.add('active-view');
-            if (targetBtn) targetBtn.classList.add('nav-active');
-            
-            window.scrollTo({ top: 0, behavior: 'instant' });
+            if(targetView) targetView.classList.add('active-view');
+            if(targetNav) targetNav.classList.add('nav-active');
         }
 
         function toggleChat() {
