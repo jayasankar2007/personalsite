@@ -31,6 +31,7 @@
     <style>
         body {
             background-color: #030712; /* Deep space dark background */
+            overflow-x: hidden; /* Prevents tiny layout shifts during animations */
         }
         
         /* Smooth glowing glassmorphism panels */
@@ -107,8 +108,8 @@
 
     <div class="max-w-4xl mx-auto px-6 py-12 relative z-10">
         
-        <!-- MINIMALIST PREMIUM HEADER -->
-        <header class="flex flex-col sm:flex-row justify-between items-center gap-6 mb-24 pb-6 border-b border-neutral-800">
+        <!-- MINIMALIST PREMIUM HEADER (Soft fading scroll animation) -->
+        <header data-aos="fade-down" data-aos-duration="1000" class="flex flex-col sm:flex-row justify-between items-center gap-6 mb-24 pb-6 border-b border-neutral-800">
             <a href="#" class="font-display font-bold text-lg tracking-tight text-white hover:text-blue-500 transition-colors">
                 jayasankar.g
             </a>
@@ -116,12 +117,11 @@
            <nav id="dynamic-nav" class="flex gap-6 text-xs uppercase tracking-widest text-neutral-500 font-medium"></nav>
         </header>
 
-      
         <!-- DYNAMIC PORTFOLIO VIEWPORT -->
         <main id="dynamic-viewport" class="min-h-[450px]"></main>
 
-        <!-- HIGH-CONTRAST CALL TO ACTION -->
-        <section class="mt-24 p-8 bg-neutral-900/50 border border-neutral-800 rounded-2xl text-white flex flex-col md:flex-row justify-between items-center gap-6 shadow-md backdrop-blur-md">
+        <!-- HIGH-CONTRAST CALL TO ACTION (Soft scroll up animation) -->
+        <section data-aos="fade-up" data-aos-duration="1000" class="mt-24 p-8 bg-neutral-900/50 border border-neutral-800 rounded-2xl text-white flex flex-col md:flex-row justify-between items-center gap-6 shadow-md backdrop-blur-md">
             <div class="space-y-1 text-center md:text-left">
                 <h3 class="text-lg font-display font-bold tracking-tight text-white">Initialize Shared Execution</h3>
                 <p class="text-xs text-neutral-400 font-light">Available for engineering collaborations regarding hardware and automated loops.</p>
@@ -136,8 +136,8 @@
             </div>
         </section>
 
-        <!-- FOOTER -->
-        <footer class="mt-20 pt-6 border-t border-neutral-800 flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] uppercase tracking-wider text-neutral-500 font-medium">
+        <!-- FOOTER (Soft scroll up animation delayed slightly) -->
+        <footer data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200" class="mt-20 pt-6 border-t border-neutral-800 flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] uppercase tracking-wider text-neutral-500 font-medium">
             <div>© 2026 // Jayasankar Gnanadesigan.</div>
             <div class="flex gap-4 items-center font-bold text-neutral-400">
                 <span>Saveetha Engineering College</span>
@@ -151,7 +151,7 @@
     <!-- PREMIUM FLOATING INTERACTIVE CHATBOT SYSTEM -->
     <div class="fixed bottom-6 right-6 z-50 font-sans text-sm flex flex-col items-end">
         
-        <!-- Interactive Slide-out Message Notification (Non-disturbing Pop-up) -->
+        <!-- Interactive Slide-out Message Notification -->
         <div id="chat-pop-up" class="mb-3 bg-neutral-900/90 border border-neutral-800 shadow-xl px-4 py-3 rounded-xl max-w-xs transition-all duration-500 transform translate-y-2 opacity-0 flex items-start gap-3 backdrop-blur-md">
             <div class="w-2 h-2 rounded-full bg-blue-500 mt-1.5 animate-pulse shrink-0"></div>
             <div>
@@ -207,7 +207,13 @@
     <!-- Interface View Router Controller Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ once: true, offset: 20 });
+        // Initialize AOS with clean global timing settings
+        AOS.init({ 
+            once: true, 
+            offset: 40,
+            duration: 800,
+            easing: 'cubic-bezier(0.16, 1, 0.3, 1)'
+        });
 
         window.addEventListener('DOMContentLoaded', () => {
             loadDynamicArchitecture();
@@ -257,9 +263,11 @@
                         let cardsHtml = '';
                         
                         if (sec.items && Array.isArray(sec.items)) {
-                            sec.items.forEach(item => {
+                            sec.items.forEach((item, itemIndex) => {
+                                // Dynamic staggered scrolling delay for each grid item card
+                                const cardDelay = itemIndex * 100;
                                 cardsHtml += `
-                                    <div class="glass-card p-6 rounded-2xl space-y-3">
+                                    <div data-aos="fade-up" data-aos-delay="${cardDelay}" class="glass-card p-6 rounded-2xl space-y-3">
                                         <h4 class="font-display font-bold text-white tracking-tight text-base">${item.title}</h4>
                                         <p class="text-xs text-neutral-400 font-light leading-relaxed">${item.description}</p>
                                     </div>
@@ -268,7 +276,7 @@
                         }
 
                         let sectionContentHtml = `
-                            <div class="space-y-1">
+                            <div data-aos="fade-up" class="space-y-1">
                                 <h2 class="text-2xl font-display font-bold text-white tracking-tight neon-text-glow">${sec.heading}</h2>
                                 <p class="text-xs text-neutral-400">${sec.subheading || ''}</p>
                             </div>
@@ -278,18 +286,18 @@
                         if (sec.id === 'overview') {
                             sectionContentHtml = `
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start mb-12 pb-12 border-b border-neutral-800">
-                                    <div class="md:col-span-2 space-y-6">
+                                    <div data-aos="fade-right" class="md:col-span-2 space-y-6">
                                         <h1 id="cms-hero-title" class="text-4xl md:text-5xl font-display font-bold text-white tracking-tight leading-none">${profile.hero_title}</h1>
                                         <p id="cms-hero-bio" class="text-base text-neutral-400 font-light leading-relaxed max-w-xl">${profile.hero_bio}</p>
                                     </div>
-                                    <div class="flex justify-start md:justify-end">
+                                    <div data-aos="fade-left" class="flex justify-start md:justify-end">
                                         <div class="relative group">
                                             <div class="absolute -inset-0.5 shimmer-bar rounded-full blur-sm opacity-70 group-hover:opacity-100 transition duration-300"></div>
                                             <img src="https://github.com/jayasankar2007/personalsite/blob/main/05%5B16%5D%20(1).jpg?raw=true" class="relative w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border border-neutral-800 bg-neutral-900">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="space-y-1">
+                                <div data-aos="fade-up" class="space-y-1">
                                     <h2 class="text-xs font-bold uppercase tracking-wider text-neutral-500">${sec.subheading || ''}</h2>
                                 </div>
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">${cardsHtml}</div>
@@ -302,6 +310,10 @@
                             </div>
                         `);
                     });
+
+                    // Force AOS to discover and parse newly injected dynamic elements
+                    AOS.refresh();
+
                 }).catch(err => {
                     console.error("Dynamic layout initialization anomaly:", err);
                 });
@@ -314,7 +326,11 @@
             const targetView = document.getElementById(`view-${viewId}`);
             const targetNav = document.getElementById(`nav-${viewId}`);
             
-            if(targetView) targetView.classList.add('active-view');
+            if(targetView) {
+                targetView.classList.add('active-view');
+                // Re-trigger scroll animations within the newly exposed navigation view context
+                AOS.refresh();
+            }
             if(targetNav) targetNav.classList.add('nav-active');
         }
 
