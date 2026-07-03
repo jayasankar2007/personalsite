@@ -7,44 +7,102 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #030712; }
-        .glass-card {
-            background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        body { font-family: 'Inter', sans-serif; background-color: #030712; }
+        .font-display { font-family: 'Space Grotesk', sans-serif; }
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
         }
-        .shimmer-bar { background: linear-gradient(-45deg, #2563eb, #3b82f6, #10b981, #6366f1); background-size: 400% 400%; }
+        .neon-glow {
+            text-shadow: 0 0 20px rgba(37, 99, 235, 0.6);
+        }
+        @keyframes dynamicShimmer { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        .shimmer-bar { background: linear-gradient(-45deg, #2563eb, #3b82f6, #10b981, #6366f1); background-size: 400% 400%; animation: dynamicShimmer 6s ease infinite; }
     </style>
 </head>
-<body class="text-neutral-300 antialiased min-h-screen py-10 px-4 flex flex-col items-center relative font-sans">
-    <div class="fixed top-0 left-0 w-full h-1.5 shimmer-bar z-50"></div>
+<body class="text-slate-200 min-h-screen pb-20 relative">
 
-    <div id="login-gate" class="w-full max-w-md glass-card rounded-2xl p-6 mt-20 space-y-4">
-        <h2 class="text-xl font-display font-bold text-white tracking-tight">🛡️ Security Gateway</h2>
-        <div class="space-y-3">
-            <input id="github-token" type="password" placeholder="GitHub PAT Token (Password)" class="w-full text-sm px-3 py-2.5 bg-neutral-950 border border-neutral-800 text-white rounded-xl focus:outline-none">
-        </div>
-        <button onclick="authenticateTerminal()" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-3 rounded-xl transition-colors">Initialize Connection</button>
-    </div>
+    <div class="w-full h-1.5 shimmer-bar"></div>
 
-    <div id="main-dashboard" class="hidden w-full max-w-4xl bg-neutral-900/40 border border-neutral-800 backdrop-blur-md rounded-2xl p-6 shadow-2xl space-y-6 mt-6">
-        <div class="border-b border-neutral-800 pb-4 flex justify-between items-center">
-            <div>
-                <h1 class="text-2xl font-bold text-white tracking-tight">⚡ Master Control Console</h1>
-                <p class="text-xs text-neutral-500">Authorized structural parameter configuration module.</p>
+    <div class="max-w-4xl mx-auto px-6 py-12">
+        <!-- SECURITY GATEWAY (LOGIN) -->
+        <div id="login-gate" class="max-w-md mx-auto glass-panel rounded-2xl p-8 mt-20 space-y-6">
+            <div class="text-center space-y-2">
+                <h2 class="text-2xl font-display font-bold text-white tracking-tight flex items-center justify-center gap-2">
+                    🛡️ Security Gateway
+                </h2>
+                <p class="text-xs text-slate-400">Initialize identity verification to connect repository telemetry.</p>
             </div>
-            <button onclick="saveEverythingLive()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-6 py-2.5 rounded-xl transition-colors shadow-md">Deploy Changes Live</button>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">Terminal ID Username</label>
+                    <input id="admin-id" type="text" placeholder="e.g., admin_node_01" class="w-full text-xs px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white font-mono">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">GitHub Access Token (PAT)</label>
+                    <input id="github-token" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" class="w-full text-xs px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white font-mono">
+                </div>
+            </div>
+            <button onclick="authenticateTerminal()" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-3 rounded-xl transition-all shadow-lg shadow-blue-900/30 active:scale-[0.98]">
+                Initialize Cryptographic Sync
+            </button>
         </div>
 
-        <div id="status-box" class="hidden text-xs p-3 rounded-xl border font-mono"></div>
+        <!-- MAIN OPERATIONAL MASTER DASHBOARD -->
+        <div id="main-dashboard" class="hidden space-y-8">
+            <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6 border-b border-slate-800">
+                <div>
+                    <h1 class="text-3xl font-display font-bold text-white tracking-tight neon-glow">⚡ Master Control Console</h1>
+                    <p class="text-xs text-slate-400 font-mono mt-1">Authorized dynamic orchestration node.</p>
+                </div>
+                <button onclick="saveEverythingLive()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-6 py-3 rounded-xl transition-all shadow-lg shadow-blue-900/30 active:scale-[0.98] w-full sm:w-auto">
+                    Deploy System Configuration
+                </button>
+            </header>
 
-        <div class="bg-neutral-950/60 border border-neutral-800 p-5 rounded-xl space-y-4">
-            <h3 class="text-xs font-bold uppercase tracking-wider text-blue-500">01 // Primary Information Properties</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input id="hero-title" type="text" placeholder="Hero Title" class="w-full text-sm px-3 py-2.5 bg-neutral-900 border border-neutral-800 text-white rounded-xl focus:outline-none">
-                <input id="hero-email" type="text" placeholder="Contact Email" class="w-full text-sm px-3 py-2.5 bg-neutral-900 border border-neutral-800 text-white rounded-xl focus:outline-none">
+            <!-- MONITORING ORCHESTRATION BOX -->
+            <div id="status-box" class="hidden text-xs p-4 rounded-xl border font-mono tracking-wide"></div>
+
+            <!-- CORE PROFILE CONFIGURATION AREA -->
+            <div class="glass-panel p-6 rounded-2xl space-y-4">
+                <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-blue-500">01 // Primary Profile Properties</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Hero Title Heading</label>
+                        <input id="hero-title" type="text" class="w-full text-xs px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Communication Routing Email</label>
+                        <input id="hero-email" type="text" class="w-full text-xs px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">LinkedIn Network URL</label>
+                        <input id="hero-linkedin" type="text" class="w-full text-xs px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Direct Telemetry Connection (Phone)</label>
+                        <input id="hero-phone" type="text" placeholder="+91 XXXXX XXXXX" class="w-full text-xs px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-blue-500">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Dynamic Identity Summary (Bio)</label>
+                    <textarea id="hero-bio" rows="3" class="w-full text-xs px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-blue-500 resize-none font-mono leading-relaxed"></textarea>
+                </div>
             </div>
-            <textarea id="hero-bio" rows="3" placeholder="Hero Biography Summary" class="w-full text-sm px-3 py-2.5 bg-neutral-900 border border-neutral-800 text-white rounded-xl focus:outline-none resize-none"></textarea>
-            <input id="hero-linkedin" type="text" placeholder="LinkedIn URL" class="w-full text-sm px-3 py-2.5 bg-neutral-900 border border-neutral-800 text-white rounded-xl focus:outline-none">
+
+            <!-- CUSTOM VIEWS SECTIONS ORCHESTRATOR -->
+            <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-blue-500">02 // Navigation Tabs & Page Sections</h3>
+                    <button onclick="addNewSection()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2 rounded-xl border border-slate-800 transition-colors">
+                        Add Custom Page Section +
+                    </button>
+                </div>
+                <div id="sections-container" class="space-y-6"></div>
+            </div>
         </div>
     </div>
 
@@ -55,51 +113,158 @@
 
         function authenticateTerminal() {
             const token = document.getElementById('github-token').value.trim();
-            fetch(`https://api.github.com/repos/${REPO}/contents/data.json`, { headers: { 'Authorization': `token ${token}` } })
-            .then(res => res.json())
+            if(!token) return alert("Cryptographic authorization string required.");
+            
+            fetch(`https://api.github.com/repos/${REPO}/contents/data.json`, {
+                headers: { 'Authorization': `token ${token}`, 'Cache-Control': 'no-cache' }
+            })
+            .then(res => {
+                if(!res.ok) throw new Error("Verification failed: Clear authorization credentials rejected.");
+                return res.json();
+            })
             .then(fileData => {
                 currentSha = fileData.sha;
-                siteConfig = JSON.parse(atob(fileData.content));
+                
+                // Decode UTF-8 string gracefully handling non-ASCII strings
+                const decodedString = decodeURIComponent(escape(atob(fileData.content.replace(/\s/g, ''))));
+                siteConfig = JSON.parse(decodedString);
+                
                 localStorage.setItem('admin_session_token', token);
+                
                 document.getElementById('login-gate').classList.add('hidden');
                 document.getElementById('main-dashboard').classList.remove('hidden');
-                
-                document.getElementById('hero-title').value = siteConfig.hero_title || siteConfig.profile?.hero_title || '';
-                document.getElementById('hero-bio').value = siteConfig.hero_bio || siteConfig.profile?.hero_bio || '';
-                document.getElementById('hero-email').value = siteConfig.email || siteConfig.profile?.email || '';
-                document.getElementById('hero-linkedin').value = siteConfig.linkedin_url || siteConfig.profile?.linkedin_url || '';
-            }).catch(() => alert(" Clear identification parameters rejected. Ensure token string is valid."));
+                renderEditorDashboard();
+            })
+            .catch(err => alert(err.message));
         }
+
+        function renderEditorDashboard() {
+            // Check nesting architecture resilience patterns 
+            const profile = siteConfig.profile || siteConfig;
+            
+            document.getElementById('hero-title').value = profile.hero_title || '';
+            document.getElementById('hero-bio').value = profile.hero_bio || '';
+            document.getElementById('hero-email').value = profile.email || '';
+            document.getElementById('hero-linkedin').value = profile.linkedin_url || '';
+            document.getElementById('hero-phone').value = profile.phone || '';
+
+            const container = document.getElementById('sections-container');
+            container.innerHTML = "";
+
+            const sections = siteConfig.sections || [];
+
+            sections.forEach((sec, sIdx) => {
+                let itemsHtml = '';
+                const items = sec.items || [];
+                
+                items.forEach((item, iIdx) => {
+                    itemsHtml += `
+                        <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800/80 space-y-3 relative">
+                            <button onclick="deleteItem(${sIdx}, ${iIdx})" class="absolute top-3 right-4 text-[10px] font-mono text-red-500 uppercase hover:text-red-400 font-bold">Remove Item ×</button>
+                            <div class="w-3/4">
+                                <label class="block text-[9px] font-mono uppercase text-slate-500 mb-0.5">Card Element Heading</label>
+                                <input type="text" value="${item.title}" onchange="updateItemField(${sIdx}, ${iIdx}, 'title', this.value)" class="w-full text-xs px-2 py-1.5 bg-slate-950 border border-slate-800/80 text-white rounded-lg focus:outline-none focus:border-blue-500 font-bold">
+                            </div>
+                            <div>
+                                <label class="block text-[9px] font-mono uppercase text-slate-500 mb-0.5">Card Content Description</label>
+                                <textarea onchange="updateItemField(${sIdx}, ${iIdx}, 'description', this.value)" rows="2" class="w-full text-xs p-2 bg-slate-950 border border-slate-800/80 text-slate-300 rounded-lg focus:outline-none focus:border-blue-500 resize-none font-mono">${item.description}</textarea>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                container.insertAdjacentHTML('beforeend', `
+                    <div class="glass-panel p-6 rounded-2xl space-y-4 relative">
+                        <button onclick="deleteSection(${sIdx})" class="absolute top-4 right-6 text-[10px] font-mono bg-red-950/40 border border-red-900/60 text-red-400 px-3 py-1.5 rounded-lg font-bold hover:bg-red-950/80">Delete Section ✕</button>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Section ID Anchor</label>
+                                <input type="text" value="${sec.id}" onchange="updateSectionField(${sIdx}, 'id', this.value)" class="w-full text-xs px-2 py-1.5 bg-slate-950 border border-slate-800 text-slate-400 rounded-lg focus:outline-none font-mono">
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Main Tab Heading Name</label>
+                                <input type="text" value="${sec.heading}" onchange="updateSectionField(${sIdx}, 'heading', this.value)" class="w-full text-xs px-2 py-1.5 bg-slate-950 border border-slate-800 text-white rounded-lg focus:outline-none focus:border-blue-500 font-bold">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Subheading Context Narrative</label>
+                            <input type="text" value="${sec.subheading || ''}" onchange="updateSectionField(${sIdx}, 'subheading', this.value)" class="w-full text-xs px-2 py-1.5 bg-slate-950 border border-slate-800 text-slate-300 rounded-lg focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div class="space-y-3 pl-4 border-l border-slate-800 mt-4">${itemsHtml}</div>
+                        <button onclick="addNewItemToSection(${sIdx})" class="text-[10px] bg-slate-900 hover:bg-slate-800 px-4 py-2 rounded-xl text-blue-400 border border-slate-800 font-bold ml-4 transition-colors">+ Add Nested Sub-Component Card</button>
+                    </div>
+                `);
+            });
+        }
+
+        function updateSectionField(sIdx, field, val) { siteConfig.sections[sIdx][field] = val; }
+        function updateItemField(sIdx, iIdx, field, val) { siteConfig.sections[sIdx].items[iIdx][field] = val; }
+        
+        function addNewSection() {
+            if(!siteConfig.sections) siteConfig.sections = [];
+            siteConfig.sections.push({ id: "custom_" + Date.now(), heading: "New Layout Tab", subheading: "Description metric summary narrative text.", items: [] });
+            renderEditorDashboard();
+        }
+        function deleteSection(sIdx) { 
+            if(confirm("Confirm deletion of entire viewport template pane?")) {
+                siteConfig.sections.splice(sIdx, 1); 
+                renderEditorDashboard(); 
+            }
+        }
+        
+        function addNewItemToSection(sIdx) {
+            if(!siteConfig.sections[sIdx].items) siteConfig.sections[sIdx].items = [];
+            siteConfig.sections[sIdx].items.push({ title: "Sub-Grid Data Header Component", description: "Telemetry analysis and detailed architecture specification logs." });
+            renderEditorDashboard();
+        }
+        function deleteItem(sIdx, iIdx) { siteConfig.sections[sIdx].items.splice(iIdx, 1); renderEditorDashboard(); }
 
         async function saveEverythingLive() {
             const token = localStorage.getItem('admin_session_token');
             const box = document.getElementById('status-box');
             
-            const payload = {
-                hero_title: document.getElementById('hero-title').value,
-                hero_bio: document.getElementById('hero-bio').value,
-                email: document.getElementById('hero-email').value,
-                linkedin_url: document.getElementById('hero-linkedin').value
-            };
+            if(!siteConfig.profile) siteConfig.profile = {};
+            siteConfig.profile.hero_title = document.getElementById('hero-title').value;
+            siteConfig.profile.hero_bio = document.getElementById('hero-bio').value;
+            siteConfig.profile.email = document.getElementById('hero-email').value;
+            siteConfig.profile.linkedin_url = document.getElementById('hero-linkedin').value;
+            siteConfig.profile.phone = document.getElementById('hero-phone').value;
 
-            box.className = "text-xs p-3 rounded-xl border font-mono bg-blue-950 text-blue-400 border-blue-900 block";
-            box.innerText = "Synchronizing deployment metrics to origin...";
+            box.className = "text-xs p-4 rounded-xl border font-mono bg-blue-950/60 text-blue-400 border-blue-900/60 block";
+            box.innerText = "Initializing runtime deployment workflow over GitHub API streams...";
 
+            // Robust Base64 binary generation loop supporting wide character ranges
+            const jsonString = JSON.stringify(siteConfig, null, 2);
+            const base64Content = btoa(unescape(encodeURIComponent(jsonString)));
+            
             try {
+                // Fetch fresh SHA layer snapshot right before overriding to mitigate structural concurrency collisions
+                const checkRes = await fetch(`https://api.github.com/repos/${REPO}/contents/data.json`, {
+                    headers: { 'Authorization': `token ${token}`, 'Cache-Control': 'no-cache' }
+                });
+                if(checkRes.ok) {
+                    const freshData = await checkRes.json();
+                    currentSha = freshData.sha;
+                }
+
                 const response = await fetch(`https://api.github.com/repos/${REPO}/contents/data.json`, {
                     method: 'PUT',
                     headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: "terminal update: profile layer realignment", content: btoa(JSON.stringify(payload, null, 2)), sha: currentSha })
+                    body: JSON.stringify({ message: "web_console: remote configuration parameters realigned", content: base64Content, sha: currentSha })
                 });
 
                 if(response.ok) {
-                    const resJson = await response.json(); currentSha = resJson.content.sha;
-                    box.className = "text-xs p-3 rounded-xl border font-mono bg-emerald-950 text-emerald-400 border-emerald-900 block";
-                    box.innerText = "Deployment Success! Parameters successfully realigned across target grids.";
-                } else { throw new Error("GitHub master connection deployment handshake failure."); }
+                    const resJson = await response.json();
+                    currentSha = resJson.content.sha;
+                    box.className = "text-xs p-4 rounded-xl border font-mono bg-emerald-950/60 text-emerald-400 border-emerald-900/60 block";
+                    box.innerText = "Deployment Complete! Target system array parameters are synced and updating live across distribution layers.";
+                } else {
+                    const errorDetails = await response.json();
+                    throw new Error(errorDetails.message || "Origin server rejected configuration adjustments.");
+                }
             } catch(e) {
-                box.className = "text-xs p-3 rounded-xl border font-mono bg-red-950 text-red-400 border-red-900 block";
-                box.innerText = "Pipeline Lockout: " + e.message;
+                box.className = "text-xs p-4 rounded-xl border font-mono bg-red-950/60 text-red-400 border-red-900/60 block";
+                box.innerText = "Write Pipeline Failure: " + e.message;
             }
         }
     </script>
