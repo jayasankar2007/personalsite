@@ -80,7 +80,6 @@
                 <div class="lg:col-span-1 space-y-6">
                     <div class="glass-panel p-6 rounded-2xl space-y-6">
                         <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-blue-400 border-b border-slate-700 pb-2">01 // Identity Vectors</h3>
-                        
                         <div class="space-y-4">
                             <div>
                                 <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Display Name</label>
@@ -98,7 +97,7 @@
                     </div>
                 </div>
 
-                <!-- MAIN WORKSPACE: LAYOUT MANAGEMENTS -->
+                <!-- MAIN WORKSPACE -->
                 <div class="lg:col-span-2 space-y-6">
                     <div class="glass-panel p-6 rounded-2xl space-y-4">
                         <div class="flex items-center justify-between border-b border-slate-700 pb-3">
@@ -121,7 +120,7 @@
             <div class="flex justify-between items-center border-b border-slate-700 pb-3">
                 <div>
                     <h3 class="text-base font-display font-bold text-white flex items-center gap-2">🎥 Media Broadcast Engine</h3>
-                    <p class="text-[10px] text-slate-400 font-mono mt-0.5">Rapid deployment node for project updates, logs, and vids.</p>
+                    <p class="text-[10px] text-slate-400 font-mono mt-0.5">Rapid deployment node for project updates, logs, photos, and videos.</p>
                 </div>
                 <button onclick="closeMediaBroadcastWindow()" class="text-slate-400 hover:text-white text-lg">✕</button>
             </div>
@@ -130,8 +129,8 @@
                 <div>
                     <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Select Media Node Type</label>
                     <select id="media-type" class="w-full text-xs px-3 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none">
-                        <option value="Recent Deployment Media Log">Recent Photo Update Log</option>
-                        <option value="Dynamic Video Spec Telemetry">Dynamic Video Spec Telemetry</option>
+                        <option value="IMAGE">Photo Asset Node</option>
+                        <option value="VIDEO">Video Broadcast Telemetry</option>
                     </select>
                 </div>
                 <div>
@@ -139,7 +138,7 @@
                     <input id="media-title" type="text" placeholder="e.g., ESP32 Camera Array Calibration Loop" class="w-full text-xs px-3 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Choose Asset File (Image/Video Link Frame)</label>
+                    <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Choose Asset File</label>
                     <input id="media-file-input" type="file" accept="image/*,video/*" class="hidden" onchange="processMediaBroadcastFile(this)">
                     <button onclick="document.getElementById('media-file-input').click()" class="w-full px-4 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-xs font-bold transition-colors text-slate-300">
                         Upload Asset Binary Snapshot
@@ -184,7 +183,6 @@
                 siteConfig = JSON.parse(decodedString);
                 
                 localStorage.setItem('admin_session_token', token);
-                
                 document.getElementById('login-gate').classList.add('hidden');
                 document.getElementById('main-dashboard').classList.remove('hidden');
                 
@@ -201,7 +199,6 @@
         function renderEditorDashboard() {
             const container = document.getElementById('sections-container');
             container.innerHTML = "";
-
             const sections = siteConfig.sections || [];
 
             sections.forEach((sec, sIdx) => {
@@ -217,7 +214,7 @@
                             </div>
                             <div class="space-y-2">
                                 <input type="text" value="${item.title}" oninput="syncDataStructure(${sIdx}, ${iIdx}, 'title', this.value)" placeholder="Card Heading Title" class="w-full text-xs px-2.5 py-1.5 bg-slate-950 border border-slate-800 text-white rounded-lg focus:outline-none focus:border-blue-500 font-bold">
-                                <textarea oninput="syncDataStructure(${sIdx}, ${iIdx}, 'description', this.value)" rows="2" placeholder="Descriptive telemetry notes..." class="w-full text-xs p-2.5 bg-slate-950 border border-slate-800 text-slate-300 rounded-lg focus:outline-none focus:border-blue-500 resize-none font-mono">${item.description}</textarea>
+                                <textarea oninput="syncDataStructure(${sIdx}, ${iIdx}, 'description', this.value)" rows="3" placeholder="Descriptive telemetry notes..." class="w-full text-xs p-2.5 bg-slate-950 border border-slate-800 text-slate-300 rounded-lg focus:outline-none focus:border-blue-500 resize-none font-mono">${item.description}</textarea>
                             </div>
                         </div>
                     `;
@@ -307,15 +304,18 @@
                 siteConfig.sections.push(deploymentsSec);
             }
 
-            let computedDescription = desc;
+            // Clean structure tags to pass explicit metadata to the live renderer
+            let structuralPayload = {
+                title: title,
+                description: desc
+            };
+
             if (url && url.startsWith('http')) {
-                computedDescription += `\n\n[Asset Reference URL Node: ${url}]`;
+                structuralPayload.media_url = url;
+                structuralPayload.media_type = type;
             }
 
-            deploymentsSec.items.unshift({
-                title: `${type} // ${title}`,
-                description: computedDescription
-            });
+            deploymentsSec.items.unshift(structuralPayload);
 
             closeMediaBroadcastWindow();
             renderEditorDashboard();
@@ -336,15 +336,13 @@
                 return;
             }
 
-            // Launch an elegant dedicated window container shell
             previewWindowReference = window.open("", "PortfolioSandboxPreview", "width=1050,height=750,resizable=yes,scrollbars=yes");
             
-            // Inject complete dark glassmorphic page template structures into the popup context
             previewWindowReference.document.write(`
                 <!DOCTYPE html>
                 <html lang="en">
                 <head>
-                    <title>Live Development Sandbox Preview</title>
+                    <title>Live Sandbox Mode Preview</title>
                     <script src="https://cdn.tailwindcss.com"><\/script>
                     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
                     <style>
@@ -355,11 +353,17 @@
                         }
                         .neon-text-glow { text-shadow: 0 0 20px rgba(37, 99, 235, 0.6), 0 0 40px rgba(37, 99, 235, 0.2); }
                         .nav-active { color: #3b82f6 !important; font-weight: 600; border-b: 2px solid #3b82f6; text-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+                        
+                        /* Interactive Media Player Classes */
+                        .media-container { position: relative; width: 100%; border-radius: 12px; overflow: hidden; background: #0b0f19; aspect-ratio: 16/9; margin-bottom: 12px; }
+                        .media-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-center: center; cursor: pointer; transition: background 0.3s; }
+                        .media-overlay:hover { background: rgba(0,0,0,0.6); }
+                        .play-btn { width: 50px; h-weight: 500; height: 50px; border-radius: 50%; bg-color: #2563eb; background: #2563eb; display: flex; items-center: justify-center; align-items: center; justify-content: center; color: white; font-size: 20px; transition: transform 0.2s; box-shadow: 0 0 15px rgba(37,99,235,0.5); }
+                        .media-overlay:hover .play-btn { transform: scale(1.1); }
                     </style>
                 </head>
                 <body class="p-8 md:p-16 max-w-4xl mx-auto">
-                    <!-- Notification Accent Banner -->
-                    <div class="fixed top-0 left-0 right-0 bg-emerald-600 text-white text-[10px] font-mono py-1 text-center uppercase tracking-widest opacity-80 z-50">
+                    <div class="fixed top-0 left-0 right-0 bg-emerald-600 text-white text-[10px] font-mono py-1 text-center uppercase tracking-widest opacity-90 z-50">
                         ⚡ SANDBOX MODE: Real-Time Telemetry Sandbox Connection Active
                     </div>
                     
@@ -371,7 +375,6 @@
                     <main id="modal-viewport" class="space-y-8"></main>
 
                     <script>
-                        // Isolated navigation toggle utility bound inside the popup scope
                         window.switchLocalTab = function(tabId) {
                             document.querySelectorAll('.tab-view-panel').forEach(p => p.style.display = 'none');
                             document.querySelectorAll('#modal-nav button').forEach(b => b.classList.remove('nav-active'));
@@ -381,13 +384,21 @@
                             if(targetPanel) targetPanel.style.display = 'block';
                             if(targetBtn) targetBtn.classList.add('nav-active');
                         }
+
+                        // Handles triggering full interactive window rendering overlays inside sandbox frame context
+                        window.executeMediaPlayNode = function(element, mediaUrl, mediaType) {
+                            const container = element.parentElement;
+                            if (mediaType === 'VIDEO') {
+                                container.innerHTML = \`<video src="\${mediaUrl}" controls autoplay class="w-full h-full object-cover rounded-xl shadow-inner"><\/video>\`;
+                            } else {
+                                container.innerHTML = \`<img src="\${mediaUrl}" class="w-full h-full object-cover rounded-xl animate-in fade-in duration-300" onclick="window.open('\${mediaUrl}', '_blank')">\`;
+                            }
+                        }
                     <\/script>
                 </body>
                 </html>
             `);
             previewWindowReference.document.close();
-            
-            // Deliver the initial dataset buffer payload right after document stream closes
             setTimeout(sendDataToPreviewWindow, 300);
         }
 
@@ -403,7 +414,6 @@
 
             if (!navContainer || !viewContainer) return;
 
-            // Retain active tracking keys to avoid dropping the view index context on refresh actions
             let previouslyActiveTabId = "";
             const activeBtn = navContainer.querySelector('.nav-active');
             if(activeBtn) previouslyActiveTabId = activeBtn.id.replace('btn-', '');
@@ -425,11 +435,34 @@
                 let cardsHtml = '';
                 if (sec.items && Array.isArray(sec.items)) {
                     sec.items.forEach((item, itemIdx) => {
+                        let mediaBlockHtml = '';
+                        
+                        // Dynamic parser parsing uploaded elements metadata vectors automatically
+                        if (item.media_url) {
+                            const isVideo = item.media_type === 'VIDEO';
+                            const iconSymbol = isVideo ? "🎬" : "📸";
+                            
+                            mediaBlockHtml = `
+                                <div class="media-container mb-4 group/media relative">
+                                    <div class="absolute inset-0 bg-slate-900 flex flex-col items-center justify-center text-slate-500 text-xs gap-2 font-mono">
+                                        <span class="text-3xl">${iconSymbol}</span>
+                                        <span>Click Play Frame Matrix Target</span>
+                                    </div>
+                                    <div class="media-overlay" onclick="executeMediaPlayNode(this, '${item.media_url}', '${item.media_type}')">
+                                        <div class="play-btn font-sans">&#9654;</div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+
                         cardsHtml += `
-                            <div class="glass-card p-6 rounded-2xl space-y-3">
-                                <span class="text-[10px] font-mono tracking-widest text-blue-500 uppercase font-bold">NODE // 0${itemIdx + 1}</span>
-                                <h4 class="font-display font-bold text-lg text-white">${item.title}</h4>
-                                <p class="text-xs text-slate-400 font-light leading-relaxed">${item.description.replace(/\n/g, '<br>')}</p>
+                            <div class="glass-card p-6 rounded-2xl space-y-3 flex flex-col justify-between text-left">
+                                <div>
+                                    ${mediaBlockHtml}
+                                    <span class="text-[10px] font-mono tracking-widest text-blue-500 uppercase font-bold">NODE // 0${itemIdx + 1}</span>
+                                    <h4 class="font-display font-bold text-lg text-white mt-1">${item.title}</h4>
+                                    <p class="text-xs text-slate-400 font-light leading-relaxed mt-2">${item.description.replace(/\n/g, '<br>')}</p>
+                                </div>
                             </div>
                         `;
                     });
@@ -468,7 +501,6 @@
                 `);
             });
 
-            // Re-route tracking coordinates back to focus active states natively
             const defaultTargetTab = previouslyActiveTabId && doc.getElementById('view-' + previouslyActiveTabId) ? previouslyActiveTabId : (sections[0] ? sections[0].id : '');
             if(defaultTargetTab) previewWindowReference.switchLocalTab(defaultTargetTab);
         }
@@ -500,7 +532,7 @@
                 const response = await fetch(`https://api.github.com/repos/${REPO}/contents/data.json`, {
                     method: 'PUT',
                     headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: "web_console: operational layout updates broadcasted live", content: finalContent, sha: currentSha })
+                    body: JSON.stringify({ message: "web_console: media asset tracking telemetry synchronized", content: finalContent, sha: currentSha })
                 });
 
                 if(response.ok) {
