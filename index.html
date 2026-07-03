@@ -31,7 +31,7 @@
     <style>
         body {
             background-color: #030712; /* Deep space dark background */
-            overflow-x: hidden; /* Prevents tiny layout shifts during animations */
+            overflow-x: hidden;
         }
         
         /* Smooth glowing glassmorphism panels */
@@ -99,6 +99,14 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Anti-blank fail-safe for AOS on initial dynamic view injection */
+        [data-aos] {
+            pointer-events: none;
+        }
+        .active-view [data-aos] {
+            pointer-events: auto;
+        }
     </style>
 </head>
 <body class="text-neutral-300 antialiased relative min-h-screen font-sans pb-20">
@@ -108,8 +116,8 @@
 
     <div class="max-w-4xl mx-auto px-6 py-12 relative z-10">
         
-        <!-- MINIMALIST PREMIUM HEADER (Soft fading scroll animation) -->
-        <header data-aos="fade-down" data-aos-duration="1000" class="flex flex-col sm:flex-row justify-between items-center gap-6 mb-24 pb-6 border-b border-neutral-800">
+        <!-- MINIMALIST PREMIUM HEADER -->
+        <header data-aos="fade-down" data-aos-duration="800" class="flex flex-col sm:flex-row justify-between items-center gap-6 mb-24 pb-6 border-b border-neutral-800">
             <a href="#" class="font-display font-bold text-lg tracking-tight text-white hover:text-blue-500 transition-colors">
                 jayasankar.g
             </a>
@@ -120,8 +128,8 @@
         <!-- DYNAMIC PORTFOLIO VIEWPORT -->
         <main id="dynamic-viewport" class="min-h-[450px]"></main>
 
-        <!-- HIGH-CONTRAST CALL TO ACTION (Soft scroll up animation) -->
-        <section data-aos="fade-up" data-aos-duration="1000" class="mt-24 p-8 bg-neutral-900/50 border border-neutral-800 rounded-2xl text-white flex flex-col md:flex-row justify-between items-center gap-6 shadow-md backdrop-blur-md">
+        <!-- HIGH-CONTRAST CALL TO ACTION -->
+        <section data-aos="fade-up" data-aos-duration="800" class="mt-24 p-8 bg-neutral-900/50 border border-neutral-800 rounded-2xl text-white flex flex-col md:flex-row justify-between items-center gap-6 shadow-md backdrop-blur-md">
             <div class="space-y-1 text-center md:text-left">
                 <h3 class="text-lg font-display font-bold tracking-tight text-white">Initialize Shared Execution</h3>
                 <p class="text-xs text-neutral-400 font-light">Available for engineering collaborations regarding hardware and automated loops.</p>
@@ -136,8 +144,8 @@
             </div>
         </section>
 
-        <!-- FOOTER (Soft scroll up animation delayed slightly) -->
-        <footer data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200" class="mt-20 pt-6 border-t border-neutral-800 flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] uppercase tracking-wider text-neutral-500 font-medium">
+        <!-- FOOTER -->
+        <footer data-aos="fade-up" data-aos-duration="800" data-aos-delay="100" class="mt-20 pt-6 border-t border-neutral-800 flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] uppercase tracking-wider text-neutral-500 font-medium">
             <div>© 2026 // Jayasankar Gnanadesigan.</div>
             <div class="flex gap-4 items-center font-bold text-neutral-400">
                 <span>Saveetha Engineering College</span>
@@ -207,12 +215,12 @@
     <!-- Interface View Router Controller Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS with clean global timing settings
+        // Initialize AOS with clean fallback configuration
         AOS.init({ 
-            once: true, 
-            offset: 40,
-            duration: 800,
-            easing: 'cubic-bezier(0.16, 1, 0.3, 1)'
+            once: true,
+            offset: 20,
+            duration: 600,
+            easing: 'ease-out'
         });
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -264,8 +272,7 @@
                         
                         if (sec.items && Array.isArray(sec.items)) {
                             sec.items.forEach((item, itemIndex) => {
-                                // Dynamic staggered scrolling delay for each grid item card
-                                const cardDelay = itemIndex * 100;
+                                const cardDelay = itemIndex * 50;
                                 cardsHtml += `
                                     <div data-aos="fade-up" data-aos-delay="${cardDelay}" class="glass-card p-6 rounded-2xl space-y-3">
                                         <h4 class="font-display font-bold text-white tracking-tight text-base">${item.title}</h4>
@@ -311,8 +318,10 @@
                         `);
                     });
 
-                    // Force AOS to discover and parse newly injected dynamic elements
-                    AOS.refresh();
+                    // Micro-timeout allows DOM layout allocation before binding the animation triggers
+                    setTimeout(() => {
+                        AOS.refresh();
+                    }, 50);
 
                 }).catch(err => {
                     console.error("Dynamic layout initialization anomaly:", err);
@@ -328,8 +337,9 @@
             
             if(targetView) {
                 targetView.classList.add('active-view');
-                // Re-trigger scroll animations within the newly exposed navigation view context
-                AOS.refresh();
+                setTimeout(() => {
+                    AOS.refresh();
+                }, 10);
             }
             if(targetNav) targetNav.classList.add('nav-active');
         }
