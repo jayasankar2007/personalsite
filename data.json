@@ -31,12 +31,6 @@
       "subheading": "Engineering solutions, functional prototypes, and software platforms.",
       "items": [
         {
-          "title": "test",
-          "description": "hello",
-          "media_url": "https://raw.githubusercontent.com/jayasankar2007/personalsite/main/assets/broadcast_1783069114046_9070dee8_d26c_4f3a_8ffd_d1ed861c3d32.jpg",
-          "media_type": "IMAGE"
-        },
-        {
           "title": "Safety-Enhanced Stitching Machine Ecosystem (Project SafeStitch)",
           "description": "Engineered a custom hardware safety modification framework utilizing high-speed infrared optical sensor arrays mapped to low-latency microcontroller processing loops to prevent industrial needle injuries."
         },
@@ -57,7 +51,7 @@
       "items": [
         {
           "title": "Engineering Intern @ SEIL Energy India Limited",
-          "description": "Analyzed active plant telemetry networks, control mechanisms, and large-scale protection infrastructure systems in live utility grid nodes (Jul 2025 â Aug 2025)."
+          "description": "Analyzed active plant telemetry networks, control mechanisms, and large-scale protection infrastructure systems in live utility grid nodes (Jul 2025 Aug 2025)."
         },
         {
           "title": "Workshop Trainer - Systems Orchestration",
