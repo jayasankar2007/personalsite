@@ -28,37 +28,63 @@
     </script>
 
     <style>
+        <style>
         body {
-            background-color: #fafafa;
+            background-color: #030712; /* Deep space dark background */
         }
+        
+        /* Smooth glowing glassmorphism panels */
+        .glass-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-card:hover {
+            border-color: rgba(37, 99, 235, 0.4);
+            box-shadow: 0 0 25px rgba(37, 99, 235, 0.2);
+            transform: translateY(-4px) scale(1.01);
+        }
+
+        /* Cyberpunk text matrix glow effect */
+        .neon-text-glow {
+            text-shadow: 0 0 20px rgba(37, 99, 235, 0.6), 0 0 40px rgba(37, 99, 235, 0.2);
+        }
+
+        /* Animated gradient line indicator */
+        @keyframes dynamicShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .shimmer-bar {
+            background: linear-gradient(-45deg, #2563eb, #3b82f6, #10b981, #6366f1);
+            background-size: 400% 400%;
+            animation: dynamicShimmer 6s ease infinite;
+        }
+
+        /* Fluid View Transitions */
         .view-panel {
             display: none;
             opacity: 0;
-            transform: translateY(4px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            transform: scale(0.98) translateY(10px);
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .view-panel.active-view {
             display: block;
             opacity: 1;
-            transform: translateY(0);
-        }
-        .nav-active {
-            color: #2563eb !important;
-            font-weight: 500;
-            border-bottom: 2px solid #2563eb;
-        }
-        /* Custom Chat App Transitions */
-        .chat-window {
-            transform: scale(0.9) translateY(20px);
-            opacity: 0;
-            pointer-events: none;
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
-        }
-        .chat-window.open {
             transform: scale(1) translateY(0);
-            opacity: 1;
-            pointer-events: auto;
         }
+
+        /* Premium Nav Active State */
+        .nav-active {
+            color: #3b82f6 !important;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+            border-bottom: 2px solid #3b82f6;
+        }
+    </style>
     </style>
 </head>
 <body class="text-neutral-800 antialiased relative min-h-screen font-sans pb-20">
@@ -257,7 +283,6 @@
         });
 
        // BOOTSTRAPS AND RENDERS THE DYNAMIC SCHEMA LAYOUTS DYNAMICALLY
-        // BOOTSTRAPS AND RENDERS THE DYNAMIC SCHEMA LAYOUTS DYNAMICALLY
         function loadDynamicArchitecture() {
             fetch('./data.json')
                 .then(res => res.json())
@@ -293,7 +318,7 @@
                         const cleanNavName = sec.heading.includes('//') ? sec.heading.split('//').pop().trim() : sec.heading;
                         
                         nav.insertAdjacentHTML('beforeend', `
-                            <button onclick="switchView('${sec.id}')" id="nav-${sec.id}" class="${activeNavClass} pb-1 border-b-2 border-transparent hover:text-neutral-900 transition-colors">
+                            <button onclick="switchView('${sec.id}')" id="nav-${sec.id}" class="${activeNavClass} pb-1 border-b-2 border-transparent hover:text-white transition-colors">
                                 ${cleanNavName}
                             </button>
                         `);
@@ -303,43 +328,44 @@
                         
                         if (sec.items && Array.isArray(sec.items)) {
                             sec.items.forEach(item => {
+                                // Updated to look glassmorphic, leveraging the cyber theme classes
                                 cardsHtml += `
-                                    <div class="p-6 bg-white border border-neutral-200 rounded-2xl shadow-sm space-y-2 hover:border-neutral-300 transition-all">
-                                        <h4 class="font-bold text-neutral-900">${item.title}</h4>
-                                        <p class="text-xs text-neutral-500 font-light leading-relaxed">${item.description}</p>
+                                    <div class="glass-card p-6 rounded-2xl space-y-3">
+                                        <h4 class="font-display font-bold text-white tracking-tight text-base">${item.title}</h4>
+                                        <p class="text-xs text-neutral-400 font-light leading-relaxed">${item.description}</p>
                                     </div>
                                 `;
                             });
                         }
 
-                        // Build clean content framework
+                        // Build content framework adjusted for dark theme presentation
                         let sectionContentHtml = `
                             <div class="space-y-1">
-                                <h2 class="text-2xl font-display font-bold text-neutral-900 tracking-tight">${sec.heading}</h2>
+                                <h2 class="text-2xl font-display font-bold text-white tracking-tight neon-text-glow">${sec.heading}</h2>
                                 <p class="text-xs text-neutral-400">${sec.subheading || ''}</p>
                             </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">${cardsHtml}</div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">${cardsHtml}</div>
                         `;
 
                         // Premium Override: Keep the core profile bio locked gracefully at the top of the Overview panel!
                         if (sec.id === 'overview') {
                             sectionContentHtml = `
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start mb-12 pb-12 border-b border-neutral-200">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start mb-12 pb-12 border-b border-neutral-800">
                                     <div class="md:col-span-2 space-y-6">
-                                        <h1 id="cms-hero-title" class="text-4xl md:text-5xl font-display font-bold text-neutral-900 tracking-tight leading-none">${profile.hero_title}</h1>
-                                        <p id="cms-hero-bio" class="text-base text-neutral-500 font-light leading-relaxed max-w-xl">${profile.hero_bio}</p>
+                                        <h1 id="cms-hero-title" class="text-4xl md:text-5xl font-display font-bold text-white tracking-tight leading-none">${profile.hero_title}</h1>
+                                        <p id="cms-hero-bio" class="text-base text-neutral-400 font-light leading-relaxed max-w-xl">${profile.hero_bio}</p>
                                     </div>
                                     <div class="flex justify-start md:justify-end">
                                         <div class="relative group">
-                                            <div class="absolute -inset-0.5 bg-neutral-200 rounded-full blur-sm group-hover:bg-blue-200 transition duration-300"></div>
-                                            <img src="https://github.com/jayasankar2007/personalsite/blob/main/05%5B16%5D%20(1).jpg?raw=true" class="relative w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border border-neutral-200 bg-white">
+                                            <div class="absolute -inset-0.5 shimmer-bar rounded-full blur-sm opacity-70 group-hover:opacity-100 transition duration-300"></div>
+                                            <img src="https://github.com/jayasankar2007/personalsite/blob/main/05%5B16%5D%20(1).jpg?raw=true" class="relative w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border border-neutral-800 bg-neutral-900">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="space-y-1">
-                                    <h2 class="text-xs font-bold uppercase tracking-wider text-neutral-400">${sec.subheading || ''}</h2>
+                                    <h2 class="text-xs font-bold uppercase tracking-wider text-neutral-500">${sec.subheading || ''}</h2>
                                 </div>
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">${cardsHtml}</div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">${cardsHtml}</div>
                             `;
                         }
 
