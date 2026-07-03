@@ -11,9 +11,18 @@
       "heading": "Core Matrix Architecture",
       "subheading": "Primary technical focus areas.",
       "items": [
-        { "title": "01 // Hardware", "description": "ESP32 microprocessors, sensor array calibration, physical automated relays, and asynchronous packet transfer protocols." },
-        { "title": "02 // Automation", "description": "Autonomous multi-step orchestration workflows configured across Make.com engines paired with structural language parsing frames." },
-        { "title": "03 // Verification", "description": "Precision electronic blueprinting and validation using Cadence Virtuoso terminal environments and LTSpice maps." }
+        {
+          "title": "01 // Hardware",
+          "description": "ESP32 microprocessors, sensor array calibration, physical automated relays, and asynchronous packet transfer protocols."
+        },
+        {
+          "title": "02 // Automation",
+          "description": "Autonomous multi-step orchestration workflows configured across Make.com engines paired with structural language parsing frames."
+        },
+        {
+          "title": "03 // Verification",
+          "description": "Precision electronic blueprinting and validation using Cadence Virtuoso terminal environments and LTSpice maps."
+        }
       ]
     },
     {
@@ -21,7 +30,14 @@
       "heading": "Selected Deployments",
       "subheading": "Engineering solutions, functional prototypes, and software platforms.",
       "items": [
-        { "title": "Safety-Enhanced Stitching Machine Ecosystem", "description": "Engineered a custom hardware safety modification framework utilizing high-speed infrared optical sensor arrays mapped to low-latency microcontroller processing loops. Safely monitors finger coordinates to trigger instant safety stops on industrial needles, removing worker injury hazards completely." }
+        {
+          "title": "Safety-Enhanced Stitching Machine Ecosystem",
+          "description": "Engineered a custom hardware safety modification framework utilizing high-speed infrared optical sensor arrays mapped to low-latency microcontroller processing loops. Safely monitors finger coordinates to trigger instant safety stops on industrial needles, removing worker injury hazards completely."
+        },
+        {
+          "title": "Personal Website",
+          "description": "Write short descriptive logDesigned and developed a responsive personal portfolio using modern web technologies.\nShowcases projects, technical skills, achievements, and contact information.\nOptimized for desktop and mobile devices.s here."
+        }
       ]
     }
   ]
