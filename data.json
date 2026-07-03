@@ -1,6 +1,28 @@
 {
-  "hero_title": "Jayasankar Gnanadesigan",
-  "hero_bio": "Operating at the vector intersections of Embedded System Architecture and automated Agentic AI Workflows.",
-  "linkedin_url": "https://www.linkedin.com/in/jayasankar-gnanadesigan-5642b932a/",
-  "email": "jayasankar4apps@gmail.com"
+  "profile": {
+    "hero_title": "Jayasankar Gnanadesigan",
+    "hero_bio": "Operating at the vector intersections of Embedded System Architecture and automated Agentic AI Workflows.",
+    "linkedin_url": "https://www.linkedin.com/in/jayasankar-gnanadesigan-5642b932a/",
+    "email": "jayasankar4apps@gmail.com"
+  },
+  "sections": [
+    {
+      "id": "overview",
+      "heading": "Core Matrix Architecture",
+      "subheading": "Primary technical focus areas.",
+      "items": [
+        { "title": "01 // Hardware", "description": "ESP32 microprocessors, sensor array calibration, physical automated relays, and asynchronous packet transfer protocols." },
+        { "title": "02 // Automation", "description": "Autonomous multi-step orchestration workflows configured across Make.com engines paired with structural language parsing frames." },
+        { "title": "03 // Verification", "description": "Precision electronic blueprinting and validation using Cadence Virtuoso terminal environments and LTSpice maps." }
+      ]
+    },
+    {
+      "id": "deployments",
+      "heading": "Selected Deployments",
+      "subheading": "Engineering solutions, functional prototypes, and software platforms.",
+      "items": [
+        { "title": "Safety-Enhanced Stitching Machine Ecosystem", "description": "Engineered a custom hardware safety modification framework utilizing high-speed infrared optical sensor arrays mapped to low-latency microcontroller processing loops. Safely monitors finger coordinates to trigger instant safety stops on industrial needles, removing worker injury hazards completely." }
+      ]
+    }
+  ]
 }
