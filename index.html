@@ -122,50 +122,11 @@
                 jayasankar.g
             </a>
             
-           <nav id="dynamic-nav" class="flex gap-6 text-xs uppercase tracking-widest text-neutral-500 font-medium">
-               <!-- Fallback visible nav links so the header never looks broken -->
-               <span class="text-neutral-600 text-[10px] animate-pulse">Loading Nodes...</span>
-           </nav>
+           <nav id="dynamic-nav" class="flex gap-6 text-xs uppercase tracking-widest text-neutral-500 font-medium"></nav>
         </header>
 
         <!-- DYNAMIC PORTFOLIO VIEWPORT -->
-        <main id="dynamic-viewport" class="min-h-[450px]">
-            <!-- Hardcoded Fallback Context: If JSON fails, this shows up instantly so the screen is never blank -->
-            <div id="fallback-loader" class="space-y-12">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start mb-12 pb-12 border-b border-neutral-800">
-                    <div class="md:col-span-2 space-y-6">
-                        <h1 class="text-4xl md:text-5xl font-display font-bold text-white tracking-tight leading-none">Operating at the Vector Intersections</h1>
-                        <p class="text-base text-neutral-400 font-light leading-relaxed max-w-xl">
-                            Developing embedded system architectures and automated agentic AI workflows.
-                        </p>
-                    </div>
-                    <div class="flex justify-start md:justify-end">
-                        <div class="relative group">
-                            <div class="absolute -inset-0.5 shimmer-bar rounded-full blur-sm opacity-70"></div>
-                            <img src="https://github.com/jayasankar2007/personalsite/blob/main/05%5B16%5D%20(1).jpg?raw=true" class="relative w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border border-neutral-800 bg-neutral-900">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="space-y-2">
-                    <h2 class="text-xs font-bold uppercase tracking-wider text-neutral-500">Primary Technical Focus Areas</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-                        <div class="glass-card p-6 rounded-2xl space-y-3">
-                            <h4 class="font-display font-bold text-white tracking-tight text-base">01 // Hardware</h4>
-                            <p class="text-xs text-neutral-400 font-light leading-relaxed">ESP32 microprocessors, microcontrollers, and low-cost industrial safety retrofitting options.</p>
-                        </div>
-                        <div class="glass-card p-6 rounded-2xl space-y-3">
-                            <h4 class="font-display font-bold text-white tracking-tight text-base">02 // Automation</h4>
-                            <p class="text-xs text-neutral-400 font-light leading-relaxed">Multi-step task automation orchestration routines configured across ecosystem modules.</p>
-                        </div>
-                        <div class="glass-card p-6 rounded-2xl space-y-3">
-                            <h4 class="font-display font-bold text-white tracking-tight text-base">03 // Verification</h4>
-                            <p class="text-xs text-neutral-400 font-light leading-relaxed">Systematic script analysis and embedded testing protocols.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
+        <main id="dynamic-viewport" class="min-h-[450px]"></main>
 
         <!-- HIGH-CONTRAST CALL TO ACTION -->
         <section data-aos="fade-up" data-aos-duration="800" class="mt-24 p-8 bg-neutral-900/50 border border-neutral-800 rounded-2xl text-white flex flex-col md:flex-row justify-between items-center gap-6 shadow-md backdrop-blur-md">
@@ -260,6 +221,47 @@
             easing: 'ease-out'
         });
 
+        // HARDCODED SECURE SCHEMA INJECTION DATA
+        const schema = {
+          "profile": {
+            "hero_title": "Operating at the Vector Intersections",
+            "hero_bio": "Developing embedded system architectures, low-cost IoT hardware modifications, and automated agentic AI workflows.",
+            "email": "jayasankar4projects@gmail.com",
+            "linkedin_url": "https://www.linkedin.com"
+          },
+          "sections": [
+            {
+              "id": "overview",
+              "heading": "Core Matrix Architecture",
+              "subheading": "Primary Technical Focus Areas",
+              "items": [
+                { "title": "01 // Hardware", "description": "ESP32 microprocessors, sensor array calibration, physical automated relays, and asynchronous packet transfer protocols." },
+                { "title": "02 // Automation", "description": "Autonomous multi-step orchestration workflows configured across Make.com engines paired with structural language parsing frames." },
+                { "title": "03 // Verification", "description": "Precision electronic blueprinting and functional validation using Cadence Virtuoso, terminal environments, and LTspice simulation maps." }
+              ]
+            },
+            {
+              "id": "deployments",
+              "heading": "Selected Deployments",
+              "subheading": "Engineering solutions, functional prototypes, and software platforms.",
+              "items": [
+                { "title": "Safety-Enhanced Stitching Machine Ecosystem (Project SafeStitch)", "description": "Engineered a custom hardware safety modification framework utilizing high-speed infrared optical sensor arrays mapped to low-latency microcontroller processing loops to prevent industrial needle injuries." },
+                { "title": "Asynchronous IoT Threat Interceptor", "description": "Assembled a physical secure tracking asset executing low-latency asynchronous server architectures on microprocessors to deploy localized relay warnings." },
+                { "title": "Autonomous Agentic Automations", "description": "Engineered production automated routines integrating multi-app logic modules to handle multi-step semantic actions without manual processing overhead." }
+              ]
+            },
+            {
+              "id": "track",
+              "heading": "Professional Track Record",
+              "subheading": "Institutional experience and technical operational background.",
+              "items": [
+                { "title": "Engineering Intern — SEIL Energy India Limited", "description": "Analyzed active plant telemetry networks, control mechanisms, and large-scale protection infrastructure systems in live utility grid nodes (Jul 2025 – Aug 2025)." },
+                { "title": "Workshop Trainer — Systems Orchestration", "description": "Designed, structured, and presented comprehensive engineering courses introducing student clusters to systemic prompt orchestration and Make.com integrations." }
+              ]
+            }
+          ]
+        };
+
         window.addEventListener('DOMContentLoaded', () => {
             loadDynamicArchitecture();
             
@@ -272,111 +274,91 @@
         });
 
         function loadDynamicArchitecture() {
-            console.log("Initializing database sync request...");
-            fetch('./data.json')
-                .then(res => {
-                    if (!res.ok) throw new Error(`HTTP network error code: ${res.status}`);
-                    return res.json();
-                })
-                .then(schema => {
-                    const profile = schema.profile || schema || {};
-                    const sections = schema.sections || [];
-                    
-                    if (sections.length === 0) {
-                        console.warn("Schema array returned empty. Preserving core layout structures.");
-                        return;
-                    }
+            console.log("Compiling local schema structure matrix...");
+            const profile = schema.profile || {};
+            const sections = schema.sections || [];
+            
+            const nav = document.getElementById('dynamic-nav');
+            const viewport = document.getElementById('dynamic-viewport');
+            if (!nav || !viewport) return;
+            
+            nav.innerHTML = "";
+            viewport.innerHTML = "";
 
-                    // Elements exist -> proceed to bind dynamic data
-                    const nav = document.getElementById('dynamic-nav');
-                    const viewport = document.getElementById('dynamic-viewport');
-                    if (!nav || !viewport) return;
-                    
-                    // JSON loaded successfully, safe to clear out fallback loader layout
-                    nav.innerHTML = "";
-                    viewport.innerHTML = "";
+            if(profile.email && document.getElementById('cms-email-btn')) {
+                document.getElementById('cms-email-btn').href = `mailto:${profile.email}`;
+            }
+            if(profile.linkedin_url && document.getElementById('cms-linkedin-btn')) {
+                document.getElementById('cms-linkedin-btn').href = profile.linkedin_url;
+            }
 
-                    if(profile.email && document.getElementById('cms-email-btn')) {
-                        document.getElementById('cms-email-btn').href = `mailto:${profile.email}`;
-                    }
-                    if(profile.linkedin_url && document.getElementById('cms-linkedin-btn')) {
-                        document.getElementById('cms-linkedin-btn').href = profile.linkedin_url;
-                    }
+            sections.forEach((sec, index) => {
+                if (!sec || !sec.heading) return;
+                
+                const activeNavClass = index === 0 ? 'nav-active' : '';
+                const cleanNavName = sec.heading.includes('//') ? sec.heading.split('//').pop().trim() : sec.heading;
+                const sectionId = sec.id || `section-${index}`;
+                
+                nav.insertAdjacentHTML('beforeend', `
+                    <button onclick="switchView('${sectionId}')" id="nav-${sectionId}" class="${activeNavClass} pb-1 border-b-2 border-transparent hover:text-white transition-colors">
+                        ${cleanNavName}
+                    </button>
+                `);
 
-                    sections.forEach((sec, index) => {
-                        if (!sec || !sec.heading) return;
-                        
-                        const activeNavClass = index === 0 ? 'nav-active' : '';
-                        const cleanNavName = sec.heading.includes('//') ? sec.heading.split('//').pop().trim() : sec.heading;
-                        const sectionId = sec.id || `section-${index}`;
-                        
-                        nav.insertAdjacentHTML('beforeend', `
-                            <button onclick="switchView('${sectionId}')" id="nav-${sectionId}" class="${activeNavClass} pb-1 border-b-2 border-transparent hover:text-white transition-colors">
-                                ${cleanNavName}
-                            </button>
-                        `);
-
-                        const activeViewClass = index === 0 ? 'active-view' : '';
-                        let cardsHtml = '';
-                        
-                        if (sec.items && Array.isArray(sec.items)) {
-                            sec.items.forEach((item, itemIndex) => {
-                                const cardDelay = itemIndex * 50;
-                                cardsHtml += `
-                                    <div data-aos="fade-up" data-aos-delay="${cardDelay}" class="glass-card p-6 rounded-2xl space-y-3">
-                                        <h4 class="font-display font-bold text-white tracking-tight text-base">${item.title || ''}</h4>
-                                        <p class="text-xs text-neutral-400 font-light leading-relaxed">${item.description || ''}</p>
-                                    </div>
-                                `;
-                            });
-                        }
-
-                        let sectionContentHtml = `
-                            <div data-aos="fade-up" class="space-y-1">
-                                <h2 class="text-2xl font-display font-bold text-white tracking-tight neon-text-glow">${sec.heading}</h2>
-                                <p class="text-xs text-neutral-400">${sec.subheading || ''}</p>
+                const activeViewClass = index === 0 ? 'active-view' : '';
+                let cardsHtml = '';
+                
+                if (sec.items && Array.isArray(sec.items)) {
+                    sec.items.forEach((item, itemIndex) => {
+                        const cardDelay = itemIndex * 50;
+                        cardsHtml += `
+                            <div data-aos="fade-up" data-aos-delay="${cardDelay}" class="glass-card p-6 rounded-2xl space-y-3">
+                                <h4 class="font-display font-bold text-white tracking-tight text-base">${item.title || ''}</h4>
+                                <p class="text-xs text-neutral-400 font-light leading-relaxed">${item.description || ''}</p>
                             </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">${cardsHtml}</div>
                         `;
-
-                        if (sectionId === 'overview') {
-                            sectionContentHtml = `
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start mb-12 pb-12 border-b border-neutral-800">
-                                    <div data-aos="fade-right" class="md:col-span-2 space-y-6">
-                                        <h1 id="cms-hero-title" class="text-4xl md:text-5xl font-display font-bold text-white tracking-tight leading-none">${profile.hero_title || 'Core Matrix Architecture'}</h1>
-                                        <p id="cms-hero-bio" class="text-base text-neutral-400 font-light leading-relaxed max-w-xl">${profile.hero_bio || ''}</p>
-                                    </div>
-                                    <div data-aos="fade-left" class="flex justify-start md:justify-end">
-                                        <div class="relative group">
-                                            <div class="absolute -inset-0.5 shimmer-bar rounded-full blur-sm opacity-70 group-hover:opacity-100 transition duration-300"></div>
-                                            <img src="https://github.com/jayasankar2007/personalsite/blob/main/05%5B16%5D%20(1).jpg?raw=true" class="relative w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border border-neutral-800 bg-neutral-900">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div data-aos="fade-up" class="space-y-1">
-                                    <h2 class="text-xs font-bold uppercase tracking-wider text-neutral-500">${sec.subheading || ''}</h2>
-                                </div>
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">${cardsHtml}</div>
-                            `;
-                        }
-
-                        viewport.insertAdjacentHTML('beforeend', `
-                            <div id="view-${sectionId}" class="view-panel ${activeViewClass} space-y-6">
-                                ${sectionContentHtml}
-                            </div>
-                        `);
                     });
+                }
 
-                    setTimeout(() => {
-                        AOS.refresh();
-                    }, 50);
+                let sectionContentHtml = `
+                    <div data-aos="fade-up" class="space-y-1">
+                        <h2 class="text-2xl font-display font-bold text-white tracking-tight neon-text-glow">${sec.heading}</h2>
+                        <p class="text-xs text-neutral-400">${sec.subheading || ''}</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">${cardsHtml}</div>
+                `;
 
-                }).catch(err => {
-                    console.error("Dynamic architecture map layout failed to boot:", err);
-                    // Leave fallback layout visible so the page remains structurally perfect
-                    const statusNav = document.getElementById('dynamic-nav');
-                    if(statusNav) statusNav.innerHTML = `<span class="text-blue-500 text-[10px]">LOCAL ENGINE ACTIVE</span>`;
-                });
+                if (sectionId === 'overview') {
+                    sectionContentHtml = `
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start mb-12 pb-12 border-b border-neutral-800">
+                            <div data-aos="fade-right" class="md:col-span-2 space-y-6">
+                                <h1 id="cms-hero-title" class="text-4xl md:text-5xl font-display font-bold text-white tracking-tight leading-none">${profile.hero_title || 'Core Matrix Architecture'}</h1>
+                                <p id="cms-hero-bio" class="text-base text-neutral-400 font-light leading-relaxed max-w-xl">${profile.hero_bio || ''}</p>
+                            </div>
+                            <div data-aos="fade-left" class="flex justify-start md:justify-end">
+                                <div class="relative group">
+                                    <div class="absolute -inset-0.5 shimmer-bar rounded-full blur-sm opacity-70 group-hover:opacity-100 transition duration-300"></div>
+                                    <img src="https://github.com/jayasankar2007/personalsite/blob/main/05%5B16%5D%20(1).jpg?raw=true" class="relative w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border border-neutral-800 bg-neutral-900">
+                                </div>
+                            </div>
+                        </div>
+                        <div data-aos="fade-up" class="space-y-1">
+                            <h2 class="text-xs font-bold uppercase tracking-wider text-neutral-500">${sec.subheading || ''}</h2>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">${cardsHtml}</div>
+                    `;
+                }
+
+                viewport.insertAdjacentHTML('beforeend', `
+                    <div id="view-${sectionId}" class="view-panel ${activeViewClass} space-y-6">
+                        ${sectionContentHtml}
+                    </div>
+                `);
+            });
+
+            setTimeout(() => {
+                AOS.refresh();
+            }, 50);
         }
 
         function switchView(viewId) {
@@ -489,7 +471,6 @@
             stream.scrollTop = stream.scrollHeight;
         }
 
-        // Helper string scrubbing logic to insulate from injection vulnerabilities
         function escapeHtml(string) {
             return String(string).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
         }
