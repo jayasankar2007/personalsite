@@ -221,7 +221,7 @@
             easing: 'ease-out'
         });
 
-        // HARDCODED SECURE SCHEMA INJECTION DATA
+        // CENTRAL PORTFOLIO CONFIGURATION OBJECT
         const schema = {
           "profile": {
             "hero_title": "Operating at the Vector Intersections",
@@ -274,7 +274,6 @@
         });
 
         function loadDynamicArchitecture() {
-            console.log("Compiling local schema structure matrix...");
             const profile = schema.profile || {};
             const sections = schema.sections || [];
             
@@ -312,7 +311,7 @@
                     sec.items.forEach((item, itemIndex) => {
                         const cardDelay = itemIndex * 50;
                         cardsHtml += `
-                            <div data-aos="fade-up" data-aos-delay="${cardDelay}" class="glass-card p-6 rounded-2xl space-y-3">
+                            <div class="glass-card p-6 rounded-2xl space-y-3">
                                 <h4 class="font-display font-bold text-white tracking-tight text-base">${item.title || ''}</h4>
                                 <p class="text-xs text-neutral-400 font-light leading-relaxed">${item.description || ''}</p>
                             </div>
@@ -321,7 +320,7 @@
                 }
 
                 let sectionContentHtml = `
-                    <div data-aos="fade-up" class="space-y-1">
+                    <div class="space-y-1">
                         <h2 class="text-2xl font-display font-bold text-white tracking-tight neon-text-glow">${sec.heading}</h2>
                         <p class="text-xs text-neutral-400">${sec.subheading || ''}</p>
                     </div>
@@ -331,18 +330,18 @@
                 if (sectionId === 'overview') {
                     sectionContentHtml = `
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start mb-12 pb-12 border-b border-neutral-800">
-                            <div data-aos="fade-right" class="md:col-span-2 space-y-6">
+                            <div class="md:col-span-2 space-y-6">
                                 <h1 id="cms-hero-title" class="text-4xl md:text-5xl font-display font-bold text-white tracking-tight leading-none">${profile.hero_title || 'Core Matrix Architecture'}</h1>
                                 <p id="cms-hero-bio" class="text-base text-neutral-400 font-light leading-relaxed max-w-xl">${profile.hero_bio || ''}</p>
                             </div>
-                            <div data-aos="fade-left" class="flex justify-start md:justify-end">
+                            <div class="flex justify-start md:justify-end">
                                 <div class="relative group">
                                     <div class="absolute -inset-0.5 shimmer-bar rounded-full blur-sm opacity-70 group-hover:opacity-100 transition duration-300"></div>
                                     <img src="https://github.com/jayasankar2007/personalsite/blob/main/05%5B16%5D%20(1).jpg?raw=true" class="relative w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border border-neutral-800 bg-neutral-900">
                                 </div>
                             </div>
                         </div>
-                        <div data-aos="fade-up" class="space-y-1">
+                        <div class="space-y-1">
                             <h2 class="text-xs font-bold uppercase tracking-wider text-neutral-500">${sec.subheading || ''}</h2>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">${cardsHtml}</div>
@@ -370,21 +369,16 @@
             
             if(targetView) {
                 targetView.classList.add('active-view');
-                setTimeout(() => {
-                    AOS.refresh();
-                }, 10);
+                setTimeout(() => { AOS.refresh(); }, 10);
             }
             if(targetNav) targetNav.classList.add('nav-active');
         }
 
         function toggleChat() {
             const chatWindow = document.getElementById('chat-window');
-            const popup = document.getElementById('chat-pop-up');
             chatWindow.classList.toggle('open');
-            
-            if(chatWindow.classList.contains('open') && popup) {
-                popup.style.display = 'none';
-            }
+            const popup = document.getElementById('chat-pop-up');
+            if(chatWindow.classList.contains('open') && popup) { popup.style.display = 'none'; }
         }
 
         function dismissPopup(e) {
@@ -401,7 +395,7 @@
 
         async function fetchGeminiAIResponse(userMessage) {
             const context = resumeContextCache || "Jayasankar Gnanadesigan is an ECE Student at Saveetha Engineering College focusing on Project SafeStitch.";
-            const systemRule = `You are a highly capable, articulate AI Assistant representing Jayasankar Gnanadesigan, an Electronics and Communication Engineering (ECE) student at Saveetha Engineering College. Keep responses concise, engaging, and professional (2-3 sentences max).\n\n=== JAYASANKAR'S PORTFOLIO CONTEXT ===\n${context}`;
+            const systemRule = `You are an AI Assistant representing Jayasankar Gnanadesigan. Keep responses concise (2-3 sentences max).\n\n=== CONTEXT ===\n${context}`;
 
             try {
                 const tokenKey = "AQ" + ".Ab8RN6" + "ICbHySK8dIG" + "ZZMwmhZDclfnp" + "O5HShooOyP9UW2" + "0uUyDA";
@@ -411,17 +405,13 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        contents: [{
-                            parts: [{ text: `${systemRule}\n\nUser Question: ${userMessage}` }]
-                        }]
+                        contents: [{ parts: [{ text: `${systemRule}\n\nUser Question: ${userMessage}` }] }]
                     })
                 });
-
                 const data = await response.json();
                 return data.candidates[0].content.parts[0].text;
             } catch (error) {
-                console.error("AI Communication Failure:", error);
-                return "My apologies! I hit a data routing bottleneck. Please try asking again or email Jayasankar directly!";
+                return "My apologies! I hit a data routing bottleneck. Please email Jayasankar directly!";
             }
         }
 
@@ -432,42 +422,19 @@
             if(!userText) return;
 
             const stream = document.getElementById('chat-stream');
-            const userMsgHtml = `
-                <div class="flex gap-2.5 items-start max-w-[85%] ml-auto justify-end">
-                    <div class="bg-blue-600 text-white px-3 py-2.5 rounded-2xl rounded-tl-none shadow-sm text-xs leading-relaxed">
-                        ${escapeHtml(userText)}
-                    </div>
-                </div>
-            `;
-            stream.insertAdjacentHTML('beforeend', userMsgHtml);
+            stream.insertAdjacentHTML('beforeend', `<div class="flex max-w-[85%] ml-auto justify-end"><div class="bg-blue-600 text-white px-3 py-2.5 rounded-2xl rounded-tr-none text-xs">${escapeHtml(userText)}</div></div>`);
             inputField.value = '';
             stream.scrollTop = stream.scrollHeight;
 
             const loadId = 'loading-' + Date.now();
-            const loadingHtml = `
-                <div id="${loadId}" class="flex gap-2.5 items-start max-w-[85%]">
-                    <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div>
-                    <div class="bg-neutral-900 border border-neutral-800 px-3 py-2 rounded-2xl rounded-tl-none shadow-sm text-xs text-neutral-500 flex items-center gap-1">
-                        <span class="animate-bounce">●</span><span class="animate-bounce [animation-delay:0.2s]">●</span><span class="animate-bounce [animation-delay:0.4s]">●</span>
-                    </div>
-                </div>
-            `;
-            stream.insertAdjacentHTML('beforeend', loadingHtml);
+            stream.insertAdjacentHTML('beforeend', `<div id="${loadId}" class="flex gap-2.5 items-start max-w-[85%]"><div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div><div class="bg-neutral-900 border border-neutral-800 px-3 py-2 rounded-2xl rounded-tl-none text-xs text-neutral-500 flex items-center gap-1"><span class="animate-bounce">●</span><span class="animate-bounce [animation-delay:0.2s]">●</span><span class="animate-bounce [animation-delay:0.4s]">●</span></div></div>`);
             stream.scrollTop = stream.scrollHeight;
 
             const systemReply = await fetchGeminiAIResponse(userText);
             const loadEl = document.getElementById(loadId);
             if(loadEl) loadEl.remove();
 
-            const botMsgHtml = `
-                <div class="flex gap-2.5 items-start max-w-[85%]">
-                    <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div>
-                    <div class="bg-neutral-900 border border-neutral-800 px-3 py-2.5 rounded-2xl rounded-tl-none shadow-sm text-xs text-neutral-300 leading-relaxed">
-                        ${systemReply}
-                    </div>
-                </div>
-            `;
-            stream.insertAdjacentHTML('beforeend', botMsgHtml);
+            stream.insertAdjacentHTML('beforeend', `<div class="flex gap-2.5 items-start max-w-[85%]"><div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div><div class="bg-neutral-900 border border-neutral-800 px-3 py-2.5 rounded-2xl rounded-tl-none text-xs text-neutral-300 leading-relaxed">${systemReply}</div></div>`);
             stream.scrollTop = stream.scrollHeight;
         }
 
