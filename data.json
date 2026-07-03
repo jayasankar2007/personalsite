@@ -1,53 +1,6 @@
-// LOADS DATA DIRECTLY FROM YOUR FLAT DATA.JSON SCHEMA
-        function loadDynamicArchitecture() {
-            fetch('./data.json')
-                .then(res => res.json())
-                .then(schema => {
-                    // Extract your flat JSON properties safely
-                    const heroTitle = schema.hero_title || "Jayasankar Gnanadesigan";
-                    const heroBio = schema.hero_bio || "Operating at the intersections of engineering.";
-                    
-                    if(schema.email) document.getElementById('cms-email-btn').href = `mailto:${schema.email}`;
-                    if(schema.linkedin_url) document.getElementById('cms-linkedin-btn').href = schema.linkedin_url;
-                    
-                    const nav = document.getElementById('dynamic-nav');
-                    const viewport = document.getElementById('dynamic-viewport');
-                    
-                    // 1. Clear out the placeholders
-                    nav.innerHTML = "";
-                    viewport.innerHTML = "";
-
-                    // 2. Render standard portfolio navigation links
-                    nav.insertAdjacentHTML('beforeend', `
-                        <button onclick="switchView('overview')" id="nav-overview" class="nav-active pb-1 border-b-2 border-transparent hover:text-neutral-900 transition-colors">Overview</button>
-                        <button onclick="switchView('deployments')" id="nav-deployments" class="pb-1 border-b-2 border-transparent hover:text-neutral-900 transition-colors">Deployments</button>
-                    `);
-
-                    // 3. Directly inject your real data into the main page viewport layout
-                    viewport.innerHTML = `
-                        <!-- OVERVIEW TAB PANEL -->
-                        <div id="view-overview" class="view-panel active-view space-y-6">
-                            <h1 class="text-5xl font-display font-bold text-neutral-900 tracking-tight">${heroTitle}</h1>
-                            <p class="text-neutral-600 max-w-2xl text-base leading-relaxed font-light">${heroBio}</p>
-                        </div>
-
-                        <!-- DEPLOYMENTS TAB PANEL -->
-                        <div id="view-deployments" class="view-panel space-y-6">
-                            <h2 class="text-2xl font-display font-bold text-neutral-900 tracking-tight">Project Deployments</h2>
-                            <p class="text-neutral-500 text-sm">Reviewing embedded engineering hardware implementations and modular loops.</p>
-                            
-                            <!-- HARDCODED PROJECT CARD START -->
-                            <div class="mt-6 p-6 bg-white border border-neutral-200 rounded-xl shadow-sm">
-                                <span class="text-xs font-bold font-mono uppercase tracking-wider text-blue-600">01 // Embedded System</span>
-                                <h3 class="text-lg font-display font-bold text-neutral-900 mt-1">Project SafeStitch</h3>
-                                <p class="text-neutral-600 text-xs mt-2 leading-relaxed">
-                                    Low-cost IoT safety retrofitting designed to monitor and interrupt industrial sewing operations using advanced movement microcontrollers.
-                                </p>
-                            </div>
-                            <!-- HARDCODED PROJECT CARD END -->
-                        </div>
-                    `;
-                }).catch(err => {
-                    console.error("Data mapping initialization anomaly:", err);
-                });
-        }
+{
+  "hero_title": "Jayasankar Gnanadesigan",
+  "hero_bio": "Operating at the vector intersections of Embedded System Architecture and automated Agentic AI Workflows.",
+  "linkedin_url": "https://www.linkedin.com/in/jayasankar-gnanadesigan-5642b932a/",
+  "email": "jayasankar4apps@gmail.com"
+}
