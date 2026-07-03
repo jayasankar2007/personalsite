@@ -1,55 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth selection:bg-blue-600 selection:text-white">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Core Terminal Panel // Secure Control Console</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+    
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Premium Architectural Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0b0f19; }
-        .font-display { font-family: 'Space Grotesk', sans-serif; }
+        body {
+            background-color: #030712; /* Deep space dark background */
+            overflow-x: hidden;
+        }
+        
+        /* Smooth glowing glassmorphism panels matched to index config */
+        .glass-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Cyberpunk text matrix glow effect */
+        .neon-text-glow {
+            text-shadow: 0 0 20px rgba(37, 99, 235, 0.6), 0 0 40px rgba(37, 99, 235, 0.2);
+        }
+
+        /* Animated gradient line indicator */
+        @keyframes dynamicShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .shimmer-bar {
+            background: linear-gradient(-45deg, #2563eb, #3b82f6, #10b981, #6366f1);
+            background-size: 400% 400%;
+            animation: dynamicShimmer 6s ease infinite;
+        }
     </style>
 </head>
-<body class="text-slate-200 min-h-screen py-10 px-4 flex flex-col items-center">
+<body class="text-neutral-300 antialiased min-h-screen py-10 px-4 flex flex-col items-center relative font-sans">
+
+    <!-- Subtle, clean top border accent bar -->
+    <div class="fixed top-0 left-0 w-full h-1.5 shimmer-bar z-50"></div>
 
     <!-- LOGIN GATE LAYER -->
-    <div id="login-gate" class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl mt-20 space-y-4">
-        <h2 class="text-xl font-display font-bold text-white flex items-center gap-2">🛡️ Security Gateway</h2>
+    <div id="login-gate" class="w-full max-w-md glass-card rounded-2xl p-6 mt-20 space-y-4">
+        <h2 class="text-xl font-display font-bold text-white flex items-center gap-2 tracking-tight">
+            🛡️ Security Gateway
+        </h2>
         <div class="space-y-3">
-            <input id="admin-id" type="text" placeholder="Admin Terminal ID" class="w-full text-sm px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white">
-            <input id="github-token" type="password" placeholder="GitHub PAT Token (Password)" class="w-full text-sm px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:border-blue-500 text-white">
+            <input id="admin-id" type="text" placeholder="Admin Terminal ID" class="w-full text-sm px-3 py-2.5 bg-neutral-950 border border-neutral-800 text-white rounded-xl focus:outline-none focus:border-blue-600 transition-all">
+            <input id="github-token" type="password" placeholder="GitHub PAT Token (Password)" class="w-full text-sm px-3 py-2.5 bg-neutral-950 border border-neutral-800 text-white rounded-xl focus:outline-none focus:border-blue-600 transition-all">
         </div>
-        <button onclick="authenticateTerminal()" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-3 rounded-xl transition-colors">Initialize Connection</button>
+        <button onclick="authenticateTerminal()" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-3 rounded-xl transition-colors shrink-0">
+            Initialize Connection
+        </button>
     </div>
 
     <!-- MAIN CONTROL MASTER DASHBOARD -->
-    <div id="main-dashboard" class="hidden w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl space-y-6">
-        <div class="border-b border-slate-800 pb-4 flex justify-between items-center">
+    <div id="main-dashboard" class="hidden w-full max-w-4xl bg-neutral-900/40 border border-neutral-800 backdrop-blur-md rounded-2xl p-6 shadow-2xl space-y-6 mt-6">
+        <div class="border-b border-neutral-800 pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-                <h1 class="text-2xl font-display font-bold text-white tracking-tight">⚡ Master Control Console</h1>
-                <p class="text-xs text-slate-500">Authorized dynamic deployment environment.</p>
+                <h1 class="text-2xl font-display font-bold text-white tracking-tight neon-text-glow">⚡ Master Control Console</h1>
+                <p class="text-xs text-neutral-500">Authorized dynamic deployment environment.</p>
             </div>
-            <button onclick="saveEverythingLive()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-6 py-2.5 rounded-xl transition-colors shadow-lg shadow-emerald-950/40">Deploy Changes Live</button>
+            <button onclick="saveEverythingLive()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-6 py-2.5 rounded-xl transition-colors shadow-md">
+                Deploy Changes Live
+            </button>
         </div>
 
         <div id="status-box" class="hidden text-xs p-3 rounded-xl border font-mono"></div>
 
         <!-- PROFILE PROPERTIES COLUMN -->
-        <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4">
-            <h3 class="text-sm font-bold uppercase tracking-wider text-blue-500">01 // Primary Information</h3>
+        <div class="bg-neutral-950/60 border border-neutral-800 p-5 rounded-xl space-y-4">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-blue-500">01 // Primary Information</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input id="hero-title" type="text" placeholder="Hero Title" class="text-sm px-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-white focus:outline-none">
-                <input id="hero-email" type="text" placeholder="Contact Email" class="text-sm px-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-white focus:outline-none">
+                <div class="space-y-1">
+                    <label class="text-[10px] uppercase font-bold text-neutral-500 tracking-wider">Hero Display Title</label>
+                    <input id="hero-title" type="text" placeholder="Hero Title" class="w-full text-sm px-3 py-2.5 bg-neutral-900 border border-neutral-800 text-white rounded-xl focus:outline-none focus:border-blue-600 transition-all">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] uppercase font-bold text-neutral-500 tracking-wider">Contact Target Email</label>
+                    <input id="hero-email" type="text" placeholder="Contact Email" class="w-full text-sm px-3 py-2.5 bg-neutral-900 border border-neutral-800 text-white rounded-xl focus:outline-none focus:border-blue-600 transition-all">
+                </div>
             </div>
-            <textarea id="hero-bio" rows="3" placeholder="Hero Biography Summary" class="w-full text-sm px-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-white focus:outline-none resize-none font-mono"></textarea>
+            <div class="space-y-1">
+                <label class="text-[10px] uppercase font-bold text-neutral-500 tracking-wider">Core Biography Narrative Summary</label>
+                <textarea id="hero-bio" rows="3" placeholder="Hero Biography Summary" class="w-full text-sm px-3 py-2.5 bg-neutral-900 border border-neutral-800 text-white rounded-xl focus:outline-none focus:border-blue-600 transition-all resize-none font-sans"></textarea>
+            </div>
         </div>
 
         <!-- STRUCTURAL SECTIONS LAYOUT CONSOLE -->
         <div class="space-y-4">
             <div class="flex justify-between items-center">
-                <h3 class="text-sm font-bold uppercase tracking-wider text-blue-500">02 // Custom Page Sections</h3>
-                <button onclick="addNewSection()" class="bg-slate-800 hover:bg-slate-700 text-white text-xs px-3 py-1.5 rounded-lg border border-slate-700">Add New Section +</button>
+                <h3 class="text-xs font-bold uppercase tracking-wider text-blue-500">02 // Custom Page Sections</h3>
+                <button onclick="addNewSection()" class="bg-neutral-950 hover:bg-neutral-900 text-neutral-400 hover:text-white text-xs px-3 py-1.5 rounded-lg border border-neutral-800 transition-colors">
+                    Add New Section +
+                </button>
             </div>
             <div id="sections-container" class="space-y-6"></div>
         </div>
@@ -91,27 +160,33 @@
             const container = document.getElementById('sections-container');
             container.innerHTML = "";
 
+            if (!siteConfig.sections || !Array.isArray(siteConfig.sections)) return;
+
             siteConfig.sections.forEach((sec, sIdx) => {
                 let itemsHtml = '';
-                sec.items.forEach((item, iIdx) => {
-                    itemsHtml += `
-                        <div class="p-3 bg-slate-900 rounded-xl border border-slate-800 space-y-2 relative">
-                            <button onclick="deleteItem(${sIdx}, ${iIdx})" class="absolute top-2 right-3 text-red-500 text-xs hover:text-red-400">Remove Item ×</button>
-                            <input type="text" value="${item.title}" onchange="updateItemField(${sIdx}, ${iIdx}, 'title', this.value)" placeholder="Item Title/Heading" class="w-1/2 text-xs px-2 py-1 bg-slate-950 border border-slate-800 text-white rounded-md">
-                            <textarea onchange="updateItemField(${sIdx}, ${iIdx}, 'description', this.value)" placeholder="Description text content" class="w-full text-xs p-2 bg-slate-950 border border-slate-800 text-slate-300 rounded-md resize-none font-mono">${item.description}</textarea>
-                        </div>
-                    `;
-                });
+                if (sec.items && Array.isArray(sec.items)) {
+                    sec.items.forEach((item, iIdx) => {
+                        itemsHtml += `
+                            <div class="p-4 bg-neutral-900 border border-neutral-800 rounded-xl space-y-3 relative">
+                                <button onclick="deleteItem(${sIdx}, ${iIdx})" class="absolute top-3 right-3 text-neutral-500 hover:text-red-400 text-xs transition-colors font-medium">Remove Card ×</button>
+                                <div class="w-1/2">
+                                    <input type="text" value="${item.title || ''}" onchange="updateItemField(${sIdx}, ${iIdx}, 'title', this.value)" placeholder="Item Title/Heading" class="w-full text-xs px-2.5 py-1.5 bg-neutral-950 border border-neutral-800 text-white rounded-md focus:outline-none focus:border-blue-600 transition-all font-bold">
+                                </div>
+                                <textarea onchange="updateItemField(${sIdx}, ${iIdx}, 'description', this.value)" placeholder="Description text content" class="w-full text-xs p-2.5 bg-neutral-950 border border-neutral-800 text-neutral-400 rounded-md resize-none focus:outline-none focus:border-blue-600 transition-all font-sans" rows="2">${item.description || ''}</textarea>
+                            </div>
+                        `;
+                    });
+                }
 
                 container.insertAdjacentHTML('beforeend', `
-                    <div class="bg-slate-950 border border-slate-800 p-5 rounded-xl space-y-3 relative">
-                        <button onclick="deleteSection(${sIdx})" class="absolute top-4 right-4 text-xs bg-red-950 border border-red-900 text-red-400 px-2 py-1 rounded-md">Delete Page Section ✕</button>
-                        <div class="grid grid-cols-3 gap-2">
-                            <input type="text" value="${sec.heading}" onchange="updateSectionField(${sIdx}, 'heading', this.value)" placeholder="Section Heading" class="text-xs px-2 py-1.5 bg-slate-900 border border-slate-800 text-white rounded-md font-bold">
-                            <input type="text" value="${sec.subheading}" onchange="updateSectionField(${sIdx}, 'subheading', this.value)" placeholder="Subheading Accent Description" class="text-xs px-2 py-1.5 bg-slate-900 border border-slate-800 text-white rounded-md col-span-2">
+                    <div class="bg-neutral-950 border border-neutral-800 p-5 rounded-xl space-y-4 relative">
+                        <button onclick="deleteSection(${sIdx})" class="absolute top-4 right-4 text-xs bg-red-950/40 hover:bg-red-950 border border-red-900/60 text-red-400 px-3 py-1 rounded-md transition-colors">Delete Section ✕</button>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pr-32">
+                            <input type="text" value="${sec.heading || ''}" onchange="updateSectionField(${sIdx}, 'heading', this.value)" placeholder="Section Heading" class="text-xs px-2.5 py-1.5 bg-neutral-900 border border-neutral-800 text-white rounded-md font-bold focus:outline-none focus:border-blue-600 transition-all">
+                            <input type="text" value="${sec.subheading || ''}" onchange="updateSectionField(${sIdx}, 'subheading', this.value)" placeholder="Subheading Accent Description" class="text-xs px-2.5 py-1.5 bg-neutral-900 border border-neutral-800 text-white rounded-md sm:col-span-2 focus:outline-none focus:border-blue-600 transition-all">
                         </div>
-                        <div class="space-y-2 pl-4 border-l border-slate-800">${itemsHtml}</div>
-                        <button onclick="addNewItemToSection(${sIdx})" class="text-[10px] bg-slate-900 hover:bg-slate-800 px-3 py-1 rounded-md text-blue-400 border border-slate-800 font-bold ml-4">+ Add Sub-Component Card</button>
+                        <div class="space-y-3 pl-4 border-l border-neutral-800">${itemsHtml}</div>
+                        <button onclick="addNewItemToSection(${sIdx})" class="text-[10px] bg-neutral-900 hover:bg-neutral-850 px-3 py-1.5 rounded-md text-blue-400 border border-neutral-800 font-bold ml-4 transition-colors">+ Add Sub-Component Card</button>
                     </div>
                 `);
             });
@@ -121,12 +196,14 @@
         function updateItemField(sIdx, iIdx, field, val) { siteConfig.sections[sIdx].items[iIdx][field] = val; }
         
         function addNewSection() {
+            if (!siteConfig.sections) siteConfig.sections = [];
             siteConfig.sections.push({ id: "custom_" + Date.now(), heading: "New Section", subheading: "Subtitle summary details", items: [] });
             renderEditorDashboard();
         }
         function deleteSection(sIdx) { siteConfig.sections.splice(sIdx, 1); renderEditorDashboard(); }
         
         function addNewItemToSection(sIdx) {
+            if (!siteConfig.sections[sIdx].items) siteConfig.sections[sIdx].items = [];
             siteConfig.sections[sIdx].items.push({ title: "New Item Component", description: "Write short descriptive logs here." });
             renderEditorDashboard();
         }
@@ -140,7 +217,7 @@
             siteConfig.profile.hero_bio = document.getElementById('hero-bio').value;
             siteConfig.profile.email = document.getElementById('hero-email').value;
 
-            box.className = "text-xs p-3 rounded-xl border font-mono bg-blue-950 text-blue-400 border-blue-900 block";
+            box.className = "text-xs p-3 rounded-xl border font-mono bg-blue-950/60 text-blue-400 border-blue-900/60 block animate-pulse";
             box.innerText = "Synchronizing configuration parameters to origin master...";
 
             const base64Content = btoa(unescape(encodeURIComponent(JSON.stringify(siteConfig, null, 2))));
@@ -154,14 +231,14 @@
 
                 if(response.ok) {
                     const resJson = await response.json();
-                    currentSha = resJson.content.sha; // Keep SHA in sync!
-                    box.className = "text-xs p-3 rounded-xl border font-mono bg-emerald-950 text-emerald-400 border-emerald-900 block";
+                    currentSha = resJson.content.sha;
+                    box.className = "text-xs p-3 rounded-xl border font-mono bg-emerald-950/60 text-emerald-400 border-emerald-900/60 block";
                     box.innerText = "Deployment Success! Changes structural parameters are now live across all environments.";
                 } else {
                     throw new Error("GitHub rejected target repository sync adjustments.");
                 }
             } catch(e) {
-                box.className = "text-xs p-3 rounded-xl border font-mono bg-red-950 text-red-400 border-red-900 block";
+                box.className = "text-xs p-3 rounded-xl border font-mono bg-red-950/60 text-red-400 border-red-900/60 block";
                 box.innerText = "Write Failure: " + e.message;
             }
         }
