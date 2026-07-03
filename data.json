@@ -1,15 +1,15 @@
 {
   "profile": {
-    "hero_title": "Jayasankar Gnanadesigan",
-    "hero_bio": "Operating at the vector intersections of Embedded System Architecture and automated Agentic AI Workflows.",
-    "linkedin_url": "https://www.linkedin.com/in/jayasankar-gnanadesigan-5642b932a/",
-    "email": "jayasankar4apps@gmail.com"
+    "hero_title": "Operating at the Vector Intersections",
+    "hero_bio": "Developing embedded system architectures, low-cost IoT hardware modifications, and automated agentic AI workflows.",
+    "email": "jayasankar4projects@gmail.com",
+    "linkedin_url": "https://www.linkedin.com"
   },
   "sections": [
     {
       "id": "overview",
       "heading": "Core Matrix Architecture",
-      "subheading": "Primary technical focus areas.",
+      "subheading": "Primary Technical Focus Areas",
       "items": [
         {
           "title": "01 // Hardware",
@@ -21,7 +21,7 @@
         },
         {
           "title": "03 // Verification",
-          "description": "Precision electronic blueprinting and validation using Cadence Virtuoso terminal environments and LTSpice maps."
+          "description": "Precision electronic blueprinting and functional validation using Cadence Virtuoso, terminal environments, and LTspice simulation maps."
         }
       ]
     },
@@ -31,23 +31,31 @@
       "subheading": "Engineering solutions, functional prototypes, and software platforms.",
       "items": [
         {
-          "title": "Safety-Enhanced Stitching Machine Ecosystem",
-          "description": "Engineered a custom hardware safety modification framework utilizing high-speed infrared optical sensor arrays mapped to low-latency microcontroller processing loops. Safely monitors finger coordinates to trigger instant safety stops on industrial needles, removing worker injury hazards completely."
+          "title": "Safety-Enhanced Stitching Machine Ecosystem (Project SafeStitch)",
+          "description": "Engineered a custom hardware safety modification framework utilizing high-speed infrared optical sensor arrays mapped to low-latency microcontroller processing loops to prevent industrial needle injuries."
         },
         {
-          "title": "Personal Website",
-          "description": "This website serves as my digital portfolio, bringing together my academic journey, technical skills, engineering projects, certifications, and achievements in one place. It reflects my passion for technology and my commitment to continuous learning. As I gain more experience, I will continue updating this portfolio with new projects and accomplishments."
+          "title": "Asynchronous IoT Threat Interceptor",
+          "description": "Assembled a physical secure tracking asset executing low-latency asynchronous server architectures on microprocessors to deploy localized relay warnings."
+        },
+        {
+          "title": "Autonomous Agentic Automations",
+          "description": "Engineered production automated routines integrating multi-app logic modules to handle multi-step semantic actions without manual processing overhead."
         }
       ]
     },
     {
-      "id": "custom_1783052168122",
-      "heading": "Awards",
-      "subheading": "Accolades and Recognitions",
+      "id": "track",
+      "heading": "Professional Track Record",
+      "subheading": "Institutional experience and technical operational background.",
       "items": [
         {
-          "title": "Outstanding Facilitator",
-          "description": "Jayasankar was recognized as an Outstanding Facilitator at Drestein â25, the collegeâs premier technical symposium. In this role, he demonstrated strong leadership by managing various technical tracks and actively assisting teams with hardware and software integration challenges."
+          "title": "Engineering Intern — SEIL Energy India Limited",
+          "description": "Analyzed active plant telemetry networks, control mechanisms, and large-scale protection infrastructure systems in live utility grid nodes (Jul 2025 – Aug 2025)."
+        },
+        {
+          "title": "Workshop Trainer — Systems Orchestration",
+          "description": "Designed, structured, and presented comprehensive engineering courses introducing student clusters to systemic prompt orchestration and Make.com integrations."
         }
       ]
     }
