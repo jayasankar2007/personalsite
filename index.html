@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jayasankar Gnanadesigan // Portfolio Core
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>"></title>
+    <title>Jayasankar Gnanadesigan // Portfolio Core</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+    
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- AOS Animation Library -->
@@ -28,7 +29,6 @@
     </script>
 
     <style>
-        <style>
         body {
             background-color: #030712; /* Deep space dark background */
         }
@@ -37,6 +37,7 @@
         .glass-card {
             background: rgba(17, 24, 39, 0.7);
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -84,23 +85,35 @@
             text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
             border-bottom: 2px solid #3b82f6;
         }
-    </style>
+
+        /* Chat Toggle Rules */
+        #chat-window {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #chat-window.open {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
-<body class="text-neutral-800 antialiased relative min-h-screen font-sans pb-20">
+<body class="text-neutral-300 antialiased relative min-h-screen font-sans pb-20">
 
     <!-- Subtle, clean top border accent bar -->
-    <div class="w-full h-1.5 bg-blue-600"></div>
+    <div class="w-full h-1.5 shimmer-bar"></div>
 
     <div class="max-w-4xl mx-auto px-6 py-12 relative z-10">
         
         <!-- MINIMALIST PREMIUM HEADER -->
-        <header class="flex flex-col sm:flex-row justify-between items-center gap-6 mb-24 pb-6 border-b border-neutral-200">
-            <a href="#" class="font-display font-bold text-lg tracking-tight text-neutral-900 hover:text-blue-600 transition-colors">
+        <header class="flex flex-col sm:flex-row justify-between items-center gap-6 mb-24 pb-6 border-b border-neutral-800">
+            <a href="#" class="font-display font-bold text-lg tracking-tight text-white hover:text-blue-500 transition-colors">
                 jayasankar.g
             </a>
             
-           <nav id="dynamic-nav" class="flex gap-6 text-xs uppercase tracking-widest text-neutral-400 font-medium"></nav>
+           <nav id="dynamic-nav" class="flex gap-6 text-xs uppercase tracking-widest text-neutral-500 font-medium"></nav>
         </header>
 
       
@@ -108,86 +121,13 @@
         <main id="dynamic-viewport" class="min-h-[450px]"></main>
 
         <!-- HIGH-CONTRAST CALL TO ACTION -->
-        <section class="mt-24 p-8 bg-neutral-900 rounded-2xl text-white ...">
-
-            
-            <!-- VIEW 2: PROJECTS & DEPLOYMENTS -->
-            <div id="view-deployments" class="view-panel space-y-12">
-                <div class="space-y-1">
-                    <h2 class="text-2xl font-display font-bold text-neutral-900 tracking-tight">Selected Deployments</h2>
-                    <p class="text-xs text-neutral-400">Engineering solutions, functional prototypes, and software platforms.</p>
-                </div>
-
-                <div class="space-y-8">
-                    <div class="p-8 bg-white border border-neutral-200 rounded-2xl shadow-sm space-y-4 hover:border-neutral-300 transition-all">
-                        <div class="flex flex-wrap gap-2 justify-between items-start">
-                            <div>
-                                <h3 class="text-lg font-bold text-neutral-900 tracking-tight">Safety-Enhanced Stitching Machine Ecosystem</h3>
-                                <div class="flex gap-3 text-xs text-neutral-400 mt-1">
-                                    <span>#ESP32</span> <span>#HardwareRetrofitting</span> <span>#IndustrialSafety</span>
-                                </div>
-                            </div>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="text-[10px] font-medium tracking-wider uppercase text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">🥇 1st Prize // Mini Project</span>
-                                <span class="text-[10px] font-medium tracking-wider uppercase text-blue-700 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200">Ideathon '26 Verified</span>
-                            </div>
-                        </div>
-                        <p class="text-sm text-neutral-500 font-light leading-relaxed">
-                            Engineered a custom hardware safety modification framework utilizing high-speed infrared optical sensor arrays mapped to low-latency microcontroller processing loops. Safely monitors finger coordinates to trigger instant safety stops on industrial needles, removing worker injury hazards completely.
-                        </p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="p-6 bg-white border border-neutral-200 rounded-2xl shadow-sm space-y-2">
-                            <h4 class="font-bold text-neutral-900">Asynchronous IoT Threat Interceptor</h4>
-                            <p class="text-xs text-neutral-500 font-light leading-relaxed">Assembled a physical secure tracking asset executing low-latency asynchronous server architectures on microprocessors to deploy localized relay warnings and alert vectors.</p>
-                        </div>
-                        <div class="p-6 bg-white border border-neutral-200 rounded-2xl shadow-sm space-y-2">
-                            <h4 class="font-bold text-neutral-900">Autonomous Agentic Automations</h4>
-                            <p class="text-xs text-neutral-500 font-light leading-relaxed">Engineered production automated systems routines integrating multi-app logic modules and processing sequences to handle multi-step semantic actions without manual processing overhead.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- VIEW 3: EXPERIENCE TRACK RECORD -->
-            <div id="view-track" class="view-panel space-y-12">
-                <div class="space-y-1">
-                    <h2 class="text-2xl font-display font-bold text-neutral-900 tracking-tight">Professional Track Record</h2>
-                    <p class="text-xs text-neutral-400">Institutional experience and technical operational background.</p>
-                </div>
-
-                <div class="border-l-2 border-neutral-200 pl-6 space-y-10 relative left-1">
-                    <div class="space-y-2 relative">
-                        <div class="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-white border-2 border-blue-600"></div>
-                        <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-1">
-                            <h3 class="text-base font-bold text-neutral-900">Engineering Intern — SEIL Energy India Limited</h3>
-                            <span class="text-xs font-mono text-neutral-400">Jul 2025 – Aug 2025</span>
-                        </div>
-                        <p class="text-xs text-neutral-500 font-light leading-relaxed max-w-2xl">Analyzed active plant telemetry networks, control mechanisms, and large-scale protection infrastructure systems in live utility grid nodes.</p>
-                    </div>
-
-                    <div class="space-y-2 relative">
-                        <div class="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-white border-2 border-blue-600"></div>
-                        <div class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-1">
-                            <h3 class="text-base font-bold text-neutral-900">Workshop Trainer — Systems Orchestration</h3>
-                            <span class="text-xs font-mono text-neutral-400">Technical Presenter</span>
-                        </div>
-                        <p class="text-xs text-neutral-500 font-light leading-relaxed max-w-2xl">Designed, structured, and presented comprehensive engineering courses introducing student clusters to systemic prompt orchestration and Make.com integrations.</p>
-                    </div>
-                </div>
-            </div>
-
-        </main>
-
-        <!-- HIGH-CONTRAST CALL TO ACTION -->
-        <section class="mt-24 p-8 bg-neutral-900 rounded-2xl text-white flex flex-col md:flex-row justify-between items-center gap-6 shadow-md">
+        <section class="mt-24 p-8 bg-neutral-900/50 border border-neutral-800 rounded-2xl text-white flex flex-col md:flex-row justify-between items-center gap-6 shadow-md backdrop-blur-md">
             <div class="space-y-1 text-center md:text-left">
-                <h3 class="text-lg font-display font-bold tracking-tight">Initialize Shared Execution</h3>
+                <h3 class="text-lg font-display font-bold tracking-tight text-white">Initialize Shared Execution</h3>
                 <p class="text-xs text-neutral-400 font-light">Available for engineering collaborations regarding hardware and automated loops.</p>
             </div>
             <div class="flex gap-4 shrink-0 font-medium text-xs">
-                <a id="cms-email-btn" href="mailto:jayasankar4projects@gmail.com" class="px-4 py-2.5 bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 rounded-lg transition-colors">
+                <a id="cms-email-btn" href="mailto:jayasankar4projects@gmail.com" class="px-4 py-2.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 rounded-lg transition-colors text-white">
                     Email Terminal
                 </a>
                 <a id="cms-linkedin-btn" href="#" target="_blank" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
@@ -197,9 +137,9 @@
         </section>
 
         <!-- FOOTER -->
-        <footer class="mt-20 pt-6 border-t border-neutral-200 flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] uppercase tracking-wider text-neutral-400 font-medium">
+        <footer class="mt-20 pt-6 border-t border-neutral-800 flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] uppercase tracking-wider text-neutral-500 font-medium">
             <div>© 2026 // Jayasankar Gnanadesigan.</div>
-            <div class="flex gap-4 items-center font-bold text-neutral-500">
+            <div class="flex gap-4 items-center font-bold text-neutral-400">
                 <span>Saveetha Engineering College</span>
                 <span>•</span>
                 <span>AICTE Idea Lab Ambassador</span>
@@ -212,26 +152,26 @@
     <div class="fixed bottom-6 right-6 z-50 font-sans text-sm flex flex-col items-end">
         
         <!-- Interactive Slide-out Message Notification (Non-disturbing Pop-up) -->
-        <div id="chat-pop-up" class="mb-3 bg-white border border-neutral-200 shadow-xl px-4 py-3 rounded-xl max-w-xs transition-all duration-500 transform translate-y-2 opacity-0 flex items-start gap-3">
-            <div class="w-2 h-2 rounded-full bg-blue-600 mt-1.5 animate-pulse shrink-0"></div>
+        <div id="chat-pop-up" class="mb-3 bg-neutral-900/90 border border-neutral-800 shadow-xl px-4 py-3 rounded-xl max-w-xs transition-all duration-500 transform translate-y-2 opacity-0 flex items-start gap-3 backdrop-blur-md">
+            <div class="w-2 h-2 rounded-full bg-blue-500 mt-1.5 animate-pulse shrink-0"></div>
             <div>
-                <p class="font-bold text-xs text-neutral-900">Jayasankar's Assistant</p>
-                <p class="text-neutral-500 text-xs mt-0.5 leading-normal">Hi! Looking to collaborate on an IoT or embedded systems project? Ask me anything.</p>
+                <p class="font-bold text-xs text-white">Jayasankar's Assistant</p>
+                <p class="text-neutral-400 text-xs mt-0.5 leading-normal">Hi! Looking to collaborate on an IoT or embedded systems project? Ask me anything.</p>
             </div>
-            <button onclick="dismissPopup(event)" class="text-neutral-400 hover:text-neutral-600 text-xs font-bold px-1">×</button>
+            <button onclick="dismissPopup(event)" class="text-neutral-500 hover:text-neutral-300 text-xs font-bold px-1">×</button>
         </div>
 
         <!-- Chat Frame Interface View Window -->
-        <div id="chat-window" class="chat-window w-[340px] sm:w-[360px] h-[460px] bg-white border border-neutral-200 rounded-2xl shadow-2xl flex flex-col mb-4 overflow-hidden">
+        <div id="chat-window" class="chat-window w-[340px] sm:w-[360px] h-[460px] bg-neutral-900 border border-neutral-800 rounded-2xl shadow-2xl flex flex-col mb-4 overflow-hidden">
             <!-- Chat Window Header -->
-            <div class="bg-neutral-900 text-white px-4 py-4 flex justify-between items-center border-b border-neutral-800">
+            <div class="bg-neutral-950 text-white px-4 py-4 flex justify-between items-center border-b border-neutral-800">
                 <div class="flex items-center gap-2.5">
                     <div class="relative">
-                        <img src="https://github.com/jayasankar2007/personalsite/blob/main/05%5B16%5D%20(1).jpg?raw=true" class="w-8 h-8 rounded-full object-cover border border-neutral-700 bg-neutral-800">
-                        <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-neutral-900 rounded-full"></span>
+                        <img src="https://github.com/jayasankar2007/personalsite/blob/main/05%5B16%5D%20(1).jpg?raw=true" class="w-8 h-8 rounded-full object-cover border border-neutral-800 bg-neutral-900">
+                        <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-neutral-950 rounded-full"></span>
                     </div>
                     <div>
-                        <h4 class="font-display font-bold text-xs tracking-tight">Core-AI Terminal</h4>
+                        <h4 class="font-display font-bold text-xs tracking-tight text-white">Core-AI Terminal</h4>
                         <p class="text-[10px] text-neutral-400">Automated Assistant Node</p>
                     </div>
                 </div>
@@ -239,27 +179,27 @@
             </div>
 
             <!-- Chat Message Delivery Stream Area -->
-            <div id="chat-stream" class="flex-1 p-4 overflow-y-auto space-y-4 bg-neutral-50">
+            <div id="chat-stream" class="flex-1 p-4 overflow-y-auto space-y-4 bg-neutral-950/40">
                 <!-- Initial Automated Greeting Node Box -->
                 <div class="flex gap-2.5 items-start max-w-[85%]">
                     <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div>
-                    <div class="bg-white border border-neutral-200 px-3 py-2.5 rounded-2xl rounded-tl-none shadow-sm text-xs text-neutral-700 leading-relaxed">
+                    <div class="bg-neutral-900 border border-neutral-800 px-3 py-2.5 rounded-2xl rounded-tl-none shadow-sm text-xs text-neutral-300 leading-relaxed">
                         Welcome to the portfolio channel. I can provide details regarding Jayasankar's hardware build expertise, Project SafeStitch, or his experience at SEIL Energy. What are you looking to build?
                     </div>
                 </div>
             </div>
 
             <!-- Chat Interface Form Input Line -->
-            <form id="chat-form" onsubmit="handleUserMessage(event)" class="p-3 bg-white border-t border-neutral-200 flex gap-2">
-                <input id="chat-input" type="text" placeholder="Inquire about hardware specs or projects..." autocomplete="off" class="flex-1 text-xs px-3 py-2.5 bg-neutral-100 border border-transparent rounded-xl focus:outline-none focus:bg-white focus:border-blue-600 transition-all">
+            <form id="chat-form" onsubmit="handleUserMessage(event)" class="p-3 bg-neutral-900 border-t border-neutral-800 flex gap-2">
+                <input id="chat-input" type="text" placeholder="Inquire about hardware specs or projects..." autocomplete="off" class="flex-1 text-xs px-3 py-2.5 bg-neutral-950 border border-neutral-800 text-white rounded-xl focus:outline-none focus:border-blue-600 transition-all">
                 <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2 rounded-xl transition-colors shrink-0">Send</button>
             </form>
         </div>
 
         <!-- Floating Core Launcher Circle Button Trigger -->
         <button onclick="toggleChat()" class="w-12 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-xl flex items-center justify-center transition-transform active:scale-95 group relative">
-            <span class="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white animate-ping"></span>
-            <span class="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white"></span>
+            <span class="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-neutral-950 animate-ping"></span>
+            <span class="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-neutral-950"></span>
             <svg class="w-5 h-5 transition-transform group-hover:rotate-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
         </button>
     </div>
@@ -269,11 +209,9 @@
     <script>
         AOS.init({ once: true, offset: 20 });
 
-        // Bootstrap sequence: Run immediately when the window components finish loading
         window.addEventListener('DOMContentLoaded', () => {
             loadDynamicArchitecture();
             
-            // Softly slide the non-intrusive pop-up indicator into view
             setTimeout(() => {
                 const popup = document.getElementById('chat-pop-up');
                 if(popup) {
@@ -282,22 +220,17 @@
             }, 2500);
         });
 
-       // BOOTSTRAPS AND RENDERS THE DYNAMIC SCHEMA LAYOUTS DYNAMICALLY
         function loadDynamicArchitecture() {
             fetch('./data.json')
                 .then(res => res.json())
                 .then(schema => {
                     const profile = schema.profile || schema;
                     
-                    // 1. Safely bind top-level structural elements
                     if(profile.email && document.getElementById('cms-email-btn')) {
                         document.getElementById('cms-email-btn').href = `mailto:${profile.email}`;
                     }
                     if(profile.linkedin_url && document.getElementById('cms-linkedin-btn')) {
                         document.getElementById('cms-linkedin-btn').href = profile.linkedin_url;
-                    }
-                    if(profile.phone && document.getElementById('cms-phone-btn')) {
-                        document.getElementById('cms-phone-btn').href = `tel:${profile.phone}`;
                     }
                     
                     const nav = document.getElementById('dynamic-nav');
@@ -310,11 +243,8 @@
 
                     const sections = schema.sections || [];
 
-                    // 2. Loop through and draw all dynamic page view panels
                     sections.forEach((sec, index) => {
                         const activeNavClass = index === 0 ? 'nav-active' : '';
-                        
-                        // Strip out technical prefixes for clear presentation headers
                         const cleanNavName = sec.heading.includes('//') ? sec.heading.split('//').pop().trim() : sec.heading;
                         
                         nav.insertAdjacentHTML('beforeend', `
@@ -328,7 +258,6 @@
                         
                         if (sec.items && Array.isArray(sec.items)) {
                             sec.items.forEach(item => {
-                                // Updated to look glassmorphic, leveraging the cyber theme classes
                                 cardsHtml += `
                                     <div class="glass-card p-6 rounded-2xl space-y-3">
                                         <h4 class="font-display font-bold text-white tracking-tight text-base">${item.title}</h4>
@@ -338,7 +267,6 @@
                             });
                         }
 
-                        // Build content framework adjusted for dark theme presentation
                         let sectionContentHtml = `
                             <div class="space-y-1">
                                 <h2 class="text-2xl font-display font-bold text-white tracking-tight neon-text-glow">${sec.heading}</h2>
@@ -347,7 +275,6 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6">${cardsHtml}</div>
                         `;
 
-                        // Premium Override: Keep the core profile bio locked gracefully at the top of the Overview panel!
                         if (sec.id === 'overview') {
                             sectionContentHtml = `
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start mb-12 pb-12 border-b border-neutral-800">
@@ -407,9 +334,7 @@
             if(popup) popup.style.display = 'none';
         }
 
-        /* ----- LIVE GEMINI AI CHATBOT INTEGRATION ENGINE ----- */
         let resumeContextCache = "";
-
         fetch('./resume_context.txt')
             .then(res => res.text())
             .then(text => { resumeContextCache = text; })
@@ -417,19 +342,7 @@
 
         async function fetchGeminiAIResponse(userMessage) {
             const context = resumeContextCache || "Jayasankar Gnanadesigan is an ECE Student at Saveetha Engineering College focusing on Project SafeStitch.";
-            
-            const systemRule = `You are a highly capable, articulate AI Assistant representing Jayasankar Gnanadesigan, an Electronics and Communication Engineering (ECE) student at Saveetha Engineering College.
-
-Your goal is to answer questions professionally, warmly, and intelligently using the provided Context Data as your factual anchor. 
-
-CRITICAL INSTRUCTIONS FOR LOW-EFFORT CONTEXT MATCHING:
-1. Do NOT require word-for-word matches. If the context lists a project name or technical skill, draw logically on standard ECE engineering knowledge to explain the implementation details smoothly.
-2. If someone asks about standard engineering concepts related to his field (like Arduino, ESP32 microcontrollers, embedded logic, C programming, automation, or Saveetha Engineering College), speak knowledgeably as his representative, blending the context seamlessly with general technical expertise.
-3. Keep responses concise, engaging, and professional (2-3 sentences max).
-4. Only if a question is completely unrelated to his engineering profile, college, or background should you say: "That isn't explicitly detailed in Jayasankar's portfolio yet, but you can connect with him directly at jayasankar4projects@gmail.com!"
-
-=== JAYASANKAR'S PORTFOLIO CONTEXT ===
-${context}`;
+            const systemRule = `You are a highly capable, articulate AI Assistant representing Jayasankar Gnanadesigan, an Electronics and Communication Engineering (ECE) student at Saveetha Engineering College. Keep responses concise, engaging, and professional (2-3 sentences max).\n\n=== JAYASANKAR'S PORTFOLIO CONTEXT ===\n${context}`;
 
             try {
                 const tokenKey = "AQ" + ".Ab8RN6" + "ICbHySK8dIG" + "ZZMwmhZDclfnp" + "O5HShooOyP9UW2" + "0uUyDA";
@@ -460,10 +373,9 @@ ${context}`;
             if(!userText) return;
 
             const stream = document.getElementById('chat-stream');
-
             const userMsgHtml = `
                 <div class="flex gap-2.5 items-start max-w-[85%] ml-auto justify-end">
-                    <div class="bg-blue-600 text-white px-3 py-2.5 rounded-2xl rounded-tr-none shadow-sm text-xs leading-relaxed">
+                    <div class="bg-blue-600 text-white px-3 py-2.5 rounded-2xl rounded-tl-none shadow-sm text-xs leading-relaxed">
                         ${escapeHtml(userText)}
                     </div>
                 </div>
@@ -476,7 +388,7 @@ ${context}`;
             const loadingHtml = `
                 <div id="${loadId}" class="flex gap-2.5 items-start max-w-[85%]">
                     <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div>
-                    <div class="bg-white border border-neutral-200 px-3 py-2 rounded-2xl rounded-tl-none shadow-sm text-xs text-neutral-400 flex items-center gap-1">
+                    <div class="bg-neutral-900 border border-neutral-800 px-3 py-2 rounded-2xl rounded-tl-none shadow-sm text-xs text-neutral-500 flex items-center gap-1">
                         <span class="animate-bounce">●</span><span class="animate-bounce [animation-delay:0.2s]">●</span><span class="animate-bounce [animation-delay:0.4s]">●</span>
                     </div>
                 </div>
@@ -485,14 +397,13 @@ ${context}`;
             stream.scrollTop = stream.scrollHeight;
 
             const systemReply = await fetchGeminiAIResponse(userText);
-            
             const loadEl = document.getElementById(loadId);
             if(loadEl) loadEl.remove();
 
             const botMsgHtml = `
                 <div class="flex gap-2.5 items-start max-w-[85%]">
                     <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-mono text-[10px] shrink-0 font-bold">🤖</div>
-                    <div class="bg-white border border-neutral-200 px-3 py-2.5 rounded-2xl rounded-tl-none shadow-sm text-xs text-neutral-700 leading-relaxed">
+                    <div class="bg-neutral-900 border border-neutral-800 px-3 py-2.5 rounded-2xl rounded-tl-none shadow-sm text-xs text-neutral-300 leading-relaxed">
                         ${systemReply}
                     </div>
                 </div>
