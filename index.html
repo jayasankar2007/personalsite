@@ -334,7 +334,8 @@
 
             // CRITICAL: Public placeholder configuration variable targeted by your GitHub Actions automation
            // Looks for the variable on your Vercel deployment server natively
-const SECURE_UPSTREAM_KEY = window.process?.env?.NEXT_PUBLIC_GEMINI_API_KEY || "PROXIED_BUILD_VARIABLE";
+// Pulls the key dynamically from your repository data tree loaded at runtime
+const SECURE_UPSTREAM_KEY = schema.gemini_key || "PROXIED_BUILD_VARIABLE";
 
             // If the GitHub Actions workflow hasn't injected the secret key yet, fall back gracefully to standard routing rules
             if (SECURE_UPSTREAM_KEY === "PROXIED_BUILD_VARIABLE" || !SECURE_UPSTREAM_KEY) {
