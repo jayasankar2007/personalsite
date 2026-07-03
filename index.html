@@ -333,7 +333,8 @@
             const identityContext = `You are the autonomous AI assistant for Jayasankar Gnanadesigan, an ECE student at Saveetha Engineering College and AICTE Idea Lab Ambassador. Answer professionally as his representative using this live website structural dataset context: ${JSON.stringify(schema)}. Focus on his embedded systems engineering skills, Arduino/ESP32 hardware architectures, automated AI agent workflows (Make.com), and project deployments like Project SafeStitch. Keep answers clear, smart, concise, and focused on tech or collaboration requests.`;
 
             // CRITICAL: Public placeholder configuration variable targeted by your GitHub Actions automation
-            const SECURE_UPSTREAM_KEY = "PROXIED_BUILD_VARIABLE";
+           // Looks for the variable on your Vercel deployment server natively
+const SECURE_UPSTREAM_KEY = window.process?.env?.NEXT_PUBLIC_GEMINI_API_KEY || "PROXIED_BUILD_VARIABLE";
 
             // If the GitHub Actions workflow hasn't injected the secret key yet, fall back gracefully to standard routing rules
             if (SECURE_UPSTREAM_KEY === "PROXIED_BUILD_VARIABLE" || !SECURE_UPSTREAM_KEY) {
