@@ -39,6 +39,17 @@
           "description": "This website serves as my digital portfolio, bringing together my academic journey, technical skills, engineering projects, certifications, and achievements in one place. It reflects my passion for technology and my commitment to continuous learning. As I gain more experience, I will continue updating this portfolio with new projects and accomplishments."
         }
       ]
+    },
+    {
+      "id": "custom_1783052168122",
+      "heading": "Awards",
+      "subheading": "Accolades and Recognitions",
+      "items": [
+        {
+          "title": "Outstanding Facilitator",
+          "description": "Jayasankar was recognized as an Outstanding Facilitator at Drestein ’25, the college’s premier technical symposium. In this role, he demonstrated strong leadership by managing various technical tracks and actively assisting teams with hardware and software integration challenges."
+        }
+      ]
     }
   ]
 }
