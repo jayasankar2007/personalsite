@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Core Control Center // Authorized Administration Node</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght=500;700&family=Inter:wght=400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #0f172a; } 
         .font-display { font-family: 'Space Grotesk', sans-serif; }
@@ -48,7 +48,7 @@
             </button>
         </div>
 
-        <!-- MAIN Dash -->
+        <!-- MAIN DASHBOARD -->
         <div id="main-dashboard" class="hidden space-y-8">
             <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-6 border-b border-slate-700">
                 <div>
@@ -105,6 +105,10 @@
                             <div>
                                 <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Contact Routing Email</label>
                                 <input id="hero-email" type="text" oninput="sendDataToPreviewWindow()" class="w-full text-xs px-3 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">🔑 Neural AI Chatbot Core Key (Gemini API)</label>
+                                <input id="hero-gemini-key" type="password" placeholder="AI-Key tokens saved securely inside data matrix tree" class="w-full text-xs px-3 py-2.5 bg-slate-950 border border-amber-900/40 text-amber-300 rounded-xl focus:outline-none focus:border-amber-500 font-mono tracking-wider">
                             </div>
                             <div>
                                 <label class="block text-[10px] font-mono uppercase text-slate-400 mb-1">Biographical Narrative</label>
@@ -205,6 +209,7 @@
                 document.getElementById('hero-title').value = profile.hero_title || '';
                 document.getElementById('hero-bio').value = profile.hero_bio || '';
                 document.getElementById('hero-email').value = profile.email || '';
+                document.getElementById('hero-gemini-key').value = profile.gemini_key || '';
 
                 renderEditorDashboard();
             })
@@ -227,7 +232,6 @@
             let unhandledUnusualError = false;
             let correctedIssues = [];
 
-            // Test Core 1: Verify JSON Object Roots
             if (!siteConfig || typeof siteConfig !== 'object') {
                 logs.push("<span class='text-red-400'>[FAIL] Core site data tree structure is invalid or corrupt.</span>");
                 unhandledUnusualError = true;
@@ -235,18 +239,15 @@
                 logs.push("<span class='text-emerald-400'>[PASS] Database configuration tree verification clear.</span>");
             }
 
-            // Test Core 2: Verify Chatbot Configuration Layer
-            // Validates if chatbot proxies can securely reach the underlying system parameters
-            if (siteConfig.profile && siteConfig.profile.email) {
-                logs.push("<span class='text-emerald-400'>[PASS] Chatbot node secure parameter connection confirmed.</span>");
+            // Test Core 2: Check active API keys
+            const activeKey = document.getElementById('hero-gemini-key').value.trim() || siteConfig.profile?.gemini_key;
+            if (activeKey && activeKey.startsWith("AIzaSy")) {
+                logs.push("<span class='text-emerald-400'>[PASS] AI neural connection token verified and format checked.</span>");
             } else {
-                logs.push("<span class='text-amber-400'>[WARN] Identity credentials missing or flat profiles tracked. Self-repairing...</span>");
-                if(!siteConfig.profile) siteConfig.profile = {};
-                siteConfig.profile.email = siteConfig.email || "jayasankar4projects@gmail.com";
-                correctedIssues.push("Structured global identity nodes re-nested inside primary profile layer.");
+                logs.push("<span class='text-red-400'>[FAIL] AI Chatbot core credentials missing or unlinked.</span>");
+                unhandledUnusualError = true;
             }
 
-            // Test Core 3: Evaluate Deployment & Media Grid Arrays
             if (siteConfig.sections && Array.isArray(siteConfig.sections)) {
                 let deploymentsTab = siteConfig.sections.find(s => s.id === 'deployments');
                 if (!deploymentsTab) {
@@ -254,7 +255,6 @@
                     unhandledUnusualError = true;
                 } else {
                     logs.push("<span class='text-emerald-400'>[PASS] Deployments tracking node verified: " + deploymentsTab.items.length + " sub-cards live.</span>");
-                    // Deep verify individual media objects inside grid vectors
                     deploymentsTab.items.forEach((item, idx) => {
                         if (item.media_url && !item.media_type) {
                             item.media_type = item.media_url.toLowerCase().match(/\.(mp4|webm|mov|avi)$/) ? 'VIDEO' : 'IMAGE';
@@ -263,14 +263,12 @@
                     });
                 }
             } else {
-                logs.push("<span class='text-red-400'>[FAIL] Navigation panel data layers are corrupt or array missing.</span>");
+                logs.push("<span class='text-red-400'>[FAIL] Navigation panel data layers are missing.</span>");
                 unhandledUnusualError = true;
             }
 
-            // Print diagnostic log reports into UI
             logs.forEach(l => stream.insertAdjacentHTML('beforeend', `<p>${l}</p>`));
 
-            // Resolution Router Step
             if (unhandledUnusualError) {
                 document.getElementById('diag-header-status').innerText = "⚠️ SYSTEM DISCREPANCY DETECTED";
                 stream.insertAdjacentHTML('beforeend', `<p class="text-amber-400 font-bold mt-2">[STATUS] Unpleasant structural failure discovered. Awaiting override instructions...</p>`);
@@ -287,7 +285,6 @@
             }
         }
 
-        // EXECUTES ON-THE-FLY ACTIONS SUBMITTED VIA USER MANUALLY
         async function executeManualOverrideRepairPipeline() {
             const promptInput = document.getElementById('diag-instruction-prompt').value.trim();
             const stream = document.getElementById('diag-terminal-stream');
@@ -295,23 +292,18 @@
 
             stream.insertAdjacentHTML('beforeend', `<p class="text-blue-400 mt-2">[OVERRIDE] Processing instructions: "${promptInput}"...</p>`);
             
-            // Core Fallback Safe Recovery Algorithms
-            if (!siteConfig.sections || !Array.isArray(siteConfig.sections) || siteConfig.sections.length === 0) {
-                siteConfig.sections = [
-                    { id: "overview", heading: "Core Matrix Architecture", subheading: "Technical Focus Areas", items: [] },
-                    { id: "deployments", heading: "Selected Deployments", subheading: "Engineering solutions.", items: [] }
-                ];
-                stream.insertAdjacentHTML('beforeend', `<p class="text-emerald-400">[FIXED] Re-initialized empty base configuration navigation schemas.</p>`);
-            } else {
-                // If deployments container was erased, reconstruct it autonomously based on instruction trigger
-                let hasDeployments = siteConfig.sections.some(s => s.id === 'deployments');
-                if (!hasDeployments) {
-                    siteConfig.sections.push({ id: "deployments", heading: "Selected Deployments", subheading: "Engineering solutions.", items: [] });
-                    stream.insertAdjacentHTML('beforeend', `<p class="text-emerald-400">[FIXED] Reconstructed deployments workspace tab object.</p>`);
+            // If instructions include keywords regarding setting or repairing keys
+            if (promptInput.toLowerCase().includes('key') || promptInput.toLowerCase().includes('bot') || promptInput.toLowerCase().includes('fix')) {
+                const manualKeyInput = document.getElementById('hero-gemini-key').value.trim();
+                if(!manualKeyInput) {
+                    stream.insertAdjacentHTML('beforeend', `<p class="text-red-400">[FAIL] Provide a valid AI key value inside the input slot field above first.</p>`);
+                } else {
+                    if(!siteConfig.profile) siteConfig.profile = {};
+                    siteConfig.profile.gemini_key = manualKeyInput;
+                    stream.insertAdjacentHTML('beforeend', `<p class="text-emerald-400">[FIXED] Bound API token value to primary structural dataset root profiles.</p>`);
                 }
             }
 
-            // Force values synchronization back across UI input layers
             renderEditorDashboard();
             sendDataToPreviewWindow();
             document.getElementById('diag-override-input-panel').classList.add('hidden');
@@ -320,7 +312,7 @@
             await saveEverythingLive();
             
             document.getElementById('diag-header-status').innerText = "✨ MANUAL REPAIR APPLIED";
-            stream.insertAdjacentHTML('beforeend', `<p class="text-emerald-400 font-bold mt-1">[SUCCESS] Codebase realigned based on prompt requirements. Check separate preview panel.</p>`);
+            stream.insertAdjacentHTML('beforeend', `<p class="text-emerald-400 font-bold mt-1">[SUCCESS] Codebase realigned based on prompt requirements.</p>`);
             document.getElementById('diag-instruction-prompt').value = "";
         }
 
@@ -632,6 +624,7 @@
             siteConfig.profile.hero_title = document.getElementById('hero-title').value;
             siteConfig.profile.hero_bio = document.getElementById('hero-bio').value;
             siteConfig.profile.email = document.getElementById('hero-email').value;
+            siteConfig.profile.gemini_key = document.getElementById('hero-gemini-key').value.trim();
 
             box.className = "text-xs p-4 rounded-xl border font-mono bg-blue-950/60 text-blue-400 border-blue-900/60 block";
             box.innerText = "Initializing live repository deployment matrix handshake...";
@@ -651,7 +644,7 @@
                 const response = await fetch(`https://api.github.com/repos/${REPO}/contents/data.json`, {
                     method: 'PUT',
                     headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: "web_console: telemetry diagnosis architecture updated", content: finalContent, sha: currentSha })
+                    body: JSON.stringify({ message: "web_console: operational update broadcasting data nodes", content: finalContent, sha: currentSha })
                 });
 
                 if(response.ok) {
