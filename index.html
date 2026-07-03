@@ -283,34 +283,61 @@
     <script>
         AOS.init({ once: true, offset: 20 });
 
-        // Dynamic CMS Content Pipeline Fetcher
-        fetch('./data.json')
-            .then(response => response.json())
-            .then(data => {
-                if(data.hero_title) document.getElementById('cms-hero-title').innerText = data.hero_title;
-                if(data.hero_bio) document.getElementById('cms-hero-bio').innerHTML = data.hero_bio;
-                if(data.email) document.getElementById('cms-email-btn').href = `mailto:${data.email}`;
-                if(data.linkedin_url) document.getElementById('cms-linkedin-btn').href = data.linkedin_url;
-            })
-            .catch(error => {
-                console.error("CMS integration sync error:", error);
-                document.getElementById('cms-hero-title').innerText = "Jayasankar Gnanadesigan";
-                document.getElementById('cms-hero-bio').innerText = "Operating at the vector intersections of Embedded System Architecture and automated Agentic AI Workflows.";
-            });
+       // LOADS DYNAMIC WINDOW SECTIONS RESILIENTLY
+        function loadDynamicArchitecture() {
+            fetch('./data.json')
+                .then(res => res.json())
+                .then(schema => {
+                    // Resiliently extract profile variables whether flat or nested
+                    const profile = schema.profile || schema;
+                    const heroTitle = profile.hero_title || "Jayasankar Gnanadesigan";
+                    const heroBio = profile.hero_bio || "Electronics and Communication Engineering Student";
+                    
+                    if(profile.email) document.getElementById('cms-email-btn').href = `mailto:${profile.email}`;
+                    if(profile.linkedin_url) document.getElementById('cms-linkedin-btn').href = profile.linkedin_url;
+                    
+                    const views = schema.custom_views || [];
+                    const nav = document.getElementById('dynamic-nav');
+                    const viewport = document.getElementById('dynamic-viewport');
+                    
+                    nav.innerHTML = "";
+                    viewport.innerHTML = "";
 
-        function switchView(viewId) {
-            document.querySelectorAll('.view-panel').forEach(view => {
-                view.classList.remove('active-view');
-            });
-            document.getElementById('nav-home').classList.remove('nav-active');
-            document.getElementById('nav-deployments').classList.remove('nav-active');
-            document.getElementById('nav-track').classList.remove('nav-active');
+                    // If no custom views exist yet, mount a clean fallback overview panel
+                    if (views.length === 0) {
+                        viewport.innerHTML = `
+                            <div class="view-panel active-view space-y-6">
+                                <h1 class="text-5xl font-display font-bold text-neutral-900 tracking-tight">${heroTitle}</h1>
+                                <p class="text-neutral-500 max-w-2xl leading-relaxed">${heroBio}</p>
+                            </div>
+                        `;
+                        return;
+                    }
 
-            document.getElementById(`view-${viewId}`).classList.add('active-view');
-            document.getElementById(`nav-${viewId}`).classList.add('nav-active');
-            
-            window.scrollTo({ top: 0, behavior: 'instant' });
-            AOS.refresh();
+                    views.forEach((view, index) => {
+                        const activeClass = index === 0 ? 'nav-active' : '';
+                        nav.insertAdjacentHTML('beforeend', `
+                            <button onclick="switchView('${view.id}')" id="nav-${view.id}" class="${activeClass} pb-1 border-b-2 border-transparent hover:text-neutral-900 transition-colors">
+                                ${view.name}
+                            </button>
+                        `);
+
+                        const activeViewClass = index === 0 ? 'active-view' : '';
+                        
+                        // Dynamically and safely swap out the text properties
+                        let cleanContent = view.content
+                            .replace(/Loading\.\.\./g, heroTitle)
+                            .replace(/Synchronizing terminal components\.\.\./g, heroBio);
+
+                        viewport.insertAdjacentHTML('beforeend', `
+                            <div id="view-${view.id}" class="view-panel ${activeViewClass} space-y-12">
+                                ${cleanContent}
+                            </div>
+                        `);
+                    });
+                }).catch(err => {
+                    console.error("Data mapping initialization anomaly:", err);
+                });
         }
 
         /* ----- LIVE GEMINI AI CHATBOT INTEGRATION ENGINE ----- */
