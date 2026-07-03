@@ -74,21 +74,12 @@
                 jayasankar.g
             </a>
             
-            <nav class="flex gap-6 text-xs uppercase tracking-widest text-neutral-400 font-medium">
-                <button onclick="switchView('home')" id="nav-home" class="nav-active pb-1 border-b-2 border-transparent hover:text-neutral-900 transition-colors">
-                    Overview
-                </button>
-                <button onclick="switchView('deployments')" id="nav-deployments" class="pb-1 border-b-2 border-transparent hover:text-neutral-900 transition-colors">
-                    Deployments
-                </button>
-                <button onclick="switchView('track')" id="nav-track" class="pb-1 border-b-2 border-transparent hover:text-neutral-900 transition-colors">
-                    Track Record
-                </button>
-            </nav>
+           <nav id="dynamic-nav" class="flex gap-6 text-xs uppercase tracking-widest text-neutral-400 font-medium"></nav>
         </header>
 
         <!-- DYNAMIC PORTFOLIO VIEWPORT -->
-        <main class="min-h-[450px]">
+       <!-- DYNAMIC PORTFOLIO VIEWPORT -->
+        <main id="dynamic-viewport" class="min-h-[450px]"></main>
 
             <!-- VIEW 1: HOME OVERVIEW -->
             <div id="view-home" class="view-panel active-view space-y-16">
