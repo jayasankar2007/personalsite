@@ -332,16 +332,10 @@
             // System Instruction prompt context matrix framing the bot's core identity parameters
             const identityContext = `You are the autonomous AI assistant for Jayasankar Gnanadesigan, an ECE student at Saveetha Engineering College and AICTE Idea Lab Ambassador. Answer professionally as his representative using this live website structural dataset context: ${JSON.stringify(schema)}. Focus on his embedded systems engineering skills, Arduino/ESP32 hardware architectures, automated AI agent workflows (Make.com), and project deployments like Project SafeStitch. Keep answers clear, smart, concise, and focused on tech or collaboration requests.`;
 
-            // CRITICAL: Public placeholder configuration variable targeted by your GitHub Actions automation
-           // Looks for the variable on your Vercel deployment server natively
-// Pulls the key dynamically from your repository data tree loaded at runtime
-// Pulls your custom Gemini API key dynamically from your securely stored repository schema 
-// Pulls your newly saved Auth Key directly from the dataset tree
+            // Pulls your custom Gemini API key dynamically from your securely stored repository schema 
             const SECURE_UPSTREAM_KEY = schema.gemini_key || schema.profile?.gemini_key || "PROXIED_BUILD_VARIABLE";
 
             // If the key is missing, fall back to offline messaging
-            if (SECURE_UPSTREAM_KEY === "PROXIED_BUILD_VARIABLE" || !SECURE_UPSTREAM_KEY) {
-            // If the GitHub Actions workflow hasn't injected the secret key yet, fall back gracefully to standard routing rules
             if (SECURE_UPSTREAM_KEY === "PROXIED_BUILD_VARIABLE" || !SECURE_UPSTREAM_KEY) {
                 setTimeout(() => {
                     const loadingBubble = document.getElementById(uniqueBotMessageId);
@@ -388,7 +382,7 @@
                     </div>
                 `);
                 stream.scrollTop = stream.scrollHeight;
-           })
+            })
             .catch(err => {
                 console.error("API Telemetry Disruption Anomaly:", err);
                 const loadingBubble = document.getElementById(uniqueBotMessageId);
